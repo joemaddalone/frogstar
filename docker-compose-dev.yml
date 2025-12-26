@@ -1,0 +1,11 @@
+services:
+  frogstar:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: frogstar
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/src/db

@@ -1,0 +1,9 @@
+services:
+  frogstar:
+    image: ghcr.io/joemaddalone/frogstar:latest
+    container_name: frogstar
+    restart: unless-stopped
+    ports:
+      - "3000:3000"
+    volumes:
+      - ./data:/app/src/db
