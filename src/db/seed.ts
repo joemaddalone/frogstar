@@ -71,7 +71,7 @@ const commonPlates = [
 	{ weight: 5, pairs: 4 },
 ];
 
-async function main() {
+export async function main() {
 	// insert if table is empty
 	if (await db.select().from(exercises).limit(1).get() === undefined) {
 		await db.insert(exercises).values(commonExercises);

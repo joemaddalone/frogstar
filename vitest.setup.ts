@@ -1,5 +1,13 @@
-import { vi } from "vitest";
+import { beforeAll, vi } from "vitest";
 import '@testing-library/jest-dom/vitest';
+import { execSync } from "child_process";
+
+beforeAll(() => {
+  // run drizzle push
+  execSync('npm run drizzle:push');
+  // run seed
+  execSync('npm run seed');
+});
 
 
 

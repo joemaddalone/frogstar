@@ -12,7 +12,8 @@
     "seed": "tsx ./src/db/seed.ts",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "release": "semantic-release"
+    "release": "semantic-release",
+    "drizzle:push": "drizzle-kit push"
   },
   "dependencies": {
     "@libsql/client": "^0.15.15",
