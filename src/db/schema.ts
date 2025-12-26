@@ -42,7 +42,7 @@ export const plannedSets = sqliteTable('planned_sets', {
 		.references(() => exercises.id),
 	sessionId: integer('session_id')
 		.notNull()
-		.references(() => sessions.id),
+		.references(() => sessions.id, { onDelete: 'cascade' }),
 	intendedReps: integer('intended_reps').notNull(),
 	intendedSets: integer('intended_sets').notNull(),
 	targetWeight: real('target_weight'),
@@ -65,7 +65,7 @@ export const actualSets = sqliteTable('actual_sets', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
 	plannedSetId: integer('planned_set_id')
 		.notNull()
-		.references(() => plannedSets.id),
+		.references(() => plannedSets.id, { onDelete: 'cascade' }),
 	actualReps: integer('actual_reps').notNull(),
 	actualWeight: real('actual_weight'),
 	notes: text('notes'),
