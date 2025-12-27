@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/joemaddalone/frogstar/compare/v1.0.0...v1.1.0) (2025-12-27)
+
+
+### Features
+
+* **api:** adds core api and api client ([9679b03](https://github.com/joemaddalone/frogstar/commit/9679b03cb8418844f2399a6a54f3f54f0d2f500a))
+
 # 1.0.0 (2025-12-26)
 
 
