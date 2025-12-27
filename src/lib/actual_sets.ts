@@ -1,6 +1,6 @@
-import { db } from "./database";
+import { db } from "@/lib/database";
 import { ActualSet, InsertableActualSet } from "@/lib/types";
-import { actualSets } from "../db/schema";
+import { actualSets } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function createActualSet(actualSet: InsertableActualSet): Promise<ActualSet> {

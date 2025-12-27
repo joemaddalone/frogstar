@@ -1,7 +1,6 @@
-import { db } from "./database";
+import { db } from "@/lib/database";
 import { Session, InsertableSession, SessionWithDetails } from "@/lib/types";
-import { sessions } from "../db/schema";
-import { deletePlannedSetsBySessionId } from "./planned_sets";
+import { sessions } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function createSession(session: InsertableSession): Promise<Session> {

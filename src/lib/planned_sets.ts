@@ -1,7 +1,6 @@
-import { db } from "./database";
+import { db } from "@/lib/database";
 import { PlannedSet, InsertablePlannedSet } from "@/lib/types";
-import { plannedSets, actualSets } from "../db/schema";
-import { deleteActualSetsByPlannedSetId } from "./actual_sets";
+import { plannedSets } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function createPlannedSet(plannedSet: InsertablePlannedSet): Promise<PlannedSet> {
