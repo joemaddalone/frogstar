@@ -10,8 +10,9 @@
     "start": "next start",
     "lint": "eslint",
     "seed": "tsx ./src/db/seed.ts",
-    "test": "vitest",
+    "test": "vitest run --no-watch",
     "test:coverage": "vitest run --coverage",
+    "testdb:reset": "tsx ./src/db/reset.ts",
     "release": "semantic-release",
     "drizzle:push": "drizzle-kit push"
   },

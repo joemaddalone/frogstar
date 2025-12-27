@@ -1,6 +1,6 @@
-import { db } from "./database";
+import { db } from "@/lib/database";
 import { Exercise, InsertableExercise } from "@/lib/types";
-import { exercises } from "../db/schema";
+import { exercises } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function createExercise(exercise: InsertableExercise): Promise<Exercise> {

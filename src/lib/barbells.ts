@@ -1,6 +1,6 @@
-import { db } from "./database";
+import { db } from "@/lib/database";
 import { Barbell, InsertableBarbell } from "@/lib/types";
-import { barbells } from "../db/schema";
+import { barbells } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function createBarbell(barbell: InsertableBarbell): Promise<Barbell> {

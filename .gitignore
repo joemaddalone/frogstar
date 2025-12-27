@@ -43,6 +43,6 @@ next-env.d.ts
 # local sqlite backups
 src/db/frogstar.db
 
-# cache
-public/cache
+# default docker volume
+/data
 

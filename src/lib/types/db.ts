@@ -1,4 +1,3 @@
-
 export type {
 	Barbell,
 	Plate,
@@ -12,9 +11,9 @@ export type {
 	InsertableActualSet,
 	InsertableBarbell,
 	InsertablePlate,
-} from "../db/schema";
+} from "@/db/schema";
 
-import type { Session, PlannedSet, Exercise, ActualSet } from "../db/schema";
+import type { Session, PlannedSet, Exercise, ActualSet } from "@/db/schema";
 
 export type PlannedSetWithDetails = PlannedSet & {
 	exercise: Exercise;
