@@ -2,16 +2,10 @@ export const dynamic = "force-dynamic";
 import { Header } from "@/components/Header";
 import Link from "next/link";
 import { Plus } from "lucide-react";
-import { api } from "@/lib/api";
-import { SessionList } from './_components/SessionList';
-import { ApiResponse, SessionWithDetails } from "@/lib/types";
-export default async function HomePage() {
-	const sessions = api.sessions.list();
-
-
+export default async function ProgressPage() {
 	return (
 		<div className="min-h-screen">
-			<Header label="frogstar">
+			<Header label="progress">
 				<Link
 					href="/session"
 					className="btn-primary flex items-center space-x-1 self-end"
@@ -19,7 +13,6 @@ export default async function HomePage() {
 					<Plus className="h-4 w-4" />
 				</Link>
 			</Header>
-			<SessionList sessions={sessions as Promise<ApiResponse<SessionWithDetails[]>>} />
 		</div>
 	);
 }

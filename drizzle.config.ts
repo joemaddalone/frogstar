@@ -5,7 +5,7 @@ const DB_FILE_NAME = process.env.DB_FILE_NAME;
 const DB_FILE_NAME_TEST = process.env.DB_FILE_NAME_TEST;
 
 // are we in test mode?
-const isTest = process.env.NODE_ENV === 'test';
+const isTest = process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development';
 
 export default defineConfig({
 	out: './drizzle',

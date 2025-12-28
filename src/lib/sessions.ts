@@ -4,6 +4,9 @@ import { sessions } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function createSession(session: InsertableSession): Promise<Session> {
+	if (typeof session.date === "string") {
+		session.date = new Date(session.date);
+	}
 	const result = await db.insert(sessions).values(session).returning();
 	return result[0];
 }
@@ -38,6 +41,9 @@ export async function getSession(id: number): Promise<SessionWithDetails | null>
 }
 
 export async function updateSession(id: number, session: InsertableSession): Promise<Session | null> {
+	if (typeof session.date === "string") {
+		session.date = new Date(session.date);
+	}
 	const result = await db.update(sessions).set(session).where(eq(sessions.id, id)).returning();
 	return result[0] ?? null;
 }
