@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/joemaddalone/frogstar/compare/v1.1.0...v1.2.0) (2025-12-29)
+
+
+### Features
+
+* **ui:** the big dumb ui ([34178a2](https://github.com/joemaddalone/frogstar/commit/34178a2a7fe5b9306401eb0be2fb4ceeb440c344))
+
 # [1.1.0](https://github.com/joemaddalone/frogstar/compare/v1.0.0...v1.1.0) (2025-12-27)
 
 
