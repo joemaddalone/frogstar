@@ -19,14 +19,12 @@ export const SessionHeader = ({ session }: { session: Session; }) => {
 		<div className="flex items-center space-x-2">
 			<Link
 				href={`/session/${session.id}/add`}
-				type="button"
-				className="btn-primary flex items-center space-x-1 self-end"
+				className="btn btn-xs btn-primary flex items-center space-x-1 self-end"
 			>
 				<Plus className="h-4 w-4" />
 			</Link>
 			<button
-				type="button"
-				className="btn-danger flex items-center space-x-1 self-end"
+				className="btn btn-xs btn-error flex items-center space-x-1 self-end"
 				onClick={deleteSession}
 			>
 				<Trash className="h-4 w-4" />

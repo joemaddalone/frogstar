@@ -22,4 +22,7 @@ export type PlannedSetWithDetails = PlannedSet & {
 
 export type SessionWithDetails = Session & {
 	plannedSets: PlannedSetWithDetails[];
+	planned_exercises: number;
+	completed_sets: number;
+	planned_sets: number;
 };

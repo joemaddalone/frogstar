@@ -45,27 +45,35 @@ export const PlannedSetForm = ({ exercises, sessionId }: { exercises: Promise<Ap
 		<div>
 			<h1>Planned Set Form</h1>
 			<form action={formAction}>
-				<label htmlFor="exercise">Exercise</label>
-				<select name="exercise" id="exercise" onChange={(e) => setEquipmentType(exerciseList?.find(ex => ex.id === Number(e.target.value))?.equipmentType || '')}>
-					<option value="">Select an exercise</option>
-					{exerciseList?.map((exercise) => (
-						<option key={exercise.id} value={exercise.id}>
-							{exercise.name}
-						</option>
-					))}
-				</select>
-				<label htmlFor="intended_sets">Intended Sets</label>
-				<input type="number" name="intended_sets" id="intended_sets" />
-				<label htmlFor="intended_reps">Intended Reps</label>
-				<input type="number" name="intended_reps" id="intended_reps" />
+
+				<fieldset className="fieldset">
+					<legend className="fieldset-legend">Exercise</legend>
+					<select className="select" name="exercise" id="exercise" onChange={(e) => setEquipmentType(exerciseList?.find(ex => ex.id === Number(e.target.value))?.equipmentType || '')}>
+						{exerciseList?.map((exercise) => (
+							<option key={exercise.id} value={exercise.id}>
+								{exercise.name}
+							</option>
+						))}
+					</select>
+				</fieldset>
+
+				<fieldset className="fieldset">
+					<legend className="fieldset-legend">Intended Sets</legend>
+					<input name="intended_sets" type="number" className="input" placeholder="Type here" />
+				</fieldset>
+
+				<fieldset className="fieldset">
+					<legend className="fieldset-legend">Intended Reps</legend>
+					<input name="intended_reps" type="number" className="input" placeholder="Type here" />
+				</fieldset>
 				{equipmentType !== "bodyweight" && (
-					<>
-						<label htmlFor="target_weight">Target Weight</label>
-						<input type="number" name="target_weight" id="target_weight" />
-					</>
+					<fieldset className="fieldset">
+						<legend className="fieldset-legend">Target Weight</legend>
+						<input name="target_weight" type="number" className="input" placeholder="Type here" />
+					</fieldset>
 				)}
-				<button type="submit">Submit</button>
-				<button type="button" className="btn btn-danger" onClick={cancel}>Cancel</button>
+				<button type="submit" className="btn btn-primary">Submit</button>
+				<button type="button" className="btn btn btn-outline" onClick={cancel}>Cancel</button>
 			</form>
 		</div>
 	);

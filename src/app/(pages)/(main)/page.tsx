@@ -14,12 +14,12 @@ export default async function HomePage() {
 			<Header label="frogstar">
 				<Link
 					href="/session"
-					className="btn-primary flex items-center space-x-1 self-end"
+					className="btn btn-primary btn-xs flex items-center space-x-1 self-end"
 				>
 					<Plus className="h-4 w-4" />
 				</Link>
 			</Header>
-			<SessionList sessions={sessions as Promise<ApiResponse<SessionWithDetails[]>>} />
+			<SessionList sessionsLoader={sessions as Promise<ApiResponse<SessionWithDetails[]>>} />
 		</div>
 	);
 }

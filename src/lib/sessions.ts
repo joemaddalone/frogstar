@@ -1,5 +1,5 @@
 import { db } from "@/lib/database";
-import { Session, InsertableSession, SessionWithDetails } from "@/lib/types";
+import { Session, InsertableSession, SessionWithDetails, ActualSet, PlannedSet } from "@/lib/types";
 import { sessions } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
@@ -12,7 +12,7 @@ export async function createSession(session: InsertableSession): Promise<Session
 }
 
 export async function getSessions(): Promise<SessionWithDetails[]> {
-	return await db.query.sessions.findMany({
+	const result = await db.query.sessions.findMany({
 		with: {
 			plannedSets: {
 				with: {
@@ -21,8 +21,23 @@ export async function getSessions(): Promise<SessionWithDetails[]> {
 				},
 			},
 		},
-	}) as SessionWithDetails[];
+	});
+
+	return result.map(enrichSession);
 }
+
+function enrichSession(session: Session & { plannedSets: (PlannedSet & { actualSets: ActualSet[]; })[]; }): SessionWithDetails {
+	const planned_exercises = session.plannedSets.length;
+	const completed_sets = session.plannedSets.reduce((acc: number, ps) => acc + ps.actualSets.length, 0);
+	const planned_sets = session.plannedSets.reduce((acc: number, ps) => acc + ps.intendedSets, 0);
+	return {
+		...session,
+		planned_exercises,
+		completed_sets,
+		planned_sets,
+	} as SessionWithDetails;
+}
+
 
 export async function getSession(id: number): Promise<SessionWithDetails | null> {
 	const result = await db.query.sessions.findFirst({
@@ -37,7 +52,9 @@ export async function getSession(id: number): Promise<SessionWithDetails | null>
 		where: eq(sessions.id, id),
 	});
 
-	return result as SessionWithDetails ?? null;
+	if (!result) return null;
+
+	return enrichSession(result);
 }
 
 export async function updateSession(id: number, session: InsertableSession): Promise<Session | null> {
