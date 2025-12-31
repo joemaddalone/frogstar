@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/joemaddalone/frogstar/compare/v1.2.0...v1.3.0) (2025-12-31)
+
+
+### Features
+
+* **ui:** slightly less fugly ui ([c8903e5](https://github.com/joemaddalone/frogstar/commit/c8903e51b1ab453eaa79c41b7969e8a6b0de0995))
+
 # [1.2.0](https://github.com/joemaddalone/frogstar/compare/v1.1.0...v1.2.0) (2025-12-29)
 
 
