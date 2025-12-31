@@ -86,13 +86,13 @@ export const PlannedSetCard = ({
 									{actualSet.actualReps} @ {actualSet.actualWeight} lbs{" "}
 									<button
 										onClick={() => setShowEditActualSetForm(actualSet.id)}
-										className="btn-primary btn-sm"
+										className="btn btn-primary btn-xs"
 									>
 										Edit
 									</button>{" "}
 									<button
 										onClick={() => deleteActualSet(actualSet.id)}
-										className="btn-danger btn-sm"
+										className="btn btn-error btn-xs"
 									>
 										Delete
 									</button>
@@ -103,17 +103,17 @@ export const PlannedSetCard = ({
 				</div>
 				<div className="flex gap-2">
 					<button
-						className="btn-primary btn-sm"
+						className="btn btn-primary btn-sm"
 						onClick={() => setShowActualSetForm(true)}
 					>
 						Log Actual Set
 					</button>
 					{plannedSet.actualSets.length === 0 && (
-						<button className="btn-primary btn-sm" onClick={logAllSets}>
+						<button className="btn btn-primary btn-sm" onClick={logAllSets}>
 							Log All Sets ({plannedSet.intendedSets})
 						</button>
 					)}
-					<button className="btn-danger btn-sm" onClick={deletePlannedSet}>
+					<button className="btn btn-error btn-sm" onClick={deletePlannedSet}>
 						Delete Planned Set
 					</button>
 				</div>

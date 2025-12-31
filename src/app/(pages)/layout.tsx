@@ -21,7 +21,7 @@ export default async function RootLayout({
 	const locale = await getLocale();
 
 	return (
-		<html lang="en" suppressHydrationWarning>
+		<html lang="en" suppressHydrationWarning data-theme="bumblebee">
 			<head>
 				<meta
 					name="viewport"
