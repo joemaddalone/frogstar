@@ -43,37 +43,25 @@ export const PlannedSetForm = ({ exercises, sessionId }: { exercises: Promise<Ap
 
 	return (
 		<div>
-			<h1>Planned Set Form</h1>
-			<form action={formAction}>
-
-				<fieldset className="fieldset">
-					<legend className="fieldset-legend">Exercise</legend>
-					<select className="select" name="exercise" id="exercise" onChange={(e) => setEquipmentType(exerciseList?.find(ex => ex.id === Number(e.target.value))?.equipmentType || '')}>
-						{exerciseList?.map((exercise) => (
-							<option key={exercise.id} value={exercise.id}>
-								{exercise.name}
-							</option>
-						))}
-					</select>
-				</fieldset>
-
-				<fieldset className="fieldset">
-					<legend className="fieldset-legend">Intended Sets</legend>
-					<input name="intended_sets" type="number" className="input" placeholder="Type here" />
-				</fieldset>
-
-				<fieldset className="fieldset">
-					<legend className="fieldset-legend">Intended Reps</legend>
-					<input name="intended_reps" type="number" className="input" placeholder="Type here" />
-				</fieldset>
+			<form action={formAction} className="space-y-4">
+				<select className="select w-full" name="exercise" id="exercise" onChange={(e) => setEquipmentType(exerciseList?.find(ex => ex.id === Number(e.target.value))?.equipmentType || '')}>
+					{exerciseList?.map((exercise) => (
+						<option key={exercise.id} value={exercise.id}>
+							{exercise.name}
+						</option>
+					))}
+				</select>
+				<div className="flex gap-2">
+					<input name="intended_sets" type="number" className="input" placeholder="Sets" />
+					<input name="intended_reps" type="number" className="input" placeholder="Reps" />
+				</div>
 				{equipmentType !== "bodyweight" && (
-					<fieldset className="fieldset">
-						<legend className="fieldset-legend">Target Weight</legend>
-						<input name="target_weight" type="number" className="input" placeholder="Type here" />
-					</fieldset>
+					<input name="target_weight" type="number" className="input w-full" placeholder="Weight" />
 				)}
-				<button type="submit" className="btn btn-primary">Submit</button>
-				<button type="button" className="btn btn btn-outline" onClick={cancel}>Cancel</button>
+				<div className="flex gap-2">
+					<button type="submit" className="btn btn-primary w-50">Submit</button>
+					<button type="button" className="btn btn btn-outline w-50" onClick={cancel}>Cancel</button>
+				</div>
 			</form>
 		</div>
 	);

@@ -1,7 +1,6 @@
 "use client";
 import { Session } from "@/lib/types";
-import Link from "next/link";
-import { Plus } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
@@ -17,18 +16,7 @@ export const SessionHeader = ({ session }: { session: Session; }) => {
 	};
 	return (
 		<div className="flex items-center space-x-2">
-			<Link
-				href={`/session/${session.id}/add`}
-				className="btn btn-xs btn-primary flex items-center space-x-1 self-end"
-			>
-				<Plus className="h-4 w-4" />
-			</Link>
-			<button
-				className="btn btn-xs btn-error flex items-center space-x-1 self-end"
-				onClick={deleteSession}
-			>
-				<Trash className="h-4 w-4" />
-			</button>
+			<Button onClick={deleteSession} size="xs" variant="danger"><Trash className="h-4 w-4" /></Button>
 		</div>
 	);
 };

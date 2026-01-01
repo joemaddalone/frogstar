@@ -1,16 +1,18 @@
 export const dynamic = "force-dynamic";
 import { api } from "@/lib/api";
+import { BarbellCard } from "@/app/(pages)/settings/_components/BarbellCard";
+import { Header } from "@/components/Header";
 export default async function BarbellsPage() {
 	const { data: barbells, error } = await api.barbells.list();
 	if (!barbells) {
 		return <div>Barbells not found</div>;
 	}
 	return (
-		<div className="min-h-screen">
-			<h1 className="text-2xl font-bold">barbells</h1>
+		<>
+			<Header label="settings/barbells" backPath="/settings" />
 			{barbells.map((barbell) => (
-				<div key={barbell.id}>{barbell.name} - {barbell.weight} lbs</div>
+				<BarbellCard key={barbell.id} barbell={barbell} />
 			))}
-		</div>
+		</>
 	);
 }

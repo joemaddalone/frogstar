@@ -1,16 +1,18 @@
 export const dynamic = "force-dynamic";
 import { api } from "@/lib/api";
+import { PlateCard } from "@/app/(pages)/settings/_components/PlateCard";
+import { Header } from "@/components/Header";
 export default async function PlatesPage() {
 	const { data: plates, error } = await api.plates.list();
 	if (!plates) {
 		return <div>Plates not found</div>;
 	}
 	return (
-		<div className="min-h-screen">
-			<h1 className="text-2xl font-bold">Plates</h1>
+		<>
+			<Header label="settings/plates" backPath="/settings" />
 			{plates.map((plate) => (
-				<div key={plate.id}>{plate.weight} lbs - {plate.pairs} pairs</div>
+				<PlateCard key={plate.id} plate={plate} />
 			))}
-		</div>
+		</>
 	);
 }

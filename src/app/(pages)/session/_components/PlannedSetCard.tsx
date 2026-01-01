@@ -7,6 +7,17 @@ import { api } from "@/lib/api";
 import { Plate, Barbell } from "@/lib/types";
 import { renderCalculatedPlates } from "@/lib/plateCalculator";
 import { WarmUpSets } from "./WarmupSets";
+import {
+	Card,
+	CardContent,
+	CardHeader,
+	CardFooter,
+	CardTitle,
+	CardDescription,
+	CardHeaderActions,
+} from "@/components/ui/Card";
+import { Button } from "@/components/ui/Button";
+import { Edit, Trash, X } from "lucide-react";
 export const PlannedSetCard = ({
 	plannedSet,
 	equipmentLoader,
@@ -16,6 +27,7 @@ export const PlannedSetCard = ({
 }) => {
 	const [showActualSetForm, setShowActualSetForm] = useState(false);
 	const [showEditActualSetForm, setShowEditActualSetForm] = useState(0);
+	const [showWarmup, setShowWarmup] = useState(false);
 	const equipment = use(equipmentLoader);
 	const router = useRouter();
 
@@ -54,83 +66,99 @@ export const PlannedSetCard = ({
 		equipment.barbells
 	);
 
-	console.log("platesNeeded", platesNeeded);
-
 	return (
-		<div className="mx-5 mt-4">
-			<div className="flex flex-col gap-2 p-2 border border-gray-200 rounded">
-				{plannedSet.exercise.name}
-				<div className="flex gap-2">
-					Planned Sets: {plannedSet.intendedSets} x {plannedSet.intendedReps} @{" "}
-					{plannedSet.targetWeight} lbs
-				</div>
-				<div className="flex gap-2">{platesNeeded}</div>
-				{plannedSet.targetWeight && plannedSet.targetWeight > 0 && (
-					<WarmUpSets
-						targetWeight={plannedSet.targetWeight}
-						equipmentType={plannedSet.exercise.equipmentType}
-					/>
-				)}
-				<div className="">
-					Actual Sets:
-					<br />
-					{plannedSet.actualSets.length === 0 ? (
-						<div>No actual sets yet</div>
-					) : (
-						<div className="flex w-100 flex-col gap-2">
-							{plannedSet.actualSets.map((actualSet) => (
-								<div
-									key={actualSet.id}
-									className="flex gap-2 items-center border-b pb-2"
+		<>
+			<Card>
+				<CardHeader>
+					<CardHeaderActions>
+						{plannedSet.exercise.equipmentType !== "bodyweight" && (
+							<Button onClick={() => setShowWarmup(!showWarmup)} size="xs" variant="outline">{showWarmup ? "Hide" : "Show"} warmups</Button>
+						)}
+						<Button onClick={deletePlannedSet} size="xs" variant="danger"><Trash className="h-4 w-4" /></Button>
+					</CardHeaderActions>
+					<CardTitle>{plannedSet.exercise.name} <sup className="text-xs text-base-content/60">{plannedSet.exercise.category}</sup></CardTitle>
+					<CardDescription>
+						{plannedSet.intendedSets} x {plannedSet.intendedReps}{" "}
+						@ {plannedSet.targetWeight} lbs
+						{plannedSet.exercise.equipmentType !== "bodyweight" && (
+							<>
+								<div className="mt-1 text-xs text-base-content/60">Plates Needed:</div>
+								{platesNeeded}
+							</>
+						)}
+					</CardDescription>
+				</CardHeader>
+				<CardContent>
+					{showWarmup && plannedSet.targetWeight && plannedSet.targetWeight > 0 && (
+						<WarmUpSets
+							plates={equipment.plates}
+							barbells={equipment.barbells}
+							exercise={plannedSet.exercise}
+							targetWeight={plannedSet.targetWeight}
+							equipmentType={plannedSet.exercise.equipmentType}
+						/>
+					)}
+
+					{plannedSet.actualSets.map((actualSet) => (
+						<div
+							key={actualSet.id}
+							className="flex gap-2 items-center justify-between border-b pb-2"
+						>
+							{actualSet.actualReps} @ {actualSet.actualWeight} lbs{" "}
+							<div>
+								<Button
+									onClick={() => setShowEditActualSetForm(actualSet.id)}
+									size="xs"
+									variant="ghost"
 								>
-									{actualSet.actualReps} @ {actualSet.actualWeight} lbs{" "}
-									<button
-										onClick={() => setShowEditActualSetForm(actualSet.id)}
-										className="btn btn-primary btn-xs"
-									>
-										Edit
-									</button>{" "}
-									<button
-										onClick={() => deleteActualSet(actualSet.id)}
-										className="btn btn-error btn-xs"
-									>
-										Delete
-									</button>
-								</div>
-							))}
+									<Edit className="h-4 w-4" />
+								</Button>
+								<Button
+									onClick={() => deleteActualSet(actualSet.id)}
+									size="xs"
+									variant="ghost"
+								>
+									<Trash className="h-4 w-4" />
+								</Button>
+							</div>
 						</div>
+					))}
+
+					{showActualSetForm && (
+						<ActualSetForm
+							plannedSet={plannedSet}
+							cancel={() => setShowActualSetForm(false)}
+						/>
 					)}
-				</div>
-				<div className="flex gap-2">
-					<button
-						className="btn btn-primary btn-sm"
-						onClick={() => setShowActualSetForm(true)}
-					>
-						Log Actual Set
-					</button>
-					{plannedSet.actualSets.length === 0 && (
-						<button className="btn btn-primary btn-sm" onClick={logAllSets}>
-							Log All Sets ({plannedSet.intendedSets})
-						</button>
+					{showEditActualSetForm > 0 && (
+						<ActualSetForm
+							plannedSet={plannedSet}
+							actualSetId={showEditActualSetForm}
+							cancel={() => setShowEditActualSetForm(0)}
+						/>
 					)}
-					<button className="btn btn-error btn-sm" onClick={deletePlannedSet}>
-						Delete Planned Set
-					</button>
-				</div>
-				{showActualSetForm && (
-					<ActualSetForm
-						plannedSet={plannedSet}
-						cancel={() => setShowActualSetForm(false)}
-					/>
-				)}
-				{showEditActualSetForm > 0 && (
-					<ActualSetForm
-						plannedSet={plannedSet}
-						actualSetId={showEditActualSetForm}
-						cancel={() => setShowEditActualSetForm(0)}
-					/>
-				)}
-			</div>
-		</div>
+				</CardContent>
+				{!showActualSetForm && showEditActualSetForm === 0 ? (
+					<CardFooter className="justify-center gap-2">
+						<Button
+							className={plannedSet.actualSets.length > 0 ? "w-90" : "w-40"}
+							size="xs"
+							onClick={() => setShowActualSetForm(true)}
+						>
+							Log Set
+						</Button>
+						{plannedSet.actualSets.length === 0 && (
+							<Button
+								className="w-40"
+								size="xs"
+								onClick={logAllSets}
+							>
+								Log All Sets ({plannedSet.intendedSets})
+							</Button>
+						)}
+					</CardFooter>
+				) : null}
+			</Card>
+		</>
 	);
 };

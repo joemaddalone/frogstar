@@ -2,10 +2,10 @@ export const dynamic = "force-dynamic";
 import { Header } from "@/components/Header";
 import Link from "next/link";
 import { Plus } from "lucide-react";
-export default async function ProgressPage() {
+export default async function StatsPage() {
 	return (
-		<div className="min-h-screen">
-			<Header label="progress">
+		<>
+			<Header label="stats">
 				<Link
 					href="/session"
 					className="btn-primary flex items-center space-x-1 self-end"
@@ -13,6 +13,9 @@ export default async function ProgressPage() {
 					<Plus className="h-4 w-4" />
 				</Link>
 			</Header>
-		</div>
+			<main>
+				progress
+			</main>
+		</>
 	);
 }

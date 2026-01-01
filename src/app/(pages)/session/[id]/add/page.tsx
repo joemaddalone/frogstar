@@ -13,7 +13,7 @@ export default async function AddPlannedSetPage(props: PageProps<"/session/[id]/
 	}
 	const exercises = api.exercises.list();
 	return (
-		<div className="min-h-screen">
+		<>
 			<Header label="Add Planned Set" backPath={`/session/${id}` as Route}>
 				<Link
 					href={`/session/${id}`}
@@ -22,7 +22,9 @@ export default async function AddPlannedSetPage(props: PageProps<"/session/[id]/
 					<Plus className="h-4 w-4" />
 				</Link>
 			</Header>
-			<PlannedSetForm exercises={exercises} sessionId={Number(id)} />
-		</div>
+			<main>
+				<PlannedSetForm exercises={exercises} sessionId={Number(id)} />
+			</main>
+		</>
 	);
 }

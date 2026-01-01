@@ -1,35 +1,63 @@
 @import "tailwindcss";
 @plugin "daisyui" {
-  themes: light --default, dark --prefersdark, bumblebee;
+  themes: silk --default, silk --prefersdark;
   root: ":root";
-  include: ;
-  exclude: ;
-  prefix: ;
-  logs: true;
 }
 
+@theme {
+  --color-primary-50: oklch(0.966 0.007 247.896);
+  --color-primary-100: oklch(0.935 0.013 247.896);
+  --color-primary-200: oklch(0.885 0.024 247.896);
+  --color-primary-300: oklch(0.808 0.041 247.896);
+  --color-primary-400: oklch(0.707 0.064 247.896);
+  --color-primary-500: oklch(0.579 0.093 247.896);
+  --color-primary-600: oklch(0.488 0.106 247.896);
+  --color-primary-700: oklch(0.407 0.098 247.896);
+  --color-primary-800: oklch(0.339 0.082 247.896);
+  --color-primary-900: oklch(0.298 0.066 247.896);
+  --color-primary-950: oklch(0.198 0.046 247.896);
 
+  --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
+
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+}
+
+@layer base {
+  body {
+    @apply bg-base-100 text-base-content font-sans antialiased;
+
+  }
+}
+
+main {
+  @apply max-w-md mx-auto w-full px-4 py-18;
+}
 
 @utility bottom-nav {
-  @apply fixed bottom-0 left-0 right-0 border-t border-gray-200 w-full mx-auto;
+  @apply fixed bottom-0 left-0 right-0 border-t border-base-200 bg-base-100 w-full mx-auto max-w-md z-50;
 }
 
 @utility bottom-nav-item {
-  @apply flex flex-col items-center py-2 px-3 text-gray-400  hover:text-blue-700 focus:ring-blue-500;
+  @apply flex flex-col items-center py-3 px-3 text-base-content/60 hover:text-primary transition-colors;
 
   &.active {
-    @apply text-blue-700;
+    @apply text-primary font-medium;
   }
 }
 
 @utility top-nav {
-  @apply fixed top-[58px] left-0 right-0 border-b border-gray-200 max-w-md mx-auto;
+  @apply fixed top-0 left-0 right-0 border-b border-base-200 bg-base-100 w-full mx-auto max-w-md z-50;
 }
 
 @utility top-nav-item {
-  @apply flex flex-col items-center py-2 px-3 text-gray-400  hover:text-blue-700 focus:ring-blue-500;
+  @apply flex items-center py-4 px-3 text-base-content/60 hover:text-primary transition-colors;
 
   &.active {
-    @apply text-blue-700;
+    @apply text-primary font-medium;
   }
+}
+
+@utility input {
+  @apply focus-visible:outline-none! focus-visible:ring-0!;
 }
