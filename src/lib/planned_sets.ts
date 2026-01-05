@@ -1,30 +1,16 @@
-import { db } from "@/lib/database";
-import { PlannedSet, InsertablePlannedSet } from "@/lib/types";
 import { plannedSets } from "@/db/schema";
+import { createRepository } from "./repository";
+import { db } from "@/lib/database";
 import { eq } from "drizzle-orm";
 
-export async function createPlannedSet(plannedSet: InsertablePlannedSet): Promise<PlannedSet> {
-	const result = await db.insert(plannedSets).values(plannedSet).returning();
-	return result[0];
-}
+const repository = createRepository(plannedSets);
 
-export async function getPlannedSets(): Promise<PlannedSet[]> {
-	return await db.select().from(plannedSets);
-}
+export const createPlannedSet = repository.create;
+export const getPlannedSets = repository.list;
+export const getPlannedSet = repository.get;
+export const updatePlannedSet = repository.update;
+export const deletePlannedSet = repository.remove;
 
-export async function getPlannedSet(id: number): Promise<PlannedSet | null> {
-	const result = await db.select().from(plannedSets).where(eq(plannedSets.id, id)).get();
-	return result ?? null;
-}
-
-export async function updatePlannedSet(id: number, plannedSet: InsertablePlannedSet): Promise<PlannedSet | null> {
-	const result = await db.update(plannedSets).set(plannedSet).where(eq(plannedSets.id, id)).returning();
-	return result[0] ?? null;
-}
-
-export async function deletePlannedSet(id: number): Promise<void> {
-	await db.delete(plannedSets).where(eq(plannedSets.id, id));
-}
 
 export async function deletePlannedSetsBySessionId(sessionId: number): Promise<void> {
 	await db.delete(plannedSets).where(eq(plannedSets.sessionId, sessionId));
