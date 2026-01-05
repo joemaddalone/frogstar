@@ -46,6 +46,6 @@ src/db/frogstar.db
 # default docker volume
 /data
 
-/db/test.db-wal
-/db/test.db-shm
+test.db-wal
+test.db-shm
 

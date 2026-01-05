@@ -3,6 +3,8 @@ import { useActionState } from "react";
 import { api } from "@/lib/api";
 import { InsertableActualSet, PlannedSet, ActualSet, Exercise } from "@/lib/types";
 import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/Button";
+import { Check, X } from "lucide-react";
 
 export const ActualSetForm = ({ plannedSet, actualSetId, cancel }: { plannedSet: PlannedSet & { exercise: Exercise; actualSets: ActualSet[]; }; actualSetId?: number; cancel: () => void; }) => {
 	const router = useRouter();
@@ -52,12 +54,21 @@ export const ActualSetForm = ({ plannedSet, actualSetId, cancel }: { plannedSet:
 		<div>
 			<h1>Actual Set Form</h1>
 			<form action={newAction}>
-				<label htmlFor="actual_reps">Actual Reps</label>
-				<input defaultValue={formData.intendedReps || 0} type="number" name="actual_reps" id="actual_reps" />
-				<label htmlFor="actual_weight">Actual Weight</label>
-				<input defaultValue={formData.intendedWeight || 0} type="number" name="actual_weight" id="actual_weight" />
-				<button type="submit">Submit</button>
-				<button type="button" className="btn btn-danger" onClick={cancel}>Cancel</button>
+				<div className="flex gap-2 items-center">
+					<fieldset className="fieldset">
+						<legend className="fieldset-legend">Reps</legend>
+						<input defaultValue={formData.intendedReps || 0} type="number" name="actual_reps" id="actual_reps" className="input" placeholder="Type here" />
+					</fieldset>
+
+					<fieldset className="fieldset">
+						<legend className="fieldset-legend">Weight</legend>
+						<input defaultValue={formData.intendedWeight || 0} type="number" name="actual_weight" id="actual_weight" className="input" placeholder="Type here" />
+					</fieldset>
+				</div>
+				<div className="flex gap-2 mt-2">
+					<Button type="submit" size="xs" variant="primary" className="w-45"><Check className="h-4 w-4" />Log</Button>
+					<Button type="button" size="xs" onClick={cancel} variant="outline" className="w-45"><X className="h-4 w-4" />Cancel</Button>
+				</div>
 			</form>
 		</div>
 	);

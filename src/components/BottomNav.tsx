@@ -1,36 +1,41 @@
 "use client";
-import { Calendar, BarChart3, Settings } from "lucide-react";
 import Link from "next/link";
-import { usePathname } from 'next/navigation';
+import { usePathname } from "next/navigation";
+import { Home, BarChart2, Settings } from "lucide-react";
+import { cn } from "@/lib/utils";
+
+const NAV_ITEMS = [
+	{ label: "Home", href: "/", icon: Home },
+	{ label: "Stats", href: "/stats", icon: BarChart2 },
+	{ label: "Settings", href: "/settings", icon: Settings },
+];
 
 export const BottomNav = () => {
 	const pathname = usePathname();
 
 	return (
-		<nav className="bottom-nav">
-			<div className="flex justify-around py-2">
-				<Link
-					href="/"
-					className={pathname === "/" ? "bottom-nav-item active" : "bottom-nav-item"}
-				>
-					<Calendar className="h-5 w-5" />
-					<span className="text-xs mt-1">Sessions</span>
-				</Link>
-				<Link
-					href="/progress"
-					className={pathname === "/progress" ? "bottom-nav-item active" : "bottom-nav-item"}
-				>
-					<BarChart3 className="h-5 w-5" />
-					<span className="text-xs mt-1">Progress</span>
-				</Link>
-				<Link
-					href="/settings"
-					className={pathname.includes("/settings") ? "bottom-nav-item active" : "bottom-nav-item"}
-				>
-					<Settings className="h-5 w-5" />
-					<span className="text-xs mt-1">Settings</span>
-				</Link>
-			</div>
-		</nav>
+		<footer className="bottom-nav">
+			<nav className="flex items-center justify-around h-[64px]">
+				{NAV_ITEMS.map((item) => {
+					const Icon = item.icon;
+					const isActive = item.href === "/"
+						? pathname === "/"
+						: pathname.startsWith(item.href);
+
+					return (
+						<Link
+							key={item.href}
+							href={item.href as any}
+							className={cn("bottom-nav-item", isActive && "active")}
+						>
+							<Icon className="h-5 w-5 mb-1" />
+							<span className="text-[10px] font-medium uppercase tracking-tighter">
+								{item.label}
+							</span>
+						</Link>
+					);
+				})}
+			</nav>
+		</footer>
 	);
 };

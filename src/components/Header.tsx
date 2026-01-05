@@ -1,33 +1,54 @@
 "use client";
+import * as React from "react";
+import { usePathname, useRouter } from "next/navigation";
+import { ChevronLeft } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 
-import React from "react";
-import { ArrowLeft } from "lucide-react";
-import { useRouter } from "next/navigation";
-import { usePathname } from "next/navigation";
-import type { Route } from "next";
+interface HeaderProps {
+	title?: string;
+	label?: string;
+	backPath?: string;
+	children?: React.ReactNode;
+}
 
-export const Header = ({ children, label, backPath }: { children?: React.ReactNode, label?: string; backPath?: Route; }) => {
-	const router = useRouter();
+export const Header = ({ title, label, backPath, children }: HeaderProps) => {
 	const pathname = usePathname();
+	const router = useRouter();
+
+	const isHome = pathname === "/";
+	const displayTitle = title || label || "Frogstar";
 
 	return (
-		<header className="w-full p-2 border-b border-gray-200">
-			<div className="flex items-center justify-between">
-				<div className="flex items-center space-x-2">
-					{pathname !== "/" && !backPath && (
-						<button onClick={() => router.push("/")} className="mr-3">
-							<ArrowLeft className="h-5 w-5" />
-						</button>
+		<header className="top-nav">
+			<nav className="flex items-center justify-between px-4 h-[58px]">
+				<div className="flex items-center gap-3">
+					{backPath ? (
+						<Button
+							variant="ghost"
+							size="icon"
+							onClick={() => router.push(backPath as any)}
+							className="-ml-2 h-9 w-9"
+						>
+							<ChevronLeft className="h-5 w-5" />
+						</Button>
+					) : !isHome && (
+						<Button
+							variant="ghost"
+							size="icon"
+							onClick={() => router.push("/")}
+							className="-ml-2 h-9 w-9"
+						>
+							<ChevronLeft className="h-5 w-5" />
+						</Button>
 					)}
-					{backPath && (
-						<button type="button" onClick={() => router.push(backPath)} className="mr-3">
-							<ArrowLeft className="h-5 w-5" />
-						</button>
-					)}
-					{label && <h1>{label}</h1>}
+					<h1 className="text-lg font-bold tracking-tight">
+						{displayTitle}
+					</h1>
 				</div>
-				{children}
-			</div>
+				<div className="flex items-center gap-2">
+					{children}
+				</div>
+			</nav>
 		</header>
 	);
 };

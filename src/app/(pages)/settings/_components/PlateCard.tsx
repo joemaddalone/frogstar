@@ -1,5 +1,5 @@
 "use client";
-import { Barbell } from "@/db/schema";
+import { Plate } from "@/db/schema";
 import {
 	Card,
 	CardHeader,
@@ -10,25 +10,25 @@ import { Edit, Trash } from "lucide-react";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useState, useActionState } from "react";
-export const BarbellCard = ({ barbell }: { barbell: Barbell; }) => {
+export const PlateCard = ({ plate }: { plate: Plate; }) => {
 	const [showEdit, setShowEdit] = useState(false);
 	const router = useRouter();
-	const deleteBarbell = async () => {
-		const { error } = await api.barbells.delete(barbell.id);
+	const deletePlate = async () => {
+		const { error } = await api.plates.delete(plate.id);
 		if (!error) {
 			router.refresh();
 		}
 	};
 
 	const action = async (state: any, formData: FormData) => {
-		const name = formData.get("barbell_name")?.toString();
-		const weight = Number(formData.get("barbell_weight"));
-		const newBarbell: Barbell = {
-			id: barbell.id,
-			name: name || barbell.name,
-			weight: weight || barbell.weight,
+		const pairs = Number(formData.get("plate_pairs"));
+		const weight = Number(formData.get("plate_weight"));
+		const newPlate: Plate = {
+			id: plate.id,
+			pairs: pairs || plate.pairs,
+			weight: weight || plate.weight,
 		};
-		const { data, error } = await api.barbells.update(newBarbell);
+		const { data, error } = await api.plates.update(newPlate);
 		if (error) {
 			return state;
 		}
@@ -55,7 +55,7 @@ export const BarbellCard = ({ barbell }: { barbell: Barbell; }) => {
 							>
 								<Edit className="h-4 w-4" />
 							</Button>
-							<Button size="xs" variant="danger" onClick={deleteBarbell}>
+							<Button size="xs" variant="danger" onClick={deletePlate}>
 								<Trash className="h-4 w-4" />
 							</Button>
 						</>
@@ -68,18 +68,18 @@ export const BarbellCard = ({ barbell }: { barbell: Barbell; }) => {
 						<div className="space-y-2">
 							<div className="flex gap-2">
 								<input
-									name="barbell_name"
-									type="text"
-									className="input"
-									defaultValue={barbell.name}
-									placeholder="Name"
-								/>
-								<input
-									name="barbell_weight"
+									name="plate_weight"
 									type="number"
 									className="input"
-									defaultValue={barbell.weight}
+									defaultValue={plate.weight}
 									placeholder="Weight"
+								/>
+								<input
+									name="plate_pairs"
+									type="number"
+									className="input"
+									defaultValue={plate.pairs}
+									placeholder="Pairs"
 								/>
 							</div>
 							<div className="flex gap-2">
@@ -105,7 +105,7 @@ export const BarbellCard = ({ barbell }: { barbell: Barbell; }) => {
 					</form>
 				) : (
 					<h1>
-						{barbell.name} - {barbell.weight} lbs
+						{plate.weight} lbs - {plate.pairs} pairs
 					</h1>
 				)}
 			</CardHeader>

@@ -5,9 +5,11 @@ import { SettingsNav } from "./_components/SettingsNav";
 export default async function SettingsLayout({ children }: { children: React.ReactNode; }) {
 	return (
 		<div className="min-h-screen">
-			<Header label="settings" />
-			<SettingsNav />
-			{children}
+			<Header label="settings" backPath="/" />
+			<main>
+				<SettingsNav />
+				{children}
+			</main>
 		</div>
 	);
 }

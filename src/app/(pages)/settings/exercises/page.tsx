@@ -1,16 +1,19 @@
 export const dynamic = "force-dynamic";
+import { Header } from "@/components/Header";
 import { api } from "@/lib/api";
+import { ExerciseCard } from "../_components/ExerciseCard";
 export default async function ExercisesPage() {
 	const { data: exercises, error } = await api.exercises.list();
 	if (!exercises) {
 		return <div>Exercises not found</div>;
 	}
 	return (
-		<div className="min-h-screen">
-			<h1 className="text-2xl font-bold">Exercises</h1>
+		<>
+			<Header label="settings/exercises" backPath="/settings" />
+
 			{exercises.map((exercise) => (
-				<div key={exercise.id}>{exercise.name} - {exercise.equipmentType}</div>
+				<ExerciseCard key={exercise.id} exercise={exercise} />
 			))}
-		</div>
+		</>
 	);
 }

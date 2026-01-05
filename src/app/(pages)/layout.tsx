@@ -21,7 +21,7 @@ export default async function RootLayout({
 	const locale = await getLocale();
 
 	return (
-		<html lang="en" suppressHydrationWarning data-theme="bumblebee">
+		<html lang="en" suppressHydrationWarning>
 			<head>
 				<meta
 					name="viewport"
@@ -31,7 +31,7 @@ export default async function RootLayout({
 			<body>
 				<NextIntlClientProvider messages={messages} locale={locale}>
 					<Providers>
-						<div className="w-full">
+						<div className="w-full min-h-screen">
 							{children}
 							<BottomNav />
 						</div>

@@ -1,47 +1,29 @@
 "use client";
-import { Barbell } from "@/db/schema";
 import {
 	Card,
+	CardDescription,
 	CardHeader,
 	CardHeaderActions,
 } from "@/components/ui/Card";
+import { Exercise } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
 import { Edit, Trash } from "lucide-react";
+import { useState } from "react";
 import { api } from "@/lib/api";
-import { useRouter } from "next/navigation";
-import { useState, useActionState } from "react";
-export const BarbellCard = ({ barbell }: { barbell: Barbell; }) => {
+export const ExerciseCard = ({ exercise }: { exercise: Exercise; }) => {
 	const [showEdit, setShowEdit] = useState(false);
-	const router = useRouter();
-	const deleteBarbell = async () => {
-		const { error } = await api.barbells.delete(barbell.id);
-		if (!error) {
-			router.refresh();
-		}
+
+	const deleteExercise = () => {
+		api.exercises.delete(exercise.id);
 	};
 
-	const action = async (state: any, formData: FormData) => {
-		const name = formData.get("barbell_name")?.toString();
-		const weight = Number(formData.get("barbell_weight"));
-		const newBarbell: Barbell = {
-			id: barbell.id,
-			name: name || barbell.name,
-			weight: weight || barbell.weight,
-		};
-		const { data, error } = await api.barbells.update(newBarbell);
-		if (error) {
-			return state;
-		}
-		if (!data?.id) {
-			return state;
-		}
-		router.refresh();
+	const formAction = async (formData: FormData) => {
+		const name = formData.get("name");
+		const category = formData.get("category");
+		const equipmentType = formData.get("equipmentType");
+		// api.exercises.update(exercise.id, { name, category, equipmentType });
 		setShowEdit(false);
-		return state;
 	};
-
-	const [barbellData, formAction, pending] = useActionState(action, null);
-
 	return (
 		<Card className="mb-2">
 			<CardHeader>
@@ -55,7 +37,11 @@ export const BarbellCard = ({ barbell }: { barbell: Barbell; }) => {
 							>
 								<Edit className="h-4 w-4" />
 							</Button>
-							<Button size="xs" variant="danger" onClick={deleteBarbell}>
+							<Button
+								size="xs"
+								variant="danger"
+								onClick={() => deleteExercise()}
+							>
 								<Trash className="h-4 w-4" />
 							</Button>
 						</>
@@ -68,18 +54,18 @@ export const BarbellCard = ({ barbell }: { barbell: Barbell; }) => {
 						<div className="space-y-2">
 							<div className="flex gap-2">
 								<input
-									name="barbell_name"
+									name="name"
 									type="text"
 									className="input"
-									defaultValue={barbell.name}
+									defaultValue={exercise.name}
 									placeholder="Name"
 								/>
 								<input
-									name="barbell_weight"
-									type="number"
+									name="category"
+									type="text"
 									className="input"
-									defaultValue={barbell.weight}
-									placeholder="Weight"
+									defaultValue={exercise.category}
+									placeholder="Category"
 								/>
 							</div>
 							<div className="flex gap-2">
@@ -104,9 +90,10 @@ export const BarbellCard = ({ barbell }: { barbell: Barbell; }) => {
 						</div>
 					</form>
 				) : (
-					<h1>
-						{barbell.name} - {barbell.weight} lbs
-					</h1>
+					<>
+						{exercise.name} ({exercise.category})
+						<CardDescription>{exercise.equipmentType}</CardDescription>
+					</>
 				)}
 			</CardHeader>
 		</Card>

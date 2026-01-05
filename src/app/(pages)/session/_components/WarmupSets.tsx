@@ -1,3 +1,5 @@
+import { renderCalculatedPlates } from "@/lib/plateCalculator";
+import { Exercise, Plate, Barbell } from "@/lib/types";
 
 
 export type WarmUpSet = {
@@ -8,20 +10,23 @@ export type WarmUpSet = {
 
 interface WarmUpSetsProps {
 	targetWeight: number;
+	exercise: Exercise;
+	plates: Plate[];
+	barbells: Barbell[];
 	equipmentType: string;
 	className?: string;
 }
 
-export const calculateWarmUpSets = (targetWeight: number, equipmentType: string = 'barbell'): WarmUpSet[] => {
+export const calculateWarmUpSets = (targetWeight: number, equipmentType: string = 'barbell', exercise: Exercise, plates: Plate[], barbells: Barbell[]): WarmUpSet[] => {
 	if (!targetWeight) return [];
 
 	let minWeight = 0;
-	let percentages = [0.4, 0.5, 0.6, 0.7, 0.8]; // 40%, 50%, 60%, 70%, 80%
+	let percentages = [0.4, 0.5, 0.6, 0.7, 0.8];
 
 	// Set minimum weight based on equipment type
 	switch (equipmentType) {
 		case 'barbell':
-			minWeight = 45; // Bar weight
+			minWeight = barbells.find((barbell) => barbell.id === exercise.barbellId)?.weight || 0;
 			break;
 		case 'dumbbell':
 			minWeight = 5; // Lightest dumbbells
@@ -63,23 +68,26 @@ export const calculateWarmUpSets = (targetWeight: number, equipmentType: string 
 	return warmUps;
 };
 
-export const WarmUpSets: React.FC<WarmUpSetsProps> = ({
-	targetWeight,
-	equipmentType,
-	className = ''
-}) => {
-	const warmUpSets = calculateWarmUpSets(targetWeight, equipmentType);
+export const WarmUpSets = (props: WarmUpSetsProps) => {
+	const { targetWeight, exercise, plates, barbells, equipmentType, className = '' } = props;
+	const warmUpSets = calculateWarmUpSets(targetWeight, equipmentType, exercise, plates, barbells);
 
 	return (
 		<div className={`mb-2 ${className}`}>
 			<div className="text-xs mb-1">Suggested warm-ups:</div>
 			<div className="space-y-1">
 				{warmUpSets.map((warmUp, index) => (
-					<div key={index} className="flex items-center justify-between text-xs px-2 py-1 rounded border">
-						<div className="flex items-center gap-2">
-							<span className="font-medium">
-								{warmUp.weight} lbs ({warmUp.percentage}%) × {warmUp.reps}
-							</span>
+					<div key={index} className="flex items-center justify-between text-xs px-2 py-1 rounded border bg-base-200">
+						<div className="font-medium">
+							{warmUp.weight} lbs ({warmUp.percentage}%) × {warmUp.reps}
+						</div>
+						<div className="text-xs">
+							{renderCalculatedPlates(
+								exercise,
+								warmUp.weight || 0,
+								plates,
+								barbells
+							)}
 						</div>
 					</div>
 				))}
