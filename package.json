@@ -11,6 +11,7 @@
     "lint": "eslint",
     "seed": "tsx ./src/db/seed.ts",
     "seed:test": "export NODE_ENV=development && npm run seed",
+    "push:test": "export NODE_ENV=development && npm run drizzle:push",
     "test": "vitest run --no-watch",
     "test:coverage": "vitest run --coverage",
     "testdb:reset": "tsx ./src/db/reset.ts",

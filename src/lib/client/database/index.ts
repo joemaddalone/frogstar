@@ -1,11 +1,11 @@
-import * as barbell from "@/lib/barbells";
-import * as plate from "@/lib/plates";
-import * as session from "@/lib/sessions";
-import * as exercise from "@/lib/exercises";
-import * as planned_set from "@/lib/planned_sets";
-import * as actual_set from "@/lib/actual_sets";
+import * as barbell from "@/lib/client/database/barbells";
+import * as plate from "@/lib/client/database/plates";
+import * as session from "@/lib/client/database/sessions";
+import * as exercise from "@/lib/client/database/exercises";
+import * as planned_set from "@/lib/client/database/planned_sets";
+import * as actual_set from "@/lib/client/database/actual_sets";
 
-export const dataClient = {
+const dataClient = {
 	barbells: {
 		create: barbell.createBarbell,
 		get: barbell.getBarbells,
@@ -49,3 +49,5 @@ export const dataClient = {
 		delete: actual_set.deleteActualSet,
 	},
 };
+
+export default dataClient;

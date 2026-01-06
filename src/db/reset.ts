@@ -1,4 +1,4 @@
-import { db } from "@/lib/database";
+import { db } from "@/lib/client/database/database";
 import { sql } from 'drizzle-orm';
 import { sessions, barbells, plates, exercises, plannedSets, actualSets } from "./schema";
 

@@ -1,6 +1,6 @@
 import { actualSets } from "@/db/schema";
-import { createRepository } from "./repository";
-import { db } from "@/lib/database";
+import { createRepository } from "@/lib/client/database/repository";
+import { db } from "@/lib/client/database/database";
 import { eq } from "drizzle-orm";
 import { ActualSet } from "@/lib/types";
 

@@ -1,4 +1,4 @@
-import { db } from "@/lib/database";
+import { db } from "@/lib/client/database/database";
 import { Session, InsertableSession, SessionWithDetails, ActualSet, PlannedSet } from "@/lib/types";
 import { sessions } from "@/db/schema";
 import { eq } from "drizzle-orm";
