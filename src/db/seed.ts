@@ -1,4 +1,4 @@
-import { db } from "../lib/database";
+import { db } from "@/lib/client/database/database";
 import { barbells, exercises, plates, plannedSets, InsertablePlannedSet, sessions, InsertableSession, InsertableActualSet, actualSets } from "./schema";
 
 const isTest = process.env.NODE_ENV === "test" || process.env.NODE_ENV === "development";

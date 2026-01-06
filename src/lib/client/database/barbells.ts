@@ -1,5 +1,5 @@
 import { barbells } from "@/db/schema";
-import { createRepository } from "./repository";
+import { createRepository } from "@/lib/client/database/repository";
 
 const repository = createRepository(barbells);
 

@@ -1,8 +1,8 @@
 import { Elysia } from "elysia";
-import { dataClient } from "@/lib/dataClient";
+import dataClient from "@/lib/client/database";
 import { NextResponse } from "next/server";
 
-const wrap = async (fn: () => Promise<any>) => {
+const wrap = async (fn: () => Promise<unknown>) => {
 	try {
 		const data = await fn();
 		return NextResponse.json({ data, error: undefined });

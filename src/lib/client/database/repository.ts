@@ -1,4 +1,4 @@
-import { db } from "./database";
+import { db } from "@/lib/client/database/database";
 import { eq } from "drizzle-orm";
 import type { SQLiteTableWithColumns, AnySQLiteColumn } from "drizzle-orm/sqlite-core";
 
