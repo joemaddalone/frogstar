@@ -22,11 +22,11 @@ export function createRepository<
 			return (result as unknown as TSelect[])[0];
 		},
 
-		async list(): Promise<TSelect[]> {
+		async get(): Promise<TSelect[]> {
 			return await db.select().from(table) as unknown as TSelect[];
 		},
 
-		async get(id: number): Promise<TSelect | null> {
+		async getById(id: number): Promise<TSelect | null> {
 			const result = await db.select().from(table).where(eq(table.id, id)).get();
 			return (result as unknown as TSelect) ?? null;
 		},

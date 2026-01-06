@@ -21,7 +21,6 @@ export const ExerciseCard = ({ exercise }: { exercise: Exercise; }) => {
 		const name = formData.get("name");
 		const category = formData.get("category");
 		const equipmentType = formData.get("equipmentType");
-		// api.exercises.update(exercise.id, { name, category, equipmentType });
 		setShowEdit(false);
 	};
 	return (

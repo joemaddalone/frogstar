@@ -3,6 +3,7 @@ import * as React from "react";
 import { usePathname, useRouter } from "next/navigation";
 import { ChevronLeft } from "lucide-react";
 import { Button } from "@/components/ui/Button";
+import type { Route } from "next";
 
 interface HeaderProps {
 	title?: string;
@@ -26,7 +27,7 @@ export const Header = ({ title, label, backPath, children }: HeaderProps) => {
 						<Button
 							variant="ghost"
 							size="icon"
-							onClick={() => router.push(backPath as any)}
+							onClick={() => router.push(backPath as Route)}
 							className="-ml-2 h-9 w-9"
 						>
 							<ChevronLeft className="h-5 w-5" />

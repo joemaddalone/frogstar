@@ -6,9 +6,22 @@ import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Check, X } from "lucide-react";
 
+
+type FormState = {
+  actualReps?: string;
+  actualWeight?: string;
+};
+
+const initialState: FormState = {
+  actualReps: '',
+  actualWeight: '',
+};
+
+
+
 export const ActualSetForm = ({ plannedSet, actualSetId, cancel }: { plannedSet: PlannedSet & { exercise: Exercise; actualSets: ActualSet[]; }; actualSetId?: number; cancel: () => void; }) => {
 	const router = useRouter();
-	const createActualSet = async (state: any, formData: FormData) => {
+	const createActualSet = async (state: FormState, formData: FormData) => {
 		const newActualSet: InsertableActualSet | ActualSet = {
 			plannedSetId: plannedSet.id,
 			actualReps: Number(formData.get("actual_reps")),
@@ -43,7 +56,7 @@ export const ActualSetForm = ({ plannedSet, actualSetId, cancel }: { plannedSet:
 
 	};
 
-	const [state, newAction, pending] = useActionState(createActualSet, null);
+	const [state, newAction, pending] = useActionState(createActualSet, initialState);
 
 	const formData = {
 		intendedReps: actualSetId ? plannedSet.actualSets.find((actualSet) => actualSet.id === actualSetId)?.actualReps : plannedSet.intendedReps,

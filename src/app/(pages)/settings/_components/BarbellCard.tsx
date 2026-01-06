@@ -10,6 +10,19 @@ import { Edit, Trash } from "lucide-react";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useState, useActionState } from "react";
+
+type FormState = {
+  barbell_name?: string;
+  barbell_weight?: string;
+};
+
+const initialState: FormState = {
+  barbell_name: '',
+  barbell_weight: '',
+};
+
+
+
 export const BarbellCard = ({ barbell }: { barbell: Barbell; }) => {
 	const [showEdit, setShowEdit] = useState(false);
 	const router = useRouter();
@@ -20,7 +33,7 @@ export const BarbellCard = ({ barbell }: { barbell: Barbell; }) => {
 		}
 	};
 
-	const action = async (state: any, formData: FormData) => {
+	const action = async (state: FormState, formData: FormData) => {
 		const name = formData.get("barbell_name")?.toString();
 		const weight = Number(formData.get("barbell_weight"));
 		const newBarbell: Barbell = {
@@ -40,7 +53,7 @@ export const BarbellCard = ({ barbell }: { barbell: Barbell; }) => {
 		return state;
 	};
 
-	const [barbellData, formAction, pending] = useActionState(action, null);
+	const [barbellData, formAction, pending] = useActionState(action, initialState);
 
 	return (
 		<Card className="mb-2">

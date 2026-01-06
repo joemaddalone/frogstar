@@ -3,7 +3,7 @@ import { Session, InsertableSession, SessionWithDetails, ActualSet, PlannedSet }
 import { sessions } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
-export async function createSession(session: InsertableSession): Promise<Session> {
+export async function create(session: InsertableSession): Promise<Session> {
 	if (typeof session.date === "string") {
 		session.date = new Date(session.date);
 	}
@@ -11,7 +11,7 @@ export async function createSession(session: InsertableSession): Promise<Session
 	return result[0];
 }
 
-export async function getSessions(): Promise<SessionWithDetails[]> {
+export async function get(): Promise<SessionWithDetails[]> {
 	const result = await db.query.sessions.findMany({
 		with: {
 			plannedSets: {
@@ -39,7 +39,7 @@ function enrichSession(session: Session & { plannedSets: (PlannedSet & { actualS
 }
 
 
-export async function getSession(id: number): Promise<SessionWithDetails | null> {
+export async function getById(id: number): Promise<SessionWithDetails | null> {
 	const result = await db.query.sessions.findFirst({
 		with: {
 			plannedSets: {
@@ -57,7 +57,7 @@ export async function getSession(id: number): Promise<SessionWithDetails | null>
 	return enrichSession(result);
 }
 
-export async function updateSession(id: number, session: InsertableSession): Promise<Session | null> {
+export async function update(id: number, session: InsertableSession): Promise<Session | null> {
 	if (typeof session.date === "string") {
 		session.date = new Date(session.date);
 	}
@@ -65,6 +65,6 @@ export async function updateSession(id: number, session: InsertableSession): Pro
 	return result[0] ?? null;
 }
 
-export async function deleteSession(id: number): Promise<void> {
+export async function remove(id: number): Promise<void> {
 	await db.delete(sessions).where(eq(sessions.id, id));
 }
