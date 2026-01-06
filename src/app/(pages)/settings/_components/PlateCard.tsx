@@ -10,6 +10,19 @@ import { Edit, Trash } from "lucide-react";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useState, useActionState } from "react";
+
+
+type FormState = {
+  plate_pairs?: string;
+  plate_weight?: string;
+};
+
+const initialState: FormState = {
+  plate_pairs: '',
+  plate_weight: '',
+};
+
+
 export const PlateCard = ({ plate }: { plate: Plate; }) => {
 	const [showEdit, setShowEdit] = useState(false);
 	const router = useRouter();
@@ -20,7 +33,7 @@ export const PlateCard = ({ plate }: { plate: Plate; }) => {
 		}
 	};
 
-	const action = async (state: any, formData: FormData) => {
+	const action = async (state: FormState, formData: FormData) => {
 		const pairs = Number(formData.get("plate_pairs"));
 		const weight = Number(formData.get("plate_weight"));
 		const newPlate: Plate = {
@@ -40,7 +53,7 @@ export const PlateCard = ({ plate }: { plate: Plate; }) => {
 		return state;
 	};
 
-	const [barbellData, formAction, pending] = useActionState(action, null);
+	const [barbellData, formAction, pending] = useActionState(action, initialState);
 
 	return (
 		<Card className="mb-2">

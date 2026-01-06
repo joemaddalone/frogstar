@@ -1,53 +1,31 @@
-import * as barbell from "@/lib/client/database/barbells";
-import * as plate from "@/lib/client/database/plates";
-import * as session from "@/lib/client/database/sessions";
-import * as exercise from "@/lib/client/database/exercises";
-import * as planned_set from "@/lib/client/database/planned_sets";
-import * as actual_set from "@/lib/client/database/actual_sets";
+import { barbells, plates, exercises, plannedSets, actualSets } from "@/db/schema";
+import { createRepository } from "@/lib/client/database/repository";
+import * as session from './sessions'
+
 
 const dataClient = {
 	barbells: {
-		create: barbell.createBarbell,
-		get: barbell.getBarbells,
-		getById: barbell.getBarbell,
-		update: barbell.updateBarbell,
-		delete: barbell.deleteBarbell,
+		...createRepository(barbells)
 	},
 	plates: {
-		create: plate.createPlate,
-		get: plate.getPlates,
-		getById: plate.getPlate,
-		update: plate.updatePlate,
-		delete: plate.deletePlate,
-	},
-	sessions: {
-		create: session.createSession,
-		get: session.getSessions,
-		getById: session.getSession,
-		update: session.updateSession,
-		delete: session.deleteSession,
+		...createRepository(plates)
 	},
 	exercises: {
-		create: exercise.createExercise,
-		get: exercise.getExercises,
-		getById: exercise.getExercise,
-		update: exercise.updateExercise,
-		delete: exercise.deleteExercise,
+		...createRepository(exercises)
 	},
 	planned_sets: {
-		create: planned_set.createPlannedSet,
-		get: planned_set.getPlannedSets,
-		getById: planned_set.getPlannedSet,
-		update: planned_set.updatePlannedSet,
-		delete: planned_set.deletePlannedSet,
+		...createRepository(plannedSets)
 	},
 	actual_sets: {
-		create: actual_set.createActualSet,
-		get: actual_set.getActualSets,
-		getById: actual_set.getActualSet,
-		update: actual_set.updateActualSet,
-		delete: actual_set.deleteActualSet,
+		...createRepository(actualSets)
 	},
+	sessions: {
+		get: session.get,
+		getById: session.getById,
+		create: session.create,
+		remove: session.remove,
+		update: session.update
+	}
 };
 
 export default dataClient;

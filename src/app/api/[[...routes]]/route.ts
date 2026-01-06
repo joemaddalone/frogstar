@@ -38,7 +38,7 @@ resources.forEach(({ path, client }) => {
 		})
 		.delete(`/${path}/:id`, ({ params: { id } }) =>
 			wrap(async () => {
-				await client.delete(parseInt(id));
+				await client.remove(parseInt(id));
 				return undefined;
 			})
 		);

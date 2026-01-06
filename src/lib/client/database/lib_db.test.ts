@@ -1,22 +1,19 @@
 import { describe, it, expect } from "vitest";
-import { createSession, deleteSession, updateSession, getSession } from "./sessions";
-import { createPlannedSet, getPlannedSet } from "./planned_sets";
-import { createActualSet, getActualSet } from "./actual_sets";
-import { getExercises, createExercise } from "./exercises";
-import { createBarbell } from "./barbells";
+
+import db from './index'
 
 describe("db", () => {
 	it("full lifecycle", async () => {
 
 		// insert barbells
-		const barbell = await createBarbell({
+		const barbell = await db.barbells.create({
 			name: "Test Barbell",
 			weight: 10,
 		});
 		expect(barbell).toBeDefined();
 
 		// insert exercises
-		const exercise = await createExercise({
+		const exercise = await db.exercises.create({
 			name: "Test Exercise",
 			category: "Push",
 			equipmentType: "barbell",
@@ -24,15 +21,15 @@ describe("db", () => {
 		});
 		expect(exercise).toBeDefined();
 
-		const allExercises = await getExercises();
+		const allExercises = await db.exercises.get();
 		const exerciseId = allExercises[0].id;
 
-		const session = await createSession({
+		const session = await db.sessions.create({
 			date: new Date(),
 		});
 		expect(session).toBeDefined();
 
-		const plannedSet = await createPlannedSet({
+		const plannedSet = await db.planned_sets.create({
 			exerciseId,
 			sessionId: session.id,
 			intendedReps: 1,
@@ -42,34 +39,34 @@ describe("db", () => {
 
 		expect(plannedSet).toBeDefined();
 
-		const actualSet = await createActualSet({
+		const actualSet = await db.actual_sets.create({
 			plannedSetId: plannedSet.id,
 			actualReps: 1,
 			actualWeight: 1,
 		});
 		expect(actualSet).toBeDefined();
 
-		const gs = await getSession(session.id);
+		const gs = await db.sessions.getById(session.id);
 		expect(gs).toBeDefined();
 
-		const gps = await getPlannedSet(plannedSet.id);
+		const gps = await db.planned_sets.getById(plannedSet.id);
 		expect(gps).toBeDefined();
 
-		const gas = await getActualSet(actualSet.id);
+		const gas = await db.actual_sets.getById(actualSet.id);
 		expect(gas).toBeDefined();
 
-		const updatedSession = await updateSession(session.id, {
+		const updatedSession = await db.sessions.update(session.id, {
 			date: new Date(),
 		});
 		expect(updatedSession).toBeDefined();
 
-		await deleteSession(session.id);
-		expect(await getSession(session.id)).toBeNull();
+		await db.sessions.remove(session.id);
+		expect(await db.sessions.getById(session.id)).toBeNull();
 
-		const gps_1 = await getPlannedSet(plannedSet.id);
+		const gps_1 = await db.planned_sets.getById(plannedSet.id);
 		expect(gps_1).toBeNull();
 
-		const gas_1 = await getActualSet(actualSet.id);
+		const gas_1 = await db.actual_sets.getById(actualSet.id);
 		expect(gas_1).toBeNull();
 	});
 });
