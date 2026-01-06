@@ -3,6 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, BarChart2, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
+import type { Route } from 'next'
 
 const NAV_ITEMS = [
 	{ label: "Home", href: "/", icon: Home },
@@ -25,7 +26,7 @@ export const BottomNav = () => {
 					return (
 						<Link
 							key={item.href}
-							href={item.href as any}
+							href={item.href as Route}
 							className={cn("bottom-nav-item", isActive && "active")}
 						>
 							<Icon className="h-5 w-5 mb-1" />
