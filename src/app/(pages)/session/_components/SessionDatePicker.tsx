@@ -1,6 +1,6 @@
 "use client";
 import { api } from "@/lib/api";
-import { Session } from "@/lib/types";
+import type { Session } from "@/lib/types";
 import { DayPicker } from "react-day-picker";
 import { useRouter } from "next/navigation";
 import { CalendarIcon } from "lucide-react";
@@ -20,6 +20,7 @@ export const SessionDatePicker = ({ session }: { session: Session; }) => {
 	return (
 		<>
 			<button
+				type="button"
 				popoverTarget="rdp-popover"
 				className="btn btn-xs p-4"
 				style={{ anchorName: "--rdp" } as React.CSSProperties}

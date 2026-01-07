@@ -8,7 +8,8 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "eslint",
+    "lint": "biome lint .",
+    "format": "biome format --write .",
     "seed": "tsx ./src/db/seed.ts",
     "seed:test": "export NODE_ENV=development && npm run seed",
     "push:test": "export NODE_ENV=development && npm run drizzle:push",
@@ -42,6 +43,7 @@
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
+    "@biomejs/biome": "2.3.11",
     "@semantic-release/changelog": "^6.0.3",
     "@semantic-release/git": "^10.0.1",
     "@semantic-release/github": "^11.0.6",
@@ -55,8 +57,6 @@
     "@vitejs/plugin-react": "^5.1.2",
     "@vitest/coverage-v8": "^4.0.16",
     "drizzle-kit": "^0.31.8",
-    "eslint": "^9.39.2",
-    "eslint-config-next": "^16.1.1",
     "jsdom": "^27.4.0",
     "semantic-release": "^24.2.9",
     "tailwindcss": "^4.1.18",

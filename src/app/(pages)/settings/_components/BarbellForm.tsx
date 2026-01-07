@@ -1,12 +1,12 @@
 "use client";
-import { Barbell, InsertableBarbell } from "@/db/schema";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useActionState } from "react";
-import { Route } from "next";
-import { ApiResponse } from "@/lib/types";
+import type { Route } from "next";
+import type { ApiResponse, Barbell, InsertableBarbell } from "@/lib/types";
+
 
 type FormState = {
   barbell_name?: string;
@@ -18,7 +18,7 @@ const initialState: FormState = {
   barbell_weight: "",
 };
 
-export const BarbellForm = ({ item }: { item?: Barbell }) => {
+export const BarbellForm = ({ item }: { item?: Barbell; }) => {
   const router = useRouter();
   const deleteBarbell = async () => {
     if (item?.id) {
@@ -32,7 +32,7 @@ export const BarbellForm = ({ item }: { item?: Barbell }) => {
   const action = async (state: FormState, formData: FormData) => {
     const name = formData.get("barbell_name")?.toString();
     const weight = Number(formData.get("barbell_weight"));
-		let response: ApiResponse<Barbell>;
+    let response: ApiResponse<Barbell>;
     const newBarbell: Partial<Barbell> = {
       name: name,
       weight: weight,
@@ -40,10 +40,10 @@ export const BarbellForm = ({ item }: { item?: Barbell }) => {
     const isNew = item?.id;
     if (isNew) {
       newBarbell.id = item.id;
-			response = await api.barbells.update(newBarbell as Barbell);
+      response = await api.barbells.update(newBarbell as Barbell);
     } else {
-			response = await api.barbells.create(newBarbell as InsertableBarbell)
-		}
+      response = await api.barbells.create(newBarbell as InsertableBarbell);
+    }
     if (response.error) {
       return state;
     }
@@ -54,7 +54,7 @@ export const BarbellForm = ({ item }: { item?: Barbell }) => {
     return state;
   };
 
-  const [barbellData, formAction, pending] = useActionState(
+  const [_barbellData, formAction, pending] = useActionState(
     action,
     initialState
   );
@@ -103,19 +103,19 @@ export const BarbellForm = ({ item }: { item?: Barbell }) => {
                 </Button>
               </div>
 
-              {item?.id  ? (
-								<div>
-                <Button
-                  type="button"
-                  size="xs"
-                  variant="danger"
-                  disabled={pending}
-                  onClick={deleteBarbell}
-                >
-                  Delete
-                </Button>
-              </div>
-							) : null}
+              {item?.id ? (
+                <div>
+                  <Button
+                    type="button"
+                    size="xs"
+                    variant="danger"
+                    disabled={pending}
+                    onClick={deleteBarbell}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              ) : null}
             </div>
           </div>
         </form>

@@ -1,7 +1,21 @@
 import { db } from "@/lib/client/database/database";
-import { barbells, exercises, plates, plannedSets, InsertablePlannedSet, sessions, InsertableSession, InsertableActualSet, actualSets } from "./schema";
+import {
+	barbells,
+	exercises,
+	plates,
+	plannedSets,
+	sessions,
+	actualSets,
+} from "./schema";
 
-const isTest = process.env.NODE_ENV === "test" || process.env.NODE_ENV === "development";
+import type {
+	InsertablePlannedSet,
+	InsertableSession,
+	InsertableActualSet,
+} from "./schema";
+
+const isTest =
+	process.env.NODE_ENV === "test" || process.env.NODE_ENV === "development";
 
 const commonExercises = [
 	{
@@ -40,28 +54,92 @@ const commonExercises = [
 		equipmentType: "barbell",
 		barbellId: 1,
 	},
-	{ name: "Pull-ups", category: "Pull", equipmentType: "bodyweight", barbellId: 1 },
+	{
+		name: "Pull-ups",
+		category: "Pull",
+		equipmentType: "bodyweight",
+		barbellId: 1,
+	},
 	{ name: "Dips", category: "Push", equipmentType: "bodyweight", barbellId: 1 },
-	{ name: "Lunges", category: "Legs", equipmentType: "bodyweight", barbellId: 1 },
+	{
+		name: "Lunges",
+		category: "Legs",
+		equipmentType: "bodyweight",
+		barbellId: 1,
+	},
 	{
 		name: "Romanian Deadlift",
 		category: "Pull",
 		equipmentType: "barbell",
 		barbellId: 1,
 	},
-	{ name: "Incline Bench Press", category: "Push", equipmentType: "barbell", barbellId: 1 },
-	{ name: "Dumbbell Rows", category: "Pull", equipmentType: "dumbbell", barbellId: null },
-	{ name: "Dumbbell Press", category: "Push", equipmentType: "dumbbell", barbellId: null },
-	{ name: "Dumbbell Curls", category: "Pull", equipmentType: "dumbbell", barbellId: null },
-	{ name: "Leg Extensions", category: "Legs", equipmentType: "machine", barbellId: null },
-	{ name: "Leg Curls", category: "Legs", equipmentType: "machine", barbellId: null },
-	{ name: "Cable Rows", category: "Pull", equipmentType: "cable", barbellId: null },
-	{ name: "Cable Flyes", category: "Push", equipmentType: "cable", barbellId: null },
-	{ name: "Push-ups", category: "Push", equipmentType: "bodyweight", barbellId: null },
-	{ name: "Planks", category: "Core", equipmentType: "bodyweight", barbellId: null },
-	{ name: "Crunches", category: "Core", equipmentType: "bodyweight", barbellId: null },
+	{
+		name: "Incline Bench Press",
+		category: "Push",
+		equipmentType: "barbell",
+		barbellId: 1,
+	},
+	{
+		name: "Dumbbell Rows",
+		category: "Pull",
+		equipmentType: "dumbbell",
+		barbellId: null,
+	},
+	{
+		name: "Dumbbell Press",
+		category: "Push",
+		equipmentType: "dumbbell",
+		barbellId: null,
+	},
+	{
+		name: "Dumbbell Curls",
+		category: "Pull",
+		equipmentType: "dumbbell",
+		barbellId: null,
+	},
+	{
+		name: "Leg Extensions",
+		category: "Legs",
+		equipmentType: "machine",
+		barbellId: null,
+	},
+	{
+		name: "Leg Curls",
+		category: "Legs",
+		equipmentType: "machine",
+		barbellId: null,
+	},
+	{
+		name: "Cable Rows",
+		category: "Pull",
+		equipmentType: "cable",
+		barbellId: null,
+	},
+	{
+		name: "Cable Flyes",
+		category: "Push",
+		equipmentType: "cable",
+		barbellId: null,
+	},
+	{
+		name: "Push-ups",
+		category: "Push",
+		equipmentType: "bodyweight",
+		barbellId: null,
+	},
+	{
+		name: "Planks",
+		category: "Core",
+		equipmentType: "bodyweight",
+		barbellId: null,
+	},
+	{
+		name: "Crunches",
+		category: "Core",
+		equipmentType: "bodyweight",
+		barbellId: null,
+	},
 ];
-
 
 const commonBarbells = [
 	{ name: "Standard Barbell", weight: 45 },
@@ -70,7 +148,6 @@ const commonBarbells = [
 	{ name: "EZ Curl Bar", weight: 20 },
 	{ name: "Trap Bar", weight: 45 },
 ];
-
 
 const commonPlates = [
 	{ weight: 45, pairs: 4 },
@@ -112,15 +189,10 @@ export async function main() {
 			actualReps: 1,
 			actualWeight: 1,
 		} as InsertableActualSet);
-
-
 	}
-
-
-
 }
 
 // Only run if this file is executed directly
-if (process.argv[1]?.endsWith('seed.ts')) {
+if (process.argv[1]?.endsWith("seed.ts")) {
 	main().catch(console.error);
 }

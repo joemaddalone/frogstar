@@ -1,5 +1,5 @@
 import { renderCalculatedPlates } from "@/lib/plateCalculator";
-import { Exercise, Plate, Barbell } from "@/lib/types";
+import type { Exercise, Plate, Barbell } from "@/lib/types";
 
 
 export type WarmUpSet = {
@@ -17,7 +17,7 @@ interface WarmUpSetsProps {
 	className?: string;
 }
 
-export const calculateWarmUpSets = (targetWeight: number, equipmentType: string = 'barbell', exercise: Exercise, plates: Plate[], barbells: Barbell[]): WarmUpSet[] => {
+export const calculateWarmUpSets = (targetWeight: number, equipmentType: string = 'barbell', exercise: Exercise, _plates: Plate[], barbells: Barbell[]): WarmUpSet[] => {
 	if (!targetWeight) return [];
 
 	let minWeight = 0;
@@ -76,8 +76,8 @@ export const WarmUpSets = (props: WarmUpSetsProps) => {
 		<div className={`mb-2 ${className}`}>
 			<div className="text-xs mb-1">Suggested warm-ups:</div>
 			<div className="space-y-1">
-				{warmUpSets.map((warmUp, index) => (
-					<div key={index} className="flex items-center justify-between text-xs px-2 py-1 rounded border bg-base-200">
+				{warmUpSets.map((warmUp) => (
+					<div key={warmUp.weight} className="flex items-center justify-between text-xs px-2 py-1 rounded border bg-base-200">
 						<div className="font-medium">
 							{warmUp.weight} lbs ({warmUp.percentage}%) × {warmUp.reps}
 						</div>

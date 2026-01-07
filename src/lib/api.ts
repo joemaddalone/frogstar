@@ -1,4 +1,4 @@
-import {
+import type {
   ApiResponse,
   Plate,
   Barbell,
@@ -23,9 +23,9 @@ const host = isClient
   ? "" // Relative URL - browser will use current host/port
   : `http://${process.env.HOST || "localhost"}:${process.env.PORT || 3000}`;
 
-const tryCatch = async function <T>(
+const tryCatch = async <T>(
   promise: Promise<Response>
-): Promise<ApiResponse<T>> {
+): Promise<ApiResponse<T>> => {
   try {
     const response = await promise;
     if (!response.ok) {
@@ -49,8 +49,8 @@ const tryCatch = async function <T>(
 };
 
 const createClientEndpoints = <T, R, I>(path: string) => {
-	return {
-		get: (id: number) => tryCatch<R>(fetch(`${host}/api/${path}/${id}`)),
+  return {
+    get: (id: number) => tryCatch<R>(fetch(`${host}/api/${path}/${id}`)),
     list: () => tryCatch<T[]>(fetch(`${host}/api/${path}`)),
     create: (item: I) =>
       tryCatch<T>(
@@ -59,7 +59,7 @@ const createClientEndpoints = <T, R, I>(path: string) => {
           body: JSON.stringify(item),
         })
       ),
-    update: (item: T & { id: number }) =>
+    update: (item: T & { id: number; }) =>
       tryCatch<T>(
         fetch(`${host}/api/${path}/${item.id}`, {
           method: "PUT",
@@ -68,15 +68,15 @@ const createClientEndpoints = <T, R, I>(path: string) => {
       ),
     delete: (id: number) =>
       tryCatch<void>(fetch(`${host}/api/${path}/${id}`, { method: "DELETE" })),
-  }
-}
+  };
+};
 
 
 export const api = {
-	plates: createClientEndpoints<Plate, Plate, InsertablePlate>('plates'),
-	barbells: createClientEndpoints<Barbell, Barbell, InsertableBarbell>('barbells'),
-	exercises: createClientEndpoints<Exercise, Exercise, InsertableExercise>('exercises'),
-	planned_sets: createClientEndpoints<PlannedSet, PlannedSet, InsertablePlannedSet>('plannedsets'),
-	actual_sets: createClientEndpoints<ActualSet, ActualSet, InsertableActualSet>('actualsets'),
-	sessions: createClientEndpoints<Session, SessionWithDetails, InsertableSession>('sessions'),
-}
+  plates: createClientEndpoints<Plate, Plate, InsertablePlate>('plates'),
+  barbells: createClientEndpoints<Barbell, Barbell, InsertableBarbell>('barbells'),
+  exercises: createClientEndpoints<Exercise, Exercise, InsertableExercise>('exercises'),
+  planned_sets: createClientEndpoints<PlannedSet, PlannedSet, InsertablePlannedSet>('plannedsets'),
+  actual_sets: createClientEndpoints<ActualSet, ActualSet, InsertableActualSet>('actualsets'),
+  sessions: createClientEndpoints<Session, SessionWithDetails, InsertableSession>('sessions'),
+};

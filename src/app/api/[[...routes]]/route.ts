@@ -30,15 +30,15 @@ resources.forEach(({ path, client }) => {
 			return wrap(() => client.create(body));
 		})
 		.get(`/${path}/:id`, ({ params: { id } }) =>
-			wrap(() => client.getById(parseInt(id)))
+			wrap(() => client.getById(parseInt(id, 10)))
 		)
 		.put(`/${path}/:id`, async ({ params: { id }, request }) => {
 			const body = await request.json();
-			return wrap(() => client.update(parseInt(id), body));
+			return wrap(() => client.update(parseInt(id, 10), body));
 		})
 		.delete(`/${path}/:id`, ({ params: { id } }) =>
 			wrap(async () => {
-				await client.remove(parseInt(id));
+				await client.remove(parseInt(id, 10));
 				return undefined;
 			})
 		);

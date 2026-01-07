@@ -1,6 +1,6 @@
 "use client";
 
-import { InsertableSession } from "@/lib/types";
+import type { InsertableSession } from "@/lib/types";
 import { useApi } from "@/app/hooks/useApi";
 import { useRouter } from "next/navigation";
 import { DayPicker } from "react-day-picker";
@@ -28,14 +28,14 @@ export const SessionForm = () => {
 	return (
 		<div className="join">
 			<div>
-				<button popoverTarget="rdp-popover" className="input input-border" style={{ anchorName: "--rdp" } as React.CSSProperties}>
+				<button type="button" popoverTarget="rdp-popover" className="input input-border" style={{ anchorName: "--rdp" } as React.CSSProperties}>
 					{sessionDate ? sessionDate.toLocaleDateString() : "Pick a date"}
 				</button>
 				<div popover="auto" id="rdp-popover" className="dropdown" style={{ positionAnchor: "--rdp" } as React.CSSProperties}>
 					<DayPicker required className="react-day-picker" mode="single" selected={sessionDate} onSelect={setSessionDate} />
 				</div>
 			</div>
-			<button onClick={createSession} className="btn btn-primary join-item">Create Session</button>
+			<button type="button" onClick={createSession} className="btn btn-primary join-item">Create Session</button>
 		</div>
 	);
 }

@@ -6,10 +6,10 @@ import { SessionDatePicker } from "@/app/(pages)/session/_components/SessionDate
 import { PlannedSetCard } from "@/app/(pages)/session/_components/PlannedSetCard";
 import { SessionHeader } from "@/app/(pages)/session/_components/SessionHeader";
 import Link from "next/link";
-import { Plus, Trash } from "lucide-react";
+import { Plus } from "lucide-react";
 export default async function SessionPage(props: PageProps<"/session/[id]">) {
 	const { id } = await props.params;
-	const { data: session, error } = await api.sessions.get(Number(id));
+	const { data: session } = await api.sessions.get(Number(id));
 	if (!session) {
 		return <div>Session not found</div>;
 	}

@@ -1,20 +1,20 @@
 "use client";
 import { useActionState } from "react";
 import { api } from "@/lib/api";
-import { InsertableActualSet, PlannedSet, ActualSet, Exercise } from "@/lib/types";
+import type { InsertableActualSet, PlannedSet, ActualSet, Exercise } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Check, X } from "lucide-react";
 
 
 type FormState = {
-  actualReps?: string;
-  actualWeight?: string;
+	actualReps?: string;
+	actualWeight?: string;
 };
 
 const initialState: FormState = {
-  actualReps: '',
-  actualWeight: '',
+	actualReps: '',
+	actualWeight: '',
 };
 
 
@@ -56,7 +56,7 @@ export const ActualSetForm = ({ plannedSet, actualSetId, cancel }: { plannedSet:
 
 	};
 
-	const [state, newAction, pending] = useActionState(createActualSet, initialState);
+	const [_state, newAction, _pending] = useActionState(createActualSet, initialState);
 
 	const formData = {
 		intendedReps: actualSetId ? plannedSet.actualSets.find((actualSet) => actualSet.id === actualSetId)?.actualReps : plannedSet.intendedReps,
