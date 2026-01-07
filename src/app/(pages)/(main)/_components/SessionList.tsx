@@ -1,5 +1,5 @@
 "use client";
-import { ApiResponse, SessionWithDetails } from "@/lib/types";
+import type { ApiResponse, SessionWithDetails } from "@/lib/types";
 import { use, useMemo } from "react";
 import Link from "next/link";
 import { dateString } from "@/lib/utils";

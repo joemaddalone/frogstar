@@ -1,9 +1,7 @@
 "use client";
-import { Exercise } from "@/db/schema";
 import { use, useActionState, useState } from "react";
-import { ApiResponse } from "@/lib/types";
 import { api } from "@/lib/api";
-import { InsertablePlannedSet } from "@/db/schema";
+import type { ApiResponse, Exercise, InsertablePlannedSet } from "@/lib/types";
 import { useRouter } from "next/navigation";
 
 type FormState = {
@@ -56,7 +54,7 @@ export const PlannedSetForm = ({
     router.push(`/session/${sessionId}`);
   };
 
-  const [sessionData, formAction, pending] = useActionState(action, initialState);
+  const [_sessionData, formAction, _pending] = useActionState(action, initialState);
 
   if (!exerciseList) {
     return <div>Loading...</div>;

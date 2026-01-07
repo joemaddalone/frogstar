@@ -1,4 +1,4 @@
-import { Barbell, Plate, Exercise } from "@/lib/types";
+import type { Barbell, Plate, Exercise } from "@/lib/types";
 import { api } from "@/lib/api";
 
 export const loadPlateCalculatorSettings = async (): Promise<{
@@ -39,7 +39,7 @@ export const calculateEquipment = (
 	for (let i = 0; i < availablePlates.length; i++) {
 		const plate = availablePlates[i];
 		if (oneSide < plate.weight) {
-			continue;
+			// do nothing
 		} else {
 			let count = 0;
 			while (count < Math.floor(oneSide / plate.weight)) {

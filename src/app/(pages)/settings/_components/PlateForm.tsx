@@ -1,12 +1,11 @@
 "use client";
-import { Plate, InsertablePlate } from "@/db/schema";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useActionState } from "react";
-import { Route } from "next";
-import { ApiResponse } from "@/lib/types";
+import type { Route } from "next";
+import type { ApiResponse, Plate, InsertablePlate } from "@/lib/types";
 
 type FormState = {
   plate_pairs?: string;
@@ -18,7 +17,7 @@ const initialState: FormState = {
   plate_weight: "",
 };
 
-export const PlateForm = ({ item }: { item?: Plate }) => {
+export const PlateForm = ({ item }: { item?: Plate; }) => {
   const router = useRouter();
 
   const deletePlate = async () => {
@@ -57,7 +56,7 @@ export const PlateForm = ({ item }: { item?: Plate }) => {
     return state;
   };
 
-  const [plateData, formAction, pending] = useActionState(action, initialState);
+  const [_plateData, formAction, pending] = useActionState(action, initialState);
 
   return (
     <Card className="mb-2">
@@ -103,19 +102,19 @@ export const PlateForm = ({ item }: { item?: Plate }) => {
                 </Button>
               </div>
 
-              {item?.id  ? (
-								<div>
-                <Button
-                  type="button"
-                  size="xs"
-                  variant="danger"
-                  disabled={pending}
-                  onClick={deletePlate}
-                >
-                  Delete
-                </Button>
-              </div>
-							) : null}
+              {item?.id ? (
+                <div>
+                  <Button
+                    type="button"
+                    size="xs"
+                    variant="danger"
+                    disabled={pending}
+                    onClick={deletePlate}
+                  >
+                    Delete
+                  </Button>
+                </div>
+              ) : null}
             </div>
           </div>
         </form>

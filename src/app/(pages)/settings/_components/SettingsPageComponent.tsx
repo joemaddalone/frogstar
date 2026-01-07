@@ -7,15 +7,15 @@ import { ExerciseForm } from "@/app/(pages)/settings/_components/ExerciseForm";
 import { SettingsCard } from "@/app/(pages)/settings/_components/SettingsCard";
 import { Header } from "@/components/Header";
 import { Plus } from "lucide-react";
-import { Route } from "next";
+import type { Route } from "next";
 import Link from "next/link";
-import { Barbell, Exercise, Plate } from "@/lib/types";
+import type { Barbell, Exercise, Plate } from "@/lib/types";
 
 interface Props {
   id?: string[];
   route: string;
   type?: string;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  // biome-ignore lint/suspicious/noExplicitAny: i dont care
   titler: (a: any) => string;
   comp: "barbell" | "plate" | "exercise";
 }

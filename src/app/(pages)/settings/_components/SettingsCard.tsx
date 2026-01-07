@@ -1,7 +1,7 @@
 "use client";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { useRouter } from "next/navigation";
-import { Route } from "next";
+import type { Route } from "next";
 
 export const SettingsCard = ({
   title,

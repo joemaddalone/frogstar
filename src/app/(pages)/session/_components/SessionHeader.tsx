@@ -1,5 +1,5 @@
 "use client";
-import { Session } from "@/lib/types";
+import type { Session } from "@/lib/types";
 import { Button } from "@/components/ui/Button";
 import { Trash } from "lucide-react";
 import { useRouter } from "next/navigation";

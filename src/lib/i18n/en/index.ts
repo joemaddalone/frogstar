@@ -1,5 +1,6 @@
-import fs from 'fs';
-import path from 'path';
+
+import fs from 'node:fs';
+import path from 'node:path';
 
 const translationsDir = path.join(process.cwd(), 'src', 'lib', 'i18n', 'en');
 const files = fs.readdirSync(translationsDir);

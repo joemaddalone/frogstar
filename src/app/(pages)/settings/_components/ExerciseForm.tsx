@@ -1,13 +1,11 @@
 "use client";
-import { Exercise, InsertableExercise } from "@/db/schema";
-import { Card, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { Card, CardHeader } from "@/components/ui/Card";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
-import { Route } from "next";
-import { ApiResponse } from "@/lib/types";
-import { Barbell } from "@/db/schema";
+import type { Route } from "next";
+import type { ApiResponse, Barbell, Exercise, InsertableExercise } from "@/lib/types";
 import { useState } from "react";
 
 type FormState = {
@@ -80,7 +78,7 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
     doit();
   }, []);
 
-  const [plateData, formAction, pending] = useActionState(action, initialState);
+  const [_plateData, formAction, pending] = useActionState(action, initialState);
 
   return (
     <Card className="mb-2">

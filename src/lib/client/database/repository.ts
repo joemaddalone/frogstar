@@ -2,9 +2,10 @@ import { db } from "@/lib/client/database/database";
 import { eq } from "drizzle-orm";
 import type { SQLiteTableWithColumns, AnySQLiteColumn } from "drizzle-orm/sqlite-core";
 
-/* eslint-disable @typescript-eslint/no-explicit-any */
+/* biome-ignore lint/suspicious/noExplicitAny: i dont care */
 type AnyTable = SQLiteTableWithColumns<any> & { id: AnySQLiteColumn; };
-/* eslint-enable @typescript-eslint/no-explicit-any */
+/* biome-enable lint/suspicious/noExplicitAny */
+
 
 /**
  * Creates a generic repository for a Drizzle table.

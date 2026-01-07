@@ -9,9 +9,17 @@ const DB_FILE_NAME_TEST = process.env.DB_FILE_NAME_TEST;
 // are we in test mode?
 const isTest = process.env.NODE_ENV === 'test' || process.env.NODE_ENV === 'development';
 
+const dbUrl = isTest ? DB_FILE_NAME_TEST : DB_FILE_NAME;
+
+if (!dbUrl) {
+	throw new Error('Missing database connection string in environment variables');
+}
+
 const client = createClient({
-	url: isTest ? DB_FILE_NAME_TEST! : DB_FILE_NAME!,
+	url: dbUrl,
 });
+
+
 
 client.execute('PRAGMA journal_mode = WAL;');
 client.execute('PRAGMA busy_timeout = 5000;');
