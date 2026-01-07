@@ -3,7 +3,7 @@ import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { Home, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
-import type { Route } from 'next'
+import type { Route } from 'next';
 
 const NAV_ITEMS = [
 	{ label: "Home", href: "/", icon: Home },
@@ -16,7 +16,7 @@ export const BottomNav = () => {
 
 	return (
 		<footer className="bottom-nav">
-			<nav className="flex items-center justify-around h-[64px]">
+			<nav className="flex items-center justify-around h-[72px]">
 				{NAV_ITEMS.map((item) => {
 					const Icon = item.icon;
 					const isActive = item.href === "/"
@@ -29,8 +29,8 @@ export const BottomNav = () => {
 							href={item.href as Route}
 							className={cn("bottom-nav-item", isActive && "active")}
 						>
-							<Icon className="h-5 w-5 mb-1" />
-							<span className="text-[10px] font-medium uppercase tracking-tighter">
+							<Icon className={cn("h-6 w-6 mb-1 transition-transform", isActive && "scale-110")} />
+							<span className="text-[11px] font-bold uppercase tracking-wider">
 								{item.label}
 							</span>
 						</Link>

@@ -6,6 +6,7 @@ import { SessionDatePicker } from "@/app/(pages)/session/_components/SessionDate
 import { PlannedSetCard } from "@/app/(pages)/session/_components/PlannedSetCard";
 import { SessionHeader } from "@/app/(pages)/session/_components/SessionHeader";
 import Link from "next/link";
+import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Plus } from "lucide-react";
 export default async function SessionPage(props: PageProps<"/session/[id]">) {
 	const { id } = await props.params;
@@ -22,12 +23,9 @@ export default async function SessionPage(props: PageProps<"/session/[id]">) {
 				<SessionHeader session={session} />
 			</Header>
 			<main className="flex flex-col gap-4">
-				<Link
-					href={`/session/${session.id}/add`}
-					className="btn btn-xs w-full btn-primary flex items-center space-x-1 self-end"
-				>
+				<ButtonLink className="mx-4" size="xs" variant="primary" href={`/session/${session.id}/add`}>
 					<Plus className="h-4 w-4" /> Add Exercise
-				</Link>
+				</ButtonLink>
 				{session.plannedSets.length === 0 && (
 					<div className="flex items-center justify-center m-4">
 						No planned sets found
