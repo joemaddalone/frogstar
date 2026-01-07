@@ -20,31 +20,11 @@ interface Props {
   comp: "barbell" | "plate" | "exercise";
 }
 
-const components = {
-  barbell: BarbellForm,
-  plate: PlateForm,
-	exercise: ExerciseForm
-};
-
 export default async function SettingsPageComponent(props: Props) {
   const { data } = await api[props.type as keyof typeof api].list();
   const { id, comp, titler, route } = props;
-  const Component = components[comp];
   const activeId = id ? id[0] : undefined;
   const foundItem = data?.find((b) => b.id.toString() === activeId);
-  let activeItem: Plate | Exercise | Barbell;
-  switch (comp) {
-    case "barbell":
-      activeItem = foundItem as Barbell;
-			break;
-    case "plate":
-      activeItem = foundItem as Plate;
-			break;
-    case "exercise":
-      activeItem = foundItem as Exercise;
-			break;
-  }
-
 
   return (
     <>
@@ -68,8 +48,12 @@ export default async function SettingsPageComponent(props: Props) {
             path={`/settings/${route}/${item.id}` as Route}
           />
         ))
+      ) : comp === "barbell" ? (
+        <BarbellForm key={activeId} item={foundItem as Barbell | undefined} />
+      ) : comp === "plate" ? (
+        <PlateForm key={activeId} item={foundItem as Plate | undefined} />
       ) : (
-        <Component key={activeId} item={activeItem} />
+        <ExerciseForm key={activeId} item={foundItem as Exercise | undefined} />
       )}
     </>
   );
