@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/joemaddalone/frogstar/compare/v1.3.0...v1.3.1) (2026-01-07)
+
+
+### Bug Fixes
+
+* **ts:** ts lint issue ([2efeab6](https://github.com/joemaddalone/frogstar/commit/2efeab668ac5af5950cabe9bc3674434b1eaa40c))
+
 # [1.3.0](https://github.com/joemaddalone/frogstar/compare/v1.2.0...v1.3.0) (2025-12-31)
 
 
