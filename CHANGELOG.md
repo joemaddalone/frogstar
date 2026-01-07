@@ -1,3 +1,10 @@
+# [1.4.0](https://github.com/joemaddalone/frogstar/compare/v1.3.1...v1.4.0) (2026-01-07)
+
+
+### Features
+
+* **config:** initial exercise config form ([#10](https://github.com/joemaddalone/frogstar/issues/10)) ([f450c5a](https://github.com/joemaddalone/frogstar/commit/f450c5a83abe830cb551a1f66a6009b84fe7bec6))
+
 ## [1.3.1](https://github.com/joemaddalone/frogstar/compare/v1.3.0...v1.3.1) (2026-01-07)
 
 
