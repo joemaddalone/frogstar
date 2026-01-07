@@ -11,6 +11,7 @@ RUN --mount=type=cache,target=/root/.npm \
 
 # Copy source code
 COPY . .
+RUN mkdir -p data
 
 # Set environment variables for build
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -27,13 +28,22 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
+# Create data directory for persistent SQLite database
+RUN mkdir -p /app/data
+
 # Copy necessary files from builder
+COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
+COPY --from=builder /app/src ./src
+COPY --from=builder /app/drizzle.config.ts ./drizzle.config.ts
+COPY --from=builder /app/tsconfig.json ./tsconfig.json
 COPY --from=builder /app/package.json ./package.json
+COPY --from=builder /app/.env ./.env
 
-# Install only production dependencies
-COPY --from=builder /app/node_modules ./node_modules
+# Copy entrypoint script
+COPY entrypoint.sh /app/entrypoint.sh
+RUN chmod +x /app/entrypoint.sh
 
 # Expose port
 EXPOSE 3000
@@ -41,4 +51,5 @@ EXPOSE 3000
 ENV PORT=3000
 ENV HOSTNAME="0.0.0.0"
 
+ENTRYPOINT ["/app/entrypoint.sh"]
 CMD ["node", "server.js"]
