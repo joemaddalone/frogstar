@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/joemaddalone/frogstar/compare/v1.5.0...v1.6.0) (2026-01-07)
+
+
+### Features
+
+* make wip ([ffddbb7](https://github.com/joemaddalone/frogstar/commit/ffddbb7183946e592769c370cf1a5e6098d043b5))
+
 # [1.5.0](https://github.com/joemaddalone/frogstar/compare/v1.4.0...v1.5.0) (2026-01-07)
 
 
