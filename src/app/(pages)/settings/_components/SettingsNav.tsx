@@ -13,15 +13,15 @@ export const SettingsNav = () => {
 					<User className="h-5 w-5" />
 					<span className="text-xs mt-1">Preferences</span>
 				</Link>
-				<Link href="/settings/barbells" className={pathname === "/settings/barbells" ? "bottom-nav-item active" : "bottom-nav-item"}>
+				<Link href="/settings/barbells" className={pathname.includes("/settings/barbells") ? "bottom-nav-item active" : "bottom-nav-item"}>
 					<Calculator className="h-5 w-5" />
 					<span className="text-xs mt-1">Barbells</span>
 				</Link>
-				<Link href="/settings/plates" className={pathname === "/settings/plates" ? "bottom-nav-item active" : "bottom-nav-item"}>
+				<Link href="/settings/plates" className={pathname.includes("/settings/plates") ? "bottom-nav-item active" : "bottom-nav-item"}>
 					<Calculator className="h-5 w-5" />
 					<span className="text-xs mt-1">Plates</span>
 				</Link>
-				<Link href="/settings/exercises" className={pathname === "/settings/exercises" ? "bottom-nav-item active" : "bottom-nav-item"}>
+				<Link href="/settings/exercises" className={pathname.includes("/settings/exercises") ? "bottom-nav-item active" : "bottom-nav-item"}>
 					<BicepsFlexed className="h-5 w-5" />
 					<span className="text-xs mt-1">Exercises</span>
 				</Link>

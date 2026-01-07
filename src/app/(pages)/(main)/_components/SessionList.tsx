@@ -47,7 +47,7 @@ export const SessionList = ({ sessionsLoader }: { sessionsLoader: Promise<ApiRes
 	return (
 		<>
 			<div className="grid grid-cols-2 gap-4">
-				<Card className="text-center">
+				<Card className="cursor-pointer text-center">
 					<CardHeader className="p-4">
 						<div className="text-3xl font-bold text-primary">
 							{stats.total}

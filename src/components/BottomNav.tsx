@@ -1,13 +1,13 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, BarChart2, Settings } from "lucide-react";
+import { Home, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Route } from 'next'
 
 const NAV_ITEMS = [
 	{ label: "Home", href: "/", icon: Home },
-	{ label: "Stats", href: "/stats", icon: BarChart2 },
+	// { label: "Stats", href: "/stats", icon: BarChart2 },
 	{ label: "Settings", href: "/settings", icon: Settings },
 ];
 
