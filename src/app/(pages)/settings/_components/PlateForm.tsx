@@ -68,6 +68,7 @@ export const PlateForm = ({ item }: { item?: Plate; }) => {
                 name="plate_weight"
                 type="number"
                 className="input"
+                step="any"
                 defaultValue={item?.weight}
                 placeholder="Weight"
               />

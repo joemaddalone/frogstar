@@ -72,7 +72,6 @@ export const PlannedSetCard = ({
 					{plannedSet.exercise.equipmentType !== "bodyweight" && (
 						<Button onClick={() => setShowWarmup(!showWarmup)} size="xs" variant="outline">{showWarmup ? "Hide" : "Show"} warmups</Button>
 					)}
-					<Button onClick={deletePlannedSet} size="xs" variant="danger"><Trash className="h-4 w-4" /></Button>
 				</CardHeaderActions>
 				<CardTitle>{plannedSet.exercise.name} <sup className="text-xs text-base-content/60">{plannedSet.exercise.category}</sup></CardTitle>
 				<CardDescription>
@@ -137,23 +136,26 @@ export const PlannedSetCard = ({
 				)}
 			</CardContent>
 			{!showActualSetForm && showEditActualSetForm === 0 ? (
-				<CardFooter className="justify-center gap-2">
-					<Button
-						className={plannedSet.actualSets.length > 0 ? "w-90" : "w-40"}
-						size="xs"
-						onClick={() => setShowActualSetForm(true)}
-					>
-						Log Set
-					</Button>
-					{plannedSet.actualSets.length === 0 && (
+				<CardFooter className="justify-between gap-2">
+					<div className="flex gap-2">
 						<Button
-							className="w-40"
 							size="xs"
-							onClick={logAllSets}
+							onClick={() => setShowActualSetForm(true)}
 						>
-							Log All Sets ({plannedSet.intendedSets})
+							Log Set
 						</Button>
-					)}
+						{plannedSet.actualSets.length === 0 && (
+							<Button
+								size="xs"
+								onClick={logAllSets}
+							>
+								Log All Sets ({plannedSet.intendedSets})
+							</Button>
+						)}
+					</div>
+					<div>
+						<Button onClick={deletePlannedSet} size="xs" variant="danger"><Trash className="h-4 w-4" /></Button>
+					</div>
 				</CardFooter>
 			) : null}
 		</Card>
