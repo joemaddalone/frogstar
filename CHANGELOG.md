@@ -1,3 +1,10 @@
+# [1.5.0](https://github.com/joemaddalone/frogstar/compare/v1.4.0...v1.5.0) (2026-01-07)
+
+
+### Features
+
+* **ui:** more mobile friendly ui ([#12](https://github.com/joemaddalone/frogstar/issues/12)) ([df9088e](https://github.com/joemaddalone/frogstar/commit/df9088e0f11f988beda3102a12e7484b72922ad5))
+
 # [1.4.0](https://github.com/joemaddalone/frogstar/compare/v1.3.1...v1.4.0) (2026-01-07)
 
 
