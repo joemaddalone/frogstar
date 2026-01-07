@@ -2,13 +2,13 @@
 set -e
 
 # Initialize database if it doesn't exist or is empty
-if [ ! -f /app/data/frogstar.db ] || [ ! -s /app/data/frogstar.db ]; then
+if [ ! -f ../data/frogstar.db ] || [ ! -s ../data/frogstar.db ]; then
   echo "Initializing database..."
-	npm run drizzle:push
-  npm run seed
+	npm run init-build
   echo "Database initialized."
 else
   echo "Database already exists, skipping initialization."
+  npm init-rebuild
 fi
 
 # Start the application

@@ -16,8 +16,11 @@
     "test:coverage": "vitest run --coverage",
     "testdb:reset": "tsx ./src/db/reset.ts",
     "release": "semantic-release",
-    "drizzle:push": "drizzle-kit push --config ./drizzle.config.ts",
-    "drizzle:generate": "drizzle-kit generate ./drizzle.config.ts "
+    "drizzle:push": "drizzle-kit push",
+    "drizzle:generate": "drizzle-kit generate",
+    "drizzle:migrate": "drizzle-kit migrate",
+    "init-rebuild": "npm run drizzle:generate && npm run drizzle:migrate && npm run seed",
+    "init-build": "npm run drizzle:push && npm run seed"
   },
   "dependencies": {
     "@elysiajs/eden": "^1.4.6",

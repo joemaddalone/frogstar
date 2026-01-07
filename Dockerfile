@@ -11,7 +11,6 @@ RUN --mount=type=cache,target=/root/.npm \
 
 # Copy source code
 COPY . .
-RUN mkdir -p data
 
 # Set environment variables for build
 ENV NEXT_TELEMETRY_DISABLED=1
@@ -28,14 +27,19 @@ WORKDIR /app
 ENV NODE_ENV=production
 ENV NEXT_TELEMETRY_DISABLED=1
 
+ENV NODE_ENV=production
+
+
+
 # Create data directory for persistent SQLite database
-RUN mkdir -p /app/data
+RUN mkdir -p /data
 
 # Copy necessary files from builder
 COPY --from=builder /app/node_modules ./node_modules
 COPY --from=builder /app/.next/standalone ./
 COPY --from=builder /app/.next/static ./.next/static
-COPY --from=builder /app/src ./src
+COPY --from=builder /app/src/db ./src/db
+COPY --from=builder /app/src/lib ./src/lib
 COPY --from=builder /app/drizzle.config.ts ./drizzle.config.ts
 COPY --from=builder /app/tsconfig.json ./tsconfig.json
 COPY --from=builder /app/package.json ./package.json
