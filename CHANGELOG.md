@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/joemaddalone/frogstar/compare/v1.10.0...v1.10.1) (2026-01-08)
+
+
+### Bug Fixes
+
+* mis-calc in plate viz ([3abc417](https://github.com/joemaddalone/frogstar/commit/3abc417ac934bce5d05e8040b4fe2e8f0ca1a703))
+
 # [1.10.0](https://github.com/joemaddalone/frogstar/compare/v1.9.0...v1.10.0) (2026-01-08)
 
 
