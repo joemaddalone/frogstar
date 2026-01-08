@@ -22,7 +22,7 @@ export default async function SessionPage(props: PageProps<"/session/[id]">) {
 			</Header>
 			<main className="flex flex-col gap-4">
 				<SessionDatePicker session={session} />
-				<ButtonLink variant="outline" href={`/session/${session.id}/add`}>
+				<ButtonLink variant="outline" href={`/session/${session.id}/ps`}>
 					<Plus className="h-4 w-4" /> Add Exercise
 				</ButtonLink>
 
