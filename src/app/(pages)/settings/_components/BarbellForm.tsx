@@ -1,11 +1,13 @@
 "use client";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useActionState } from "react";
 import type { Route } from "next";
 import type { ApiResponse, Barbell, InsertableBarbell } from "@/lib/types";
+import { Trash } from "lucide-react";
 
 
 type FormState = {
@@ -64,35 +66,46 @@ export const BarbellForm = ({ item }: { item?: Barbell; }) => {
       <CardHeader>
         <form action={formAction}>
           <div className="space-y-2">
+
             <div className="flex gap-2">
-              <input
-                name="barbell_name"
-                type="text"
-                className="input"
-                defaultValue={item?.name}
-                placeholder="Name"
-              />
-              <input
-                name="barbell_weight"
-                type="number"
-                className="input"
-                defaultValue={item?.weight}
-                placeholder="Weight"
-              />
+              <fieldset className="fieldset">
+                <legend className="fieldset-legend">Name</legend>
+                <Input
+                  name="barbell_name"
+                  type="text"
+                  size="sm"
+                  className="w-60"
+                  defaultValue={item?.name}
+                  placeholder="EZ Curl Bar"
+                />
+              </fieldset>
+              <fieldset className="fieldset">
+                <legend className="fieldset-legend">Weight</legend>
+                <Input
+                  name="barbell_weight"
+                  type="number"
+                  size="sm"
+                  className="w-20"
+                  defaultValue={item?.weight}
+                  placeholder="25"
+                />
+              </fieldset>
             </div>
-            <div className="flex justify-between gap-2">
+
+
+            <div className="flex justify-between gap-2 mt-5">
               <div className="space-x-2">
                 <Button
+                  size="sm"
                   type="submit"
-                  size="xs"
                   variant="primary"
                   disabled={pending}
                 >
                   Save
                 </Button>
                 <Button
+                  size="sm"
                   type="button"
-                  size="xs"
                   variant="outline"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -106,13 +119,13 @@ export const BarbellForm = ({ item }: { item?: Barbell; }) => {
               {item?.id ? (
                 <div>
                   <Button
+                    size="sm"
                     type="button"
-                    size="xs"
                     variant="danger"
                     disabled={pending}
                     onClick={deleteBarbell}
                   >
-                    Delete
+                    <Trash className="h-4 w-4" />
                   </Button>
                 </div>
               ) : null}

@@ -4,6 +4,7 @@ import { api } from "@/lib/api";
 import type { InsertableActualSet, PlannedSet, ActualSet, Exercise } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 import { Check, X } from "lucide-react";
 
 
@@ -70,17 +71,17 @@ export const ActualSetForm = ({ plannedSet, actualSetId, cancel }: { plannedSet:
 				<div className="flex gap-2 items-center">
 					<fieldset className="fieldset">
 						<legend className="fieldset-legend">Reps</legend>
-						<input defaultValue={formData.intendedReps || 0} type="number" name="actual_reps" id="actual_reps" className="input" placeholder="Type here" />
+						<Input defaultValue={formData.intendedReps || 0} type="number" name="actual_reps" id="actual_reps" placeholder="Type here" />
 					</fieldset>
 
 					<fieldset className="fieldset">
 						<legend className="fieldset-legend">Weight</legend>
-						<input defaultValue={formData.intendedWeight || 0} type="number" name="actual_weight" id="actual_weight" className="input" placeholder="Type here" />
+						<Input defaultValue={formData.intendedWeight || 0} type="number" name="actual_weight" id="actual_weight" placeholder="Type here" />
 					</fieldset>
 				</div>
-				<div className="flex gap-2 mt-2">
-					<Button type="submit" size="xs" variant="primary" className="w-45"><Check className="h-4 w-4" />Log</Button>
-					<Button type="button" size="xs" onClick={cancel} variant="outline" className="w-45"><X className="h-4 w-4" />Cancel</Button>
+				<div className="flex justify-between gap-2 mt-2">
+					<Button type="submit" variant="primary"><Check className="h-4 w-4" />Log</Button>
+					<Button type="button" onClick={cancel} variant="outline"><X className="h-4 w-4" />Cancel</Button>
 				</div>
 			</form>
 		</div>

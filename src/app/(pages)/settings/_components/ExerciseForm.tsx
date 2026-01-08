@@ -1,5 +1,7 @@
 "use client";
 import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
@@ -88,20 +90,20 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
             <div className="flex gap-2">
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Name</legend>
-                <input
+                <Input
                   name="exercise_name"
                   type="text"
-                  className="input"
+                  size="sm"
                   defaultValue={item?.name}
                   placeholder="Bench Press Close-Grip"
                 />
               </fieldset>
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Category</legend>
-                <input
+                <Input
                   name="exercise_category"
                   type="text"
-                  className="input"
+                  size="sm"
                   defaultValue={item?.category}
                   placeholder="Push, Pull, Legs, etc."
                 />
@@ -110,34 +112,34 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
 
             <fieldset className="fieldset">
               <legend className="fieldset-legend">Equipment Type</legend>
-              <select onChange={(e) => setEquipmentType(e.target.value)} defaultValue={item?.equipmentType} name="equipment_type" className="select w-full">
+              <Select size="sm" onChange={(e) => setEquipmentType(e.target.value)} defaultValue={item?.equipmentType} name="equipment_type">
                 <option disabled={true}>Equipment Type</option>
                 <option value="barbell">Barbell</option>
                 <option value="bodyweight">Bodyweight</option>
                 <option value="cable">Cable</option>
                 <option value="dumbbell">Dumbbell</option>
                 <option value="machine">Machine</option>
-              </select>
+              </Select>
             </fieldset>
             {equipmentType === "barbell" && (
               <fieldset className="fieldset">
                 <legend className="fieldset-legend">Barbell</legend>
-                <select defaultValue={Number(item?.barbellId) || 1} name="barbell_id" className="select w-full">
+                <Select size="sm" defaultValue={Number(item?.barbellId) || 1} name="barbell_id">
                   <option disabled={true}>Barbell</option>
                   {barbells.map((barbell) => (
                     <option key={barbell.id} value={barbell.id}>
                       {barbell.name}
                     </option>
                   ))}
-                </select>
+                </Select>
               </fieldset>
             )}
 
-            <div className="flex justify-between gap-2">
+            <div className="flex justify-between gap-2 mt-5">
               <div className="space-x-2">
                 <Button
                   type="submit"
-                  size="xs"
+                  size="sm"
                   variant="primary"
                   disabled={pending}
                 >
@@ -145,7 +147,7 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
                 </Button>
                 <Button
                   type="button"
-                  size="xs"
+                  size="sm"
                   variant="outline"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -160,7 +162,7 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
                 <div>
                   <Button
                     type="button"
-                    size="xs"
+                    size="sm"
                     variant="danger"
                     disabled={pending}
                     onClick={deleteExercise}

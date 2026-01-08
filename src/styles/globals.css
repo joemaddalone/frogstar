@@ -50,7 +50,7 @@ main {
 }
 
 @utility bottom-nav {
-  @apply fixed bottom-0 left-0 right-0 border-t border-base-200/50 bg-base-100/80 backdrop-blur-md w-full mx-auto max-w-md z-50 transition-all duration-300;
+  @apply fixed bottom-0 left-0 right-0 border-t border-base-300/50 bg-base-100/80 backdrop-blur-md w-full mx-auto max-w-md z-50 transition-all duration-300;
 }
 
 @utility bottom-nav-item {
@@ -62,7 +62,7 @@ main {
 }
 
 @utility top-nav {
-  @apply fixed top-0 left-0 right-0 border-b border-base-200/50 bg-base-100/80 backdrop-blur-md w-full mx-auto max-w-md z-50;
+  @apply fixed top-0 left-0 right-0 border-b border-base-300/50 bg-base-100/80 backdrop-blur-md w-full mx-auto max-w-md z-50;
 }
 
 @utility top-nav-item {

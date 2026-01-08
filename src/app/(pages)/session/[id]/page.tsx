@@ -23,7 +23,7 @@ export default async function SessionPage(props: PageProps<"/session/[id]">) {
 				<SessionHeader session={session} />
 			</Header>
 			<main className="flex flex-col gap-4">
-				<ButtonLink className="mx-4" size="xs" variant="primary" href={`/session/${session.id}/add`}>
+				<ButtonLink size="sm" variant="outline" href={`/session/${session.id}/add`}>
 					<Plus className="h-4 w-4" /> Add Exercise
 				</ButtonLink>
 				{session.plannedSets.length === 0 && (

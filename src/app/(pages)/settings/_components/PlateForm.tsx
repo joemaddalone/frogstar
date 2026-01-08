@@ -1,6 +1,7 @@
 "use client";
 import { Card, CardHeader } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useActionState } from "react";
@@ -64,27 +65,33 @@ export const PlateForm = ({ item }: { item?: Plate; }) => {
         <form action={formAction}>
           <div className="space-y-2">
             <div className="flex gap-2">
-              <input
-                name="plate_weight"
-                type="number"
-                className="input"
-                step="any"
-                defaultValue={item?.weight}
-                placeholder="Weight"
-              />
-              <input
-                name="plate_pairs"
-                type="number"
-                className="input"
-                defaultValue={item?.pairs}
-                placeholder="Pairs"
-              />
+              <fieldset className="fieldset">
+                <legend className="fieldset-legend">Weight</legend>
+                <Input
+                  name="plate_weight"
+                  type="number"
+                  size="sm"
+                  step="any"
+                  defaultValue={item?.weight}
+                  placeholder="Weight"
+                />
+              </fieldset>
+              <fieldset className="fieldset">
+                <legend className="fieldset-legend">Pairs</legend>
+                <Input
+                  name="plate_pairs"
+                  type="number"
+                  size="sm"
+                  defaultValue={item?.pairs}
+                  placeholder="Pairs"
+                />
+              </fieldset>
             </div>
-            <div className="flex justify-between gap-2">
+            <div className="flex justify-between gap-2 mt-5">
               <div className="space-x-2">
                 <Button
                   type="submit"
-                  size="xs"
+                  size="sm"
                   variant="primary"
                   disabled={pending}
                 >
@@ -92,7 +99,7 @@ export const PlateForm = ({ item }: { item?: Plate; }) => {
                 </Button>
                 <Button
                   type="button"
-                  size="xs"
+                  size="sm"
                   variant="outline"
                   onClick={(e) => {
                     e.stopPropagation();
@@ -107,7 +114,7 @@ export const PlateForm = ({ item }: { item?: Plate; }) => {
                 <div>
                   <Button
                     type="button"
-                    size="xs"
+                    size="sm"
                     variant="danger"
                     disabled={pending}
                     onClick={deletePlate}

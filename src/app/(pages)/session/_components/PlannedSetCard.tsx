@@ -1,5 +1,11 @@
 "use client";
-import type { Plate, Barbell, PlannedSet, ActualSet, Exercise } from "@/lib/types";
+import type {
+	Plate,
+	Barbell,
+	PlannedSet,
+	ActualSet,
+	Exercise,
+} from "@/lib/types";
 import { useState, use } from "react";
 import { ActualSetForm } from "./ActualSetForm";
 import { useRouter } from "next/navigation";
@@ -62,59 +68,68 @@ export const PlannedSetCard = ({
 		plannedSet.exercise,
 		plannedSet.targetWeight || 0,
 		equipment.plates,
-		equipment.barbells
+		equipment.barbells,
 	);
 
 	return (
 		<Card>
 			<CardHeader>
 				<CardHeaderActions>
-					{plannedSet.exercise.equipmentType !== "bodyweight" && (
-						<Button onClick={() => setShowWarmup(!showWarmup)} size="xs" variant="outline">{showWarmup ? "Hide" : "Show"} warmups</Button>
+					{plannedSet.exercise.equipmentType === "barbell" && (
+						<Button
+							onClick={() => setShowWarmup(!showWarmup)}
+							size="sm"
+							variant="outline"
+						>
+							{showWarmup ? "Hide" : "Show"} warmups
+						</Button>
 					)}
 				</CardHeaderActions>
-				<CardTitle>{plannedSet.exercise.name} <sup className="text-xs text-base-content/60">{plannedSet.exercise.category}</sup></CardTitle>
+				<CardTitle>
+					{plannedSet.exercise.name}{" "}
+					<sup className="text-sm text-base-content/60">
+						{plannedSet.exercise.category}
+					</sup>
+				</CardTitle>
 				<CardDescription>
-					{plannedSet.intendedSets} x {plannedSet.intendedReps}{" "}
-					@ {plannedSet.targetWeight} lbs
-					{plannedSet.exercise.equipmentType !== "bodyweight" && (
+					{plannedSet.intendedSets} x {plannedSet.intendedReps} @{" "}
+					{plannedSet.targetWeight} lbs
+					{plannedSet.exercise.equipmentType === "barbell" && (
 						<>
-							<div className="mt-1 text-xs text-base-content/60">Plates Needed:</div>
+							<div className="mt-1 text-xs text-base-content/60">
+								Plates Needed:
+							</div>
 							{platesNeeded}
 						</>
 					)}
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
-				{showWarmup && plannedSet.targetWeight && plannedSet.targetWeight > 0 && (
-					<WarmUpSets
-						plates={equipment.plates}
-						barbells={equipment.barbells}
-						exercise={plannedSet.exercise}
-						targetWeight={plannedSet.targetWeight}
-						equipmentType={plannedSet.exercise.equipmentType}
-					/>
-				)}
+				{showWarmup &&
+					plannedSet.targetWeight &&
+					plannedSet.targetWeight > 0 && (
+						<WarmUpSets
+							plates={equipment.plates}
+							barbells={equipment.barbells}
+							exercise={plannedSet.exercise}
+							targetWeight={plannedSet.targetWeight}
+							equipmentType={plannedSet.exercise.equipmentType}
+						/>
+					)}
 
 				{plannedSet.actualSets.map((actualSet) => (
 					<div
 						key={actualSet.id}
-						className="flex gap-2 items-center justify-between border-b pb-2"
+						className="flex gap-2 items-center justify-between border-b border-base-content/10 py-2"
 					>
-						{actualSet.actualReps} @ {actualSet.actualWeight} lbs{" "}
 						<div>
-							<Button
-								onClick={() => setShowEditActualSetForm(actualSet.id)}
-								size="xs"
-								variant="ghost"
-							>
+							<Button variant="outline" size="xs" onClick={() => setShowEditActualSetForm(actualSet.id)}>
 								<Edit className="h-4 w-4" />
 							</Button>
-							<Button
-								onClick={() => deleteActualSet(actualSet.id)}
-								size="xs"
-								variant="ghost"
-							>
+						</div>
+						{actualSet.actualReps} @ {actualSet.actualWeight} lbs{" "}
+						<div>
+							<Button variant="danger" size="xs" onClick={() => deleteActualSet(actualSet.id)}>
 								<Trash className="h-4 w-4" />
 							</Button>
 						</div>
@@ -138,23 +153,17 @@ export const PlannedSetCard = ({
 			{!showActualSetForm && showEditActualSetForm === 0 ? (
 				<CardFooter className="justify-between gap-2">
 					<div className="flex gap-2">
-						<Button
-							size="xs"
-							onClick={() => setShowActualSetForm(true)}
-						>
-							Log Set
-						</Button>
+						<Button size="sm" onClick={() => setShowActualSetForm(true)}>Log Set</Button>
 						{plannedSet.actualSets.length === 0 && (
-							<Button
-								size="xs"
-								onClick={logAllSets}
-							>
-								Log All Sets ({plannedSet.intendedSets})
+							<Button size="sm" onClick={logAllSets}>
+								Log All ({plannedSet.intendedSets})
 							</Button>
 						)}
 					</div>
 					<div>
-						<Button onClick={deletePlannedSet} size="xs" variant="danger"><Trash className="h-4 w-4" /></Button>
+						<Button onClick={deletePlannedSet} size="sm" variant="danger">
+							<Trash className="h-4 w-4" />
+						</Button>
 					</div>
 				</CardFooter>
 			) : null}

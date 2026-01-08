@@ -1,6 +1,9 @@
 "use client";
 import { use, useActionState, useState } from "react";
 import { api } from "@/lib/api";
+import { Button } from "@/components/ui/Button";
+import { Input } from "@/components/ui/Input";
+import { Select } from "@/components/ui/Select";
 import type { ApiResponse, Exercise, InsertablePlannedSet } from "@/lib/types";
 import { useRouter } from "next/navigation";
 
@@ -63,8 +66,7 @@ export const PlannedSetForm = ({
   return (
     <div>
       <form action={formAction} className="space-y-4">
-        <select
-          className="select w-full"
+        <Select
           name="exercise"
           id="exercise"
           onChange={(e) =>
@@ -79,40 +81,37 @@ export const PlannedSetForm = ({
               {exercise.name}
             </option>
           ))}
-        </select>
+        </Select>
         <div className="flex gap-2">
-          <input
+          <Input
             name="intended_sets"
             type="number"
-            className="input"
             placeholder="Sets"
           />
-          <input
+          <Input
             name="intended_reps"
             type="number"
-            className="input"
             placeholder="Reps"
           />
         </div>
         {equipmentType !== "bodyweight" && (
-          <input
+          <Input
             name="target_weight"
             type="number"
-            className="input w-full"
             placeholder="Weight"
           />
         )}
-        <div className="flex gap-2">
-          <button type="submit" className="btn btn-primary w-50">
-            Submit
-          </button>
-          <button
+        <div className="flex justify-between gap-2">
+          <Button type="submit" variant="primary">
+            Save
+          </Button>
+          <Button
+            variant="outline"
             type="button"
-            className="btn btn btn-outline w-50"
             onClick={cancel}
           >
             Cancel
-          </button>
+          </Button>
         </div>
       </form>
     </div>
