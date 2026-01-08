@@ -34,8 +34,8 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 
 		const additionalAttributes: React.InputHTMLAttributes<HTMLInputElement> = {};
 		if (type === "number") {
-			additionalAttributes["role"] = 'spinbutton';
-			additionalAttributes["inputMode"] = 'decimal';
+			additionalAttributes.role = 'spinbutton';
+			additionalAttributes.inputMode = 'decimal';
 		}
 
 		if (label) {
