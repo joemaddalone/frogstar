@@ -35,14 +35,17 @@ const calcHeights = (plates: Plate[]) => {
 export const PlateViz = ({ plates, bar, target }: PlateVizProps) => {
 	const heights = calcHeights(plates);
 	const platesNeeded = justThePlates(bar, target, plates);
+	let dx = 0;
 	const platesToRender = platesNeeded.reduce((acc, plate, index) => {
+
 		for (let i = 0; i < plate.count; i++) {
 			acc.push({
 				weight: plate.weight,
 				height: heights.find((height) => height.weight === plate.weight)?.height || 0,
-				dx: (i + index) * 35,
+				dx: dx,
 				color: colors[index],
 			});
+			dx += 35;
 		}
 		return acc;
 	}, [] as { weight: number; dx: number; height: number; color: string; }[]);
