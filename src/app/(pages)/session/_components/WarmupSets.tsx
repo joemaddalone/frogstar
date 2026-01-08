@@ -77,11 +77,11 @@ export const WarmUpSets = (props: WarmUpSetsProps) => {
 			<div className="text-xs mb-1">Suggested warm-ups:</div>
 			<div className="space-y-1">
 				{warmUpSets.map((warmUp) => (
-					<div key={warmUp.weight} className="flex items-center justify-between text-xs px-2 py-1 rounded border bg-base-200">
-						<div className="font-medium">
+					<div key={warmUp.weight} className="flex items-center justify-between text-sm px-2 py-1 rounded border bg-base-200">
+						<div>
 							{warmUp.weight} lbs ({warmUp.percentage}%) × {warmUp.reps}
 						</div>
-						<div className="text-xs">
+						<div>
 							{renderCalculatedPlates(
 								exercise,
 								warmUp.weight || 0,
