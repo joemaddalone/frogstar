@@ -31,6 +31,13 @@ export interface InputProps
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
 	({ className, variant, size, type, label, ...props }, ref) => {
+
+		const additionalAttributes: React.InputHTMLAttributes<HTMLInputElement> = {};
+		if (type === "number") {
+			additionalAttributes["role"] = 'spinbutton';
+			additionalAttributes["inputMode"] = 'decimal';
+		}
+
 		if (label) {
 			return (
 				<fieldset className="fieldset">
@@ -40,6 +47,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 						className={cn(inputVariants({ variant, size, className }))}
 						ref={ref}
 						{...props}
+						{...additionalAttributes}
 					/>
 				</fieldset>
 			);
@@ -50,6 +58,7 @@ const Input = React.forwardRef<HTMLInputElement, InputProps>(
 				className={cn(inputVariants({ variant, size, className }))}
 				ref={ref}
 				{...props}
+				{...additionalAttributes}
 			/>
 		);
 	}
