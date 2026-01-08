@@ -1,5 +1,5 @@
 "use client";
-import type { ApiResponse, SessionWithDetails } from "@/lib/types";
+import type { ApiResponse, SessionWithDetails, InsertableSession } from "@/lib/types";
 import { use, useMemo } from "react";
 import Link from "next/link";
 import { dateString } from "@/lib/utils";
@@ -8,6 +8,7 @@ import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Badge";
+import { api } from "@/lib/api";
 
 export const SessionList = ({ sessionsLoader }: { sessionsLoader: Promise<ApiResponse<SessionWithDetails[]>>; }) => {
 	const { data: sessions, error } = use(sessionsLoader);
@@ -29,10 +30,24 @@ export const SessionList = ({ sessionsLoader }: { sessionsLoader: Promise<ApiRes
 		if (session.planned_sets > 0 && session.completed_sets >= session.planned_sets) {
 			return "completed";
 		}
-		if (session.planned_sets > 0 && session.completed_sets < session.planned_sets) {
+		if (session.planned_sets > 0 && session.completed_sets !== 0 && session.completed_sets < session.planned_sets) {
 			return "partial";
 		}
 		return "planned";
+	};
+
+	const createSession = async () => {
+		const newSession: InsertableSession = {
+			date: new Date(),
+		};
+		const { data, error } = await api.sessions.create(newSession);
+		if (error) {
+			return;
+		}
+		if (!data?.id) {
+			return;
+		}
+		router.push(`/session/${data.id}`);
 	};
 
 
@@ -69,7 +84,7 @@ export const SessionList = ({ sessionsLoader }: { sessionsLoader: Promise<ApiRes
 				<div className="flex items-center justify-between mb-4">
 					<h2 className="text-xl font-bold tracking-tight">Recent Sessions</h2>
 					{sessions.length > 0 && (
-						<Button variant="ghost" size="sm" onClick={() => router.push('/session')}>
+						<Button variant="ghost" size="sm" onClick={createSession}>
 							<Plus className="mr-1" /> New
 						</Button>
 					)}

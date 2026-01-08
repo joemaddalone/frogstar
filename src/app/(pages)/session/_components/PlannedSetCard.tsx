@@ -22,7 +22,7 @@ import {
 	CardHeaderActions,
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { Edit, Trash } from "lucide-react";
+import { Trash, ChevronRight } from "lucide-react";
 export const PlannedSetCard = ({
 	plannedSet,
 	equipmentLoader,
@@ -39,7 +39,7 @@ export const PlannedSetCard = ({
 	const deletePlannedSet = async () => {
 		const { error } = await api.planned_sets.delete(plannedSet.id);
 		if (!error) {
-			router.refresh();
+			router.push(`/session/${plannedSet.sessionId}`);
 		}
 	};
 
@@ -117,22 +117,31 @@ export const PlannedSetCard = ({
 						/>
 					)}
 
+				{plannedSet.actualSets.length > 0 && <h1>Completed Sets</h1>}
+
 				{plannedSet.actualSets.map((actualSet) => (
 					<div
 						key={actualSet.id}
-						className="flex gap-2 items-center justify-between border-b border-base-content/10 py-2"
+						className="flex gap-2 items-center justify-between py-2"
 					>
-						<div>
-							<Button variant="outline" size="xs" onClick={() => setShowEditActualSetForm(actualSet.id)}>
-								<Edit className="h-4 w-4" />
-							</Button>
-						</div>
-						{actualSet.actualReps} @ {actualSet.actualWeight} lbs{" "}
-						<div>
-							<Button variant="danger" size="xs" onClick={() => deleteActualSet(actualSet.id)}>
-								<Trash className="h-4 w-4" />
-							</Button>
-						</div>
+						{showEditActualSetForm === actualSet.id ? (
+							<ActualSetForm
+								plannedSet={plannedSet}
+								actualSetId={showEditActualSetForm}
+								cancel={() => setShowEditActualSetForm(0)}
+								deleteActualSet={deleteActualSet}
+							/>
+						) : (
+							<Card
+								className="cursor-pointer w-full p-2"
+								onClick={() => setShowEditActualSetForm(actualSet.id)}
+							>
+								<CardDescription className="flex items-center justify-between">
+									{actualSet.actualReps} @ {actualSet.actualWeight} lbs{" "}
+									<ChevronRight className="h-5 w-5 text-base-content/20 group-hover:text-primary transition-colors" />
+								</CardDescription>
+							</Card>
+						)}
 					</div>
 				))}
 
@@ -140,20 +149,16 @@ export const PlannedSetCard = ({
 					<ActualSetForm
 						plannedSet={plannedSet}
 						cancel={() => setShowActualSetForm(false)}
-					/>
-				)}
-				{showEditActualSetForm > 0 && (
-					<ActualSetForm
-						plannedSet={plannedSet}
-						actualSetId={showEditActualSetForm}
-						cancel={() => setShowEditActualSetForm(0)}
+						deleteActualSet={deleteActualSet}
 					/>
 				)}
 			</CardContent>
 			{!showActualSetForm && showEditActualSetForm === 0 ? (
 				<CardFooter className="justify-between gap-2">
 					<div className="flex gap-2">
-						<Button size="sm" onClick={() => setShowActualSetForm(true)}>Log Set</Button>
+						<Button size="sm" onClick={() => setShowActualSetForm(true)}>
+							Log Set
+						</Button>
 						{plannedSet.actualSets.length === 0 && (
 							<Button size="sm" onClick={logAllSets}>
 								Log All ({plannedSet.intendedSets})

@@ -5,7 +5,7 @@ import type { InsertableActualSet, PlannedSet, ActualSet, Exercise } from "@/lib
 import { useRouter } from "next/navigation";
 import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
-import { Check, X } from "lucide-react";
+import { Check, X, Trash } from "lucide-react";
 
 
 type FormState = {
@@ -20,7 +20,7 @@ const initialState: FormState = {
 
 
 
-export const ActualSetForm = ({ plannedSet, actualSetId, cancel }: { plannedSet: PlannedSet & { exercise: Exercise; actualSets: ActualSet[]; }; actualSetId?: number; cancel: () => void; }) => {
+export const ActualSetForm = ({ plannedSet, actualSetId, cancel, deleteActualSet }: { plannedSet: PlannedSet & { exercise: Exercise; actualSets: ActualSet[]; }; actualSetId?: number; cancel: () => void; deleteActualSet: (actualSetId: number) => void; }) => {
 	const router = useRouter();
 	const createActualSet = async (state: FormState, formData: FormData) => {
 		const newActualSet: InsertableActualSet | ActualSet = {
@@ -57,6 +57,7 @@ export const ActualSetForm = ({ plannedSet, actualSetId, cancel }: { plannedSet:
 
 	};
 
+
 	const [_state, newAction, _pending] = useActionState(createActualSet, initialState);
 
 	const formData = {
@@ -65,25 +66,28 @@ export const ActualSetForm = ({ plannedSet, actualSetId, cancel }: { plannedSet:
 	};
 
 	return (
-		<div>
-			<h1>Actual Set Form</h1>
-			<form action={newAction}>
-				<div className="flex gap-2 items-center">
-					<fieldset className="fieldset">
-						<legend className="fieldset-legend">Reps</legend>
-						<Input defaultValue={formData.intendedReps || 0} type="number" name="actual_reps" id="actual_reps" placeholder="Type here" />
-					</fieldset>
+		<form action={newAction}>
+			<div className="flex gap-2 items-center">
+				<fieldset className="fieldset">
+					<legend className="fieldset-legend">Reps</legend>
+					<Input defaultValue={formData.intendedReps || 0} type="number" name="actual_reps" id="actual_reps" placeholder="Type here" />
+				</fieldset>
 
-					<fieldset className="fieldset">
-						<legend className="fieldset-legend">Weight</legend>
-						<Input defaultValue={formData.intendedWeight || 0} type="number" name="actual_weight" id="actual_weight" placeholder="Type here" />
-					</fieldset>
+				<fieldset className="fieldset">
+					<legend className="fieldset-legend">Weight</legend>
+					<Input defaultValue={formData.intendedWeight || 0} type="number" name="actual_weight" id="actual_weight" placeholder="Type here" />
+				</fieldset>
+			</div>
+			<div className="flex justify-between gap-2 mt-2">
+				<div className="flex gap-2">
+					<Button type="submit" size="sm" variant="primary"><Check className="h-4 w-4" />Log</Button>
+					<Button type="button" size="sm" onClick={cancel} variant="outline"><X className="h-4 w-4" />Cancel</Button>
 				</div>
-				<div className="flex justify-between gap-2 mt-2">
-					<Button type="submit" variant="primary"><Check className="h-4 w-4" />Log</Button>
-					<Button type="button" onClick={cancel} variant="outline"><X className="h-4 w-4" />Cancel</Button>
-				</div>
-			</form>
-		</div>
+				{actualSetId ? (
+					<Button type="button" size="sm" variant="danger" onClick={() => deleteActualSet(actualSetId)}><Trash className="h-4 w-4" />Delete</Button>
+				) : null}
+			</div>
+		</form>
+
 	);
 };

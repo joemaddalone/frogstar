@@ -5,7 +5,6 @@ import { loadPlateCalculatorSettings } from "@/lib/plateCalculator";
 import { SessionDatePicker } from "@/app/(pages)/session/_components/SessionDatePicker";
 import { PlannedSetCard } from "@/app/(pages)/session/_components/PlannedSetCard";
 import { SessionHeader } from "@/app/(pages)/session/_components/SessionHeader";
-import Link from "next/link";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { Plus } from "lucide-react";
 export default async function SessionPage(props: PageProps<"/session/[id]">) {
@@ -19,20 +18,25 @@ export default async function SessionPage(props: PageProps<"/session/[id]">) {
 	return (
 		<>
 			<Header label="session">
-				<SessionDatePicker session={session} />
 				<SessionHeader session={session} />
 			</Header>
 			<main className="flex flex-col gap-4">
-				<ButtonLink size="sm" variant="outline" href={`/session/${session.id}/add`}>
+				<SessionDatePicker session={session} />
+				<ButtonLink variant="outline" href={`/session/${session.id}/add`}>
 					<Plus className="h-4 w-4" /> Add Exercise
 				</ButtonLink>
+
 				{session.plannedSets.length === 0 && (
 					<div className="flex items-center justify-center m-4">
 						No planned sets found
 					</div>
 				)}
 				{session.plannedSets.map((plannedSet) => (
-					<PlannedSetCard key={plannedSet.id} plannedSet={plannedSet} equipmentLoader={equipment} />
+					<PlannedSetCard
+						key={plannedSet.id}
+						plannedSet={plannedSet}
+						equipmentLoader={equipment}
+					/>
 				))}
 			</main>
 		</>
