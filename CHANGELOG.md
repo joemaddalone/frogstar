@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/joemaddalone/frogstar/compare/v1.7.0...v1.8.0) (2026-01-08)
+
+
+### Features
+
+* **ui:** refactor session ui ([#13](https://github.com/joemaddalone/frogstar/issues/13)) ([8562506](https://github.com/joemaddalone/frogstar/commit/85625068d79b6223005c8b3ee8a961c4d2cb59bd))
+
 # [1.7.0](https://github.com/joemaddalone/frogstar/compare/v1.6.0...v1.7.0) (2026-01-08)
 
 
