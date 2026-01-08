@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/joemaddalone/frogstar/compare/v1.8.0...v1.8.1) (2026-01-08)
+
+
+### Bug Fixes
+
+* remove bad href to removed route ([ceebca6](https://github.com/joemaddalone/frogstar/commit/ceebca6984e330d2a4ac2cd53d005d10484785f6))
+
 # [1.8.0](https://github.com/joemaddalone/frogstar/compare/v1.7.0...v1.8.0) (2026-01-08)
 
 
