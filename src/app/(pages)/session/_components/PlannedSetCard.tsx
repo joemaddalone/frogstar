@@ -10,7 +10,6 @@ import { useState, use } from "react";
 import { ActualSetForm } from "./ActualSetForm";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
-import { renderCalculatedPlates } from "@/lib/plateCalculator";
 import { WarmUpSets } from "./WarmupSets";
 import {
 	Card,
@@ -23,6 +22,7 @@ import {
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Trash, ChevronRight } from "lucide-react";
+import { PlateViz } from "@/components/PlateViz";
 export const PlannedSetCard = ({
 	plannedSet,
 	equipmentLoader,
@@ -66,12 +66,8 @@ export const PlannedSetCard = ({
 		router.refresh();
 	};
 
-	const platesNeeded = renderCalculatedPlates(
-		plannedSet.exercise,
-		plannedSet.targetWeight || 0,
-		equipment.plates,
-		equipment.barbells,
-	);
+	const barWeight =
+		equipment.barbells.find((barbell) => barbell.id === plannedSet.exercise.barbellId)?.weight || 0;
 
 	return (
 		<Card>
@@ -97,12 +93,12 @@ export const PlannedSetCard = ({
 					{plannedSet.intendedSets} x {plannedSet.intendedReps} @{" "}
 					{plannedSet.targetWeight} lbs
 					{plannedSet.exercise.equipmentType === "barbell" && (
-						<>
-							<div className="mt-1 text-xs text-base-content/60">
-								Plates Needed:
-							</div>
-							{platesNeeded}
-						</>
+
+						<PlateViz
+							plates={equipment.plates}
+							bar={barWeight}
+							target={plannedSet.targetWeight || 0}
+						/>
 					)}
 				</CardDescription>
 			</CardHeader>
