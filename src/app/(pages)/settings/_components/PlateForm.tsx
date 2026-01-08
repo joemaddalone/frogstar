@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useActionState } from "react";
 import type { Route } from "next";
 import type { ApiResponse, Plate, InsertablePlate } from "@/lib/types";
+import { useTranslations } from "next-intl";
 
 type FormState = {
   plate_pairs?: string;
@@ -24,9 +25,12 @@ const initialState: FormState = {
 
 export const PlateForm = ({ item }: { item?: Plate; }) => {
   const router = useRouter();
-
+  const t = useTranslations();
   const deletePlate = async () => {
     if (item?.id) {
+      if (!window.confirm(t("common.confirm_delete_plate"))) {
+        return;
+      }
       const { error } = await api.plates.delete(item.id);
       if (!error) {
         router.push(`/settings/plates` as Route);
@@ -73,22 +77,22 @@ export const PlateForm = ({ item }: { item?: Plate; }) => {
           <div className="space-y-2">
             <div className="flex gap-2">
               <Input
-                label="Weight"
+                label={t("common.weight")}
                 name="plate_weight"
                 type="number"
                 size="sm"
                 step="any"
                 defaultValue={item?.weight}
-                placeholder="Weight"
+                placeholder={t("common.weight")}
               />
 
               <Input
-                label="Pairs"
+                label={t("common.pairs")}
                 name="plate_pairs"
                 type="number"
                 size="sm"
                 defaultValue={item?.pairs}
-                placeholder="Pairs"
+                placeholder={t("common.pairs")}
               />
             </div>
           </div>

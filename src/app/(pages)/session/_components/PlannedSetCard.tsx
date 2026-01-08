@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/Button";
 import { ChevronRight, Pencil } from "lucide-react";
 import { PlateViz } from "@/components/PlateViz";
 import { ButtonLink } from "@/components/ui/ButtonLink";
+import { useTranslations } from "next-intl";
 export const PlannedSetCard = ({
 	plannedSet,
 	equipmentLoader,
@@ -35,7 +36,7 @@ export const PlannedSetCard = ({
 	const [showWarmup, setShowWarmup] = useState(false);
 	const equipment = use(equipmentLoader);
 	const router = useRouter();
-
+	const t = useTranslations();
 
 	const deleteActualSet = async (actualSetId: number) => {
 		const { error } = await api.actual_sets.delete(actualSetId);
@@ -65,7 +66,9 @@ export const PlannedSetCard = ({
 	// };
 
 	const barWeight =
-		equipment.barbells.find((barbell) => barbell.id === plannedSet.exercise.barbellId)?.weight || 0;
+		equipment.barbells.find(
+			(barbell) => barbell.id === plannedSet.exercise.barbellId,
+		)?.weight || 0;
 
 	return (
 		<Card>
@@ -89,7 +92,6 @@ export const PlannedSetCard = ({
 					{plannedSet.intendedSets} x {plannedSet.intendedReps} @{" "}
 					{plannedSet.targetWeight} lbs
 					{plannedSet.exercise.equipmentType === "barbell" && (
-
 						<PlateViz
 							plates={equipment.plates}
 							bar={barWeight}
@@ -101,7 +103,7 @@ export const PlannedSetCard = ({
 			<CardContent>
 				<div className="flex justify-between gap-2">
 					<Button size="sm" className="w-auto mb-2" onClick={logSet}>
-						Log Set
+						{t("common.log_set")}
 					</Button>
 					{plannedSet.exercise.equipmentType === "barbell" && (
 						<Button
@@ -109,7 +111,8 @@ export const PlannedSetCard = ({
 							size="sm"
 							variant="outline"
 						>
-							{showWarmup ? "Hide" : "Show"} warmups
+							{showWarmup ? t("common.hide") : t("common.show")}{" "}
+							{t("common.warmups")}
 						</Button>
 					)}
 				</div>
@@ -126,7 +129,9 @@ export const PlannedSetCard = ({
 						/>
 					)}
 
-				{plannedSet.actualSets.length > 0 && <h1>Completed Sets</h1>}
+				{plannedSet.actualSets.length > 0 && (
+					<h1>{t("common.completed_sets")}</h1>
+				)}
 				{plannedSet.actualSets.map((actualSet) => (
 					<div
 						key={actualSet.id}

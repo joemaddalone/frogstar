@@ -1,5 +1,6 @@
 import { renderCalculatedPlates } from "@/lib/plateCalculator";
 import type { Exercise, Plate, Barbell } from "@/lib/types";
+import { useTranslations } from "next-intl";
 
 
 export type WarmUpSet = {
@@ -69,12 +70,13 @@ export const calculateWarmUpSets = (targetWeight: number, equipmentType: string 
 };
 
 export const WarmUpSets = (props: WarmUpSetsProps) => {
+	const t = useTranslations();
 	const { targetWeight, exercise, plates, barbells, equipmentType, className = '' } = props;
 	const warmUpSets = calculateWarmUpSets(targetWeight, equipmentType, exercise, plates, barbells);
 
 	return (
 		<div className={`mb-2 ${className}`}>
-			<div className="text-xs mb-1">Suggested warm-ups:</div>
+			<div className="text-xs mb-1">{t('common.warmups')}:</div>
 			<div className="space-y-1">
 				{warmUpSets.map((warmUp) => (
 					<div key={warmUp.weight} className="flex items-center justify-between text-sm px-2 py-1 rounded border bg-base-200">
