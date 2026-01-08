@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/joemaddalone/frogstar/compare/v1.8.1...v1.9.0) (2026-01-08)
+
+
+### Features
+
+* commoner components ([ec30414](https://github.com/joemaddalone/frogstar/commit/ec30414fd9ad44b6427168ee934a55e46370dfc8))
+
 ## [1.8.1](https://github.com/joemaddalone/frogstar/compare/v1.8.0...v1.8.1) (2026-01-08)
 
 
