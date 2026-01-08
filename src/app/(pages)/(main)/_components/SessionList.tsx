@@ -1,7 +1,6 @@
 "use client";
 import type { ApiResponse, SessionWithDetails, InsertableSession } from "@/lib/types";
 import { use, useMemo } from "react";
-import Link from "next/link";
 import { dateString } from "@/lib/utils";
 import { Calendar, Plus, ChevronRight } from "lucide-react";
 import { useRouter } from "next/navigation";
