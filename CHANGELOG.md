@@ -1,3 +1,10 @@
+## [1.11.1](https://github.com/joemaddalone/frogstar/compare/v1.11.0...v1.11.1) (2026-01-08)
+
+
+### Bug Fixes
+
+* ios number fields keyboard ([b8de452](https://github.com/joemaddalone/frogstar/commit/b8de452b9f3f0ceea24e8b8aa86b50bcceb4e969))
+
 # [1.11.0](https://github.com/joemaddalone/frogstar/compare/v1.10.1...v1.11.0) (2026-01-08)
 
 
