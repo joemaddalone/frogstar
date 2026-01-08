@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/joemaddalone/frogstar/compare/v1.10.1...v1.11.0) (2026-01-08)
+
+
+### Features
+
+* easier logging ([#15](https://github.com/joemaddalone/frogstar/issues/15)) ([f677dc7](https://github.com/joemaddalone/frogstar/commit/f677dc76df21e6fefc26827a0bf84d30cd437116))
+
 ## [1.10.1](https://github.com/joemaddalone/frogstar/compare/v1.10.0...v1.10.1) (2026-01-08)
 
 
