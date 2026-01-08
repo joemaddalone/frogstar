@@ -100,10 +100,8 @@ export const SessionList = ({ sessionsLoader }: { sessionsLoader: Promise<ApiRes
 							<p className="text-base-content/60 mb-6 max-w-[240px]">
 								Start tracking your workouts by creating your first session.
 							</p>
-							<Button asChild>
-								<Link href="/session">
-									<Plus className="mr-2" /> Create Session
-								</Link>
+							<Button onClick={createSession}>
+								<Plus className="mr-2" /> Create Session
 							</Button>
 						</CardContent>
 					</Card>
