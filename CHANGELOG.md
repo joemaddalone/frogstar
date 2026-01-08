@@ -1,3 +1,10 @@
+# [1.7.0](https://github.com/joemaddalone/frogstar/compare/v1.6.0...v1.7.0) (2026-01-08)
+
+
+### Features
+
+* **ui:** more consistent form element design ([4e0764d](https://github.com/joemaddalone/frogstar/commit/4e0764d4f7934844633a056ba16648f6825d6516))
+
 # [1.6.0](https://github.com/joemaddalone/frogstar/compare/v1.5.0...v1.6.0) (2026-01-07)
 
 
