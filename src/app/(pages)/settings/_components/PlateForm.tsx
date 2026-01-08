@@ -1,6 +1,10 @@
 "use client";
-import { Card, CardHeader } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
+import {
+  Card,
+  CardHeader,
+  CardFooter,
+  CommonCardFormActions,
+} from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
@@ -57,76 +61,49 @@ export const PlateForm = ({ item }: { item?: Plate; }) => {
     return state;
   };
 
-  const [_plateData, formAction, pending] = useActionState(action, initialState);
+  const [_plateData, formAction, pending] = useActionState(
+    action,
+    initialState,
+  );
 
   return (
     <Card className="mb-2">
-      <CardHeader>
-        <form action={formAction}>
+      <form action={formAction}>
+        <CardHeader>
           <div className="space-y-2">
             <div className="flex gap-2">
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Weight</legend>
-                <Input
-                  name="plate_weight"
-                  type="number"
-                  size="sm"
-                  step="any"
-                  defaultValue={item?.weight}
-                  placeholder="Weight"
-                />
-              </fieldset>
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Pairs</legend>
-                <Input
-                  name="plate_pairs"
-                  type="number"
-                  size="sm"
-                  defaultValue={item?.pairs}
-                  placeholder="Pairs"
-                />
-              </fieldset>
-            </div>
-            <div className="flex justify-between gap-2 mt-5">
-              <div className="space-x-2">
-                <Button
-                  type="submit"
-                  size="sm"
-                  variant="primary"
-                  disabled={pending}
-                >
-                  Save
-                </Button>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="outline"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    router.push(`/settings/plates` as Route);
-                  }}
-                >
-                  Cancel
-                </Button>
-              </div>
+              <Input
+                label="Weight"
+                name="plate_weight"
+                type="number"
+                size="sm"
+                step="any"
+                defaultValue={item?.weight}
+                placeholder="Weight"
+              />
 
-              {item?.id ? (
-                <div>
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="danger"
-                    disabled={pending}
-                    onClick={deletePlate}
-                  >
-                    Delete
-                  </Button>
-                </div>
-              ) : null}
+              <Input
+                label="Pairs"
+                name="plate_pairs"
+                type="number"
+                size="sm"
+                defaultValue={item?.pairs}
+                placeholder="Pairs"
+              />
             </div>
           </div>
-        </form>
-      </CardHeader>
+        </CardHeader>
+        <CardFooter className="flex justify-between gap-2">
+          <CommonCardFormActions
+            onCancel={() => {
+              router.push(`/settings/plates` as Route);
+            }}
+            onDestroy={deletePlate}
+            showDestroy={Boolean(item?.id)}
+            pending={pending}
+          />
+        </CardFooter>
+      </form>
     </Card>
   );
 };

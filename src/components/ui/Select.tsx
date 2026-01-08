@@ -20,15 +20,31 @@ const selectVariants = cva(
 			variant: "default",
 			size: "default",
 		},
-	}
+	},
 );
 
 export interface SelectProps
 	extends Omit<React.SelectHTMLAttributes<HTMLSelectElement>, "size">,
-	VariantProps<typeof selectVariants> { }
+	VariantProps<typeof selectVariants> {
+	label?: string;
+}
 
 const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
-	({ className, variant, size, children, ...props }, ref) => {
+	({ className, variant, size, children, label, ...props }, ref) => {
+		if (label) {
+			return (
+				<fieldset className="fieldset">
+					<legend className="fieldset-legend">{label}</legend>
+					<select
+						className={cn(selectVariants({ variant, size, className }))}
+						ref={ref}
+						{...props}
+					>
+						{children}
+					</select>
+				</fieldset>
+			);
+		}
 		return (
 			<select
 				className={cn(selectVariants({ variant, size, className }))}
@@ -38,7 +54,7 @@ const Select = React.forwardRef<HTMLSelectElement, SelectProps>(
 				{children}
 			</select>
 		);
-	}
+	},
 );
 Select.displayName = "Select";
 

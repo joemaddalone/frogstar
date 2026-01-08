@@ -1,14 +1,16 @@
 "use client";
-import { Card, CardHeader } from "@/components/ui/Card";
-import { Button } from "@/components/ui/Button";
+import {
+  Card,
+  CardHeader,
+  CardFooter,
+  CommonCardFormActions,
+} from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useActionState } from "react";
 import type { Route } from "next";
 import type { ApiResponse, Barbell, InsertableBarbell } from "@/lib/types";
-import { Trash } from "lucide-react";
-
 
 type FormState = {
   barbell_name?: string;
@@ -58,81 +60,48 @@ export const BarbellForm = ({ item }: { item?: Barbell; }) => {
 
   const [_barbellData, formAction, pending] = useActionState(
     action,
-    initialState
+    initialState,
   );
 
   return (
     <Card className="mb-2">
-      <CardHeader>
-        <form action={formAction}>
+      <form action={formAction}>
+        <CardHeader>
           <div className="space-y-2">
-
             <div className="flex gap-2">
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Name</legend>
-                <Input
-                  name="barbell_name"
-                  type="text"
-                  size="sm"
-                  className="w-60"
-                  defaultValue={item?.name}
-                  placeholder="EZ Curl Bar"
-                />
-              </fieldset>
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Weight</legend>
-                <Input
-                  name="barbell_weight"
-                  type="number"
-                  size="sm"
-                  className="w-20"
-                  defaultValue={item?.weight}
-                  placeholder="25"
-                />
-              </fieldset>
-            </div>
+              <Input
+                label="Name"
+                name="barbell_name"
+                type="text"
+                size="sm"
+                className="w-60"
+                defaultValue={item?.name}
+                placeholder="EZ Curl Bar"
+              />
 
-
-            <div className="flex justify-between gap-2 mt-5">
-              <div className="space-x-2">
-                <Button
-                  size="sm"
-                  type="submit"
-                  variant="primary"
-                  disabled={pending}
-                >
-                  Save
-                </Button>
-                <Button
-                  size="sm"
-                  type="button"
-                  variant="outline"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    router.push(`/settings/barbells` as Route);
-                  }}
-                >
-                  Cancel
-                </Button>
-              </div>
-
-              {item?.id ? (
-                <div>
-                  <Button
-                    size="sm"
-                    type="button"
-                    variant="danger"
-                    disabled={pending}
-                    onClick={deleteBarbell}
-                  >
-                    <Trash className="h-4 w-4" />
-                  </Button>
-                </div>
-              ) : null}
+              <Input
+                label="Weight"
+                name="barbell_weight"
+                type="number"
+                size="sm"
+                className="w-20"
+                defaultValue={item?.weight}
+                placeholder="25"
+              />
             </div>
           </div>
-        </form>
-      </CardHeader>
+        </CardHeader>
+        <CardFooter className="flex justify-between gap-2">
+          <CommonCardFormActions
+            onCancel={() => {
+              router.push(`/settings/barbells` as Route);
+            }}
+            onDestroy={deleteBarbell}
+            showDestroy={Boolean(item?.id)}
+            pending={pending}
+          />
+        </CardFooter>
+      </form>
     </Card>
   );
 };

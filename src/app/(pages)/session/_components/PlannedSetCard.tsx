@@ -46,6 +46,8 @@ export const PlannedSetCard = ({
 	const deleteActualSet = async (actualSetId: number) => {
 		const { error } = await api.actual_sets.delete(actualSetId);
 		if (!error) {
+			setShowEditActualSetForm(0);
+			setShowActualSetForm(false);
 			router.refresh();
 		}
 	};

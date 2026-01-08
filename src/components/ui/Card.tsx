@@ -1,5 +1,6 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
+import { Button } from "./Button";
 
 const Card = React.forwardRef<
 	HTMLDivElement,
@@ -88,4 +89,91 @@ const CardFooter = React.forwardRef<
 ));
 CardFooter.displayName = "CardFooter";
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, CardHeaderActions };
+interface CardAffirmProps {
+	pending?: boolean;
+	label?: string;
+
+}
+const CardAffirm = ({ pending, label }: CardAffirmProps) => {
+	return (
+		<Button
+			type="submit"
+			size="sm"
+			variant="primary"
+			disabled={pending}
+		>
+			{label || "Save"}
+		</Button>
+	);
+};
+
+interface CardCancelProps {
+	onClick?: (e: React.PointerEvent<HTMLButtonElement>) => void;
+	label?: string;
+	pending?: boolean;
+}
+
+const CardCancel = ({ onClick, label, pending }: CardCancelProps) => {
+	return (
+		<Button
+			type="button"
+			size="sm"
+			variant="outline"
+			onClick={onClick}
+			disabled={pending}
+		>
+			{label || "Cancel"}
+		</Button>
+	);
+};
+
+interface CardDestroyProps {
+	onClick?: (e: React.PointerEvent<HTMLButtonElement>) => void;
+	label?: string;
+	pending?: boolean;
+}
+
+const CardDestroy = ({ onClick, label, pending }: CardDestroyProps) => {
+	return (
+		<Button
+			type="button"
+			size="sm"
+			variant="danger"
+			onClick={onClick}
+			disabled={pending}
+		>
+			{label || "Delete"}
+		</Button>
+	);
+};
+
+
+const CommonCardFormActions = ({
+	onCancel,
+	onDestroy,
+	showDestroy,
+	pending,
+}: {
+	onCancel?: (e: React.PointerEvent<HTMLButtonElement>) => void;
+	onDestroy?: (e: React.PointerEvent<HTMLButtonElement>) => void;
+	showDestroy?: boolean;
+	pending?: boolean;
+}) => {
+	return (
+		<>
+			<div className="space-x-2">
+				<CardAffirm pending={pending} />
+				<CardCancel
+					onClick={onCancel}
+					pending={pending}
+				/>
+			</div>
+
+			{showDestroy && onDestroy ? (
+				<CardDestroy pending={pending} onClick={onDestroy} />
+			) : null}
+		</>
+	);
+};
+
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, CardHeaderActions, CardAffirm, CardCancel, CardDestroy, CommonCardFormActions };

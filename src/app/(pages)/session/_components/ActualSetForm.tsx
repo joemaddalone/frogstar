@@ -68,15 +68,8 @@ export const ActualSetForm = ({ plannedSet, actualSetId, cancel, deleteActualSet
 	return (
 		<form action={newAction}>
 			<div className="flex gap-2 items-center">
-				<fieldset className="fieldset">
-					<legend className="fieldset-legend">Reps</legend>
-					<Input defaultValue={formData.intendedReps || 0} type="number" name="actual_reps" id="actual_reps" placeholder="Type here" />
-				</fieldset>
-
-				<fieldset className="fieldset">
-					<legend className="fieldset-legend">Weight</legend>
-					<Input defaultValue={formData.intendedWeight || 0} type="number" name="actual_weight" id="actual_weight" placeholder="Type here" />
-				</fieldset>
+				<Input label="Reps" defaultValue={formData.intendedReps || 0} type="number" name="actual_reps" id="actual_reps" placeholder="Reps" />
+				<Input label="Weight" defaultValue={formData.intendedWeight || 0} type="number" name="actual_weight" id="actual_weight" placeholder="Weight" />
 			</div>
 			<div className="flex justify-between gap-2 mt-2">
 				<div className="flex gap-2">

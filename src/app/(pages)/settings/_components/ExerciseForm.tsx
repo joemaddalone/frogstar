@@ -1,13 +1,17 @@
 "use client";
-import { Button } from "@/components/ui/Button";
 import { Input } from "@/components/ui/Input";
 import { Select } from "@/components/ui/Select";
-import { Card, CardHeader } from "@/components/ui/Card";
+import { Card, CardFooter, CardHeader, CommonCardFormActions } from "@/components/ui/Card";
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import type { Route } from "next";
-import type { ApiResponse, Barbell, Exercise, InsertableExercise } from "@/lib/types";
+import type {
+  ApiResponse,
+  Barbell,
+  Exercise,
+  InsertableExercise,
+} from "@/lib/types";
 import { useState } from "react";
 
 type FormState = {
@@ -25,7 +29,9 @@ const initialState: FormState = {
 export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
   const router = useRouter();
   const [barbells, setBarbells] = useState<Barbell[]>([]);
-  const [equipmentType, setEquipmentType] = useState(item?.equipmentType || "barbell");
+  const [equipmentType, setEquipmentType] = useState(
+    item?.equipmentType || "barbell",
+  );
 
   const deleteExercise = async () => {
     if (item?.id) {
@@ -47,7 +53,7 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
       name: name,
       category: category,
       equipmentType: equipmentType,
-      barbellId: Number(barbellId) || undefined
+      barbellId: Number(barbellId) || undefined,
     };
     const isNew = item?.id;
 
@@ -68,7 +74,6 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
     return state;
   };
 
-
   useEffect(() => {
     // fetch barbells
     const doit = async () => {
@@ -80,101 +85,78 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
     doit();
   }, []);
 
-  const [_plateData, formAction, pending] = useActionState(action, initialState);
+  const [_plateData, formAction, pending] = useActionState(
+    action,
+    initialState,
+  );
 
   return (
     <Card className="mb-2">
-      <CardHeader>
-        <form action={formAction}>
+      <form action={formAction}>
+        <CardHeader>
           <div className="space-y-2">
             <div className="flex gap-2">
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Name</legend>
-                <Input
-                  name="exercise_name"
-                  type="text"
-                  size="sm"
-                  defaultValue={item?.name}
-                  placeholder="Bench Press Close-Grip"
-                />
-              </fieldset>
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Category</legend>
-                <Input
-                  name="exercise_category"
-                  type="text"
-                  size="sm"
-                  defaultValue={item?.category}
-                  placeholder="Push, Pull, Legs, etc."
-                />
-              </fieldset>
+              <Input
+                label="Name"
+                name="exercise_name"
+                type="text"
+                size="sm"
+                defaultValue={item?.name}
+                placeholder="Bench Press Close-Grip"
+              />
+              <Input
+                label="Category"
+                name="exercise_category"
+                type="text"
+                size="sm"
+                defaultValue={item?.category}
+                placeholder="Push, Pull, Legs, etc."
+              />
             </div>
 
-            <fieldset className="fieldset">
-              <legend className="fieldset-legend">Equipment Type</legend>
-              <Select size="sm" onChange={(e) => setEquipmentType(e.target.value)} defaultValue={item?.equipmentType} name="equipment_type">
-                <option disabled={true}>Equipment Type</option>
-                <option value="barbell">Barbell</option>
-                <option value="bodyweight">Bodyweight</option>
-                <option value="cable">Cable</option>
-                <option value="dumbbell">Dumbbell</option>
-                <option value="machine">Machine</option>
-              </Select>
-            </fieldset>
+            <Select
+              label="Equipment Type"
+              size="sm"
+              onChange={(e) => setEquipmentType(e.target.value)}
+              defaultValue={item?.equipmentType}
+              name="equipment_type"
+            >
+              <option disabled={true}>Equipment Type</option>
+              <option value="barbell">Barbell</option>
+              <option value="bodyweight">Bodyweight</option>
+              <option value="cable">Cable</option>
+              <option value="dumbbell">Dumbbell</option>
+              <option value="machine">Machine</option>
+            </Select>
+
             {equipmentType === "barbell" && (
-              <fieldset className="fieldset">
-                <legend className="fieldset-legend">Barbell</legend>
-                <Select size="sm" defaultValue={Number(item?.barbellId) || 1} name="barbell_id">
-                  <option disabled={true}>Barbell</option>
-                  {barbells.map((barbell) => (
-                    <option key={barbell.id} value={barbell.id}>
-                      {barbell.name}
-                    </option>
-                  ))}
-                </Select>
-              </fieldset>
+              <Select
+                label="Barbell"
+                size="sm"
+                defaultValue={Number(item?.barbellId) || 1}
+                name="barbell_id"
+              >
+                <option disabled={true}>Barbell</option>
+                {barbells.map((barbell) => (
+                  <option key={barbell.id} value={barbell.id}>
+                    {barbell.name}
+                  </option>
+                ))}
+              </Select>
             )}
-
-            <div className="flex justify-between gap-2 mt-5">
-              <div className="space-x-2">
-                <Button
-                  type="submit"
-                  size="sm"
-                  variant="primary"
-                  disabled={pending}
-                >
-                  Save
-                </Button>
-                <Button
-                  type="button"
-                  size="sm"
-                  variant="outline"
-                  onClick={(e) => {
-                    e.stopPropagation();
-                    router.push(`/settings/exercises` as Route);
-                  }}
-                >
-                  Cancel
-                </Button>
-              </div>
-
-              {item?.id ? (
-                <div>
-                  <Button
-                    type="button"
-                    size="sm"
-                    variant="danger"
-                    disabled={pending}
-                    onClick={deleteExercise}
-                  >
-                    Delete
-                  </Button>
-                </div>
-              ) : null}
-            </div>
           </div>
-        </form>
-      </CardHeader>
+        </CardHeader>
+        <CardFooter className="flex justify-between gap-2">
+          <CommonCardFormActions
+            onCancel={() => {
+              router.push(`/settings/exercises` as Route);
+            }}
+            onDestroy={deleteExercise}
+            showDestroy={Boolean(item?.id)}
+            pending={pending}
+          />
+        </CardFooter>
+      </form>
     </Card>
   );
 };

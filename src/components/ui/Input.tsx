@@ -25,10 +25,25 @@ const inputVariants = cva(
 
 export interface InputProps
 	extends Omit<React.InputHTMLAttributes<HTMLInputElement>, "size">,
-	VariantProps<typeof inputVariants> { }
+	VariantProps<typeof inputVariants> {
+	label?: string;
+}
 
 const Input = React.forwardRef<HTMLInputElement, InputProps>(
-	({ className, variant, size, type, ...props }, ref) => {
+	({ className, variant, size, type, label, ...props }, ref) => {
+		if (label) {
+			return (
+				<fieldset className="fieldset">
+					<legend className="fieldset-legend">{label}</legend>
+					<input
+						type={type}
+						className={cn(inputVariants({ variant, size, className }))}
+						ref={ref}
+						{...props}
+					/>
+				</fieldset>
+			);
+		}
 		return (
 			<input
 				type={type}
