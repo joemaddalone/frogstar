@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/joemaddalone/frogstar/compare/v1.9.0...v1.10.0) (2026-01-08)
+
+
+### Features
+
+* **viz:** initial plate viz ([#14](https://github.com/joemaddalone/frogstar/issues/14)) ([9fe745b](https://github.com/joemaddalone/frogstar/commit/9fe745bbefcfdc922088cc5bb853c549b7f79380))
+
 # [1.9.0](https://github.com/joemaddalone/frogstar/compare/v1.8.1...v1.9.0) (2026-01-08)
 
 
