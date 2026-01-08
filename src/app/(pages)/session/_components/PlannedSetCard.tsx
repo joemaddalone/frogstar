@@ -15,14 +15,14 @@ import {
 	Card,
 	CardContent,
 	CardHeader,
-	CardFooter,
 	CardTitle,
 	CardDescription,
 	CardHeaderActions,
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { Trash, ChevronRight } from "lucide-react";
+import { ChevronRight, Pencil } from "lucide-react";
 import { PlateViz } from "@/components/PlateViz";
+import { ButtonLink } from "@/components/ui/ButtonLink";
 export const PlannedSetCard = ({
 	plannedSet,
 	equipmentLoader,
@@ -36,12 +36,6 @@ export const PlannedSetCard = ({
 	const equipment = use(equipmentLoader);
 	const router = useRouter();
 
-	const deletePlannedSet = async () => {
-		const { error } = await api.planned_sets.delete(plannedSet.id);
-		if (!error) {
-			router.push(`/session/${plannedSet.sessionId}`);
-		}
-	};
 
 	const deleteActualSet = async (actualSetId: number) => {
 		const { error } = await api.actual_sets.delete(actualSetId);
@@ -52,19 +46,23 @@ export const PlannedSetCard = ({
 		}
 	};
 
-	const logAllSets = async () => {
-		for (let i = 0; i < plannedSet.intendedSets; i++) {
-			const { error } = await api.actual_sets.create({
-				plannedSetId: plannedSet.id,
-				actualReps: plannedSet.intendedReps,
-				actualWeight: plannedSet.targetWeight,
-			});
-			if (error) {
-				console.error(error);
-			}
+	const logSet = async () => {
+		const { error } = await api.actual_sets.create({
+			plannedSetId: plannedSet.id,
+			actualReps: plannedSet.intendedReps,
+			actualWeight: plannedSet.targetWeight,
+		});
+		if (!error) {
+			router.refresh();
 		}
-		router.refresh();
 	};
+
+	// const logAllSets = async () => {
+	// 	for (let i = 0; i < plannedSet.intendedSets; i++) {
+	// 		await logSet();
+	// 	}
+	// 	router.refresh();
+	// };
 
 	const barWeight =
 		equipment.barbells.find((barbell) => barbell.id === plannedSet.exercise.barbellId)?.weight || 0;
@@ -73,15 +71,13 @@ export const PlannedSetCard = ({
 		<Card>
 			<CardHeader>
 				<CardHeaderActions>
-					{plannedSet.exercise.equipmentType === "barbell" && (
-						<Button
-							onClick={() => setShowWarmup(!showWarmup)}
-							size="sm"
-							variant="outline"
-						>
-							{showWarmup ? "Hide" : "Show"} warmups
-						</Button>
-					)}
+					<ButtonLink
+						size="sm"
+						variant="outline"
+						href={`/session/${plannedSet.sessionId}/ps/${plannedSet.id}`}
+					>
+						<Pencil className="h-4 w-4" />
+					</ButtonLink>
 				</CardHeaderActions>
 				<CardTitle>
 					{plannedSet.exercise.name}{" "}
@@ -103,6 +99,21 @@ export const PlannedSetCard = ({
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
+				<div className="flex justify-between gap-2">
+					<Button size="sm" className="w-auto mb-2" onClick={logSet}>
+						Log Set
+					</Button>
+					{plannedSet.exercise.equipmentType === "barbell" && (
+						<Button
+							onClick={() => setShowWarmup(!showWarmup)}
+							size="sm"
+							variant="outline"
+						>
+							{showWarmup ? "Hide" : "Show"} warmups
+						</Button>
+					)}
+				</div>
+
 				{showWarmup &&
 					plannedSet.targetWeight &&
 					plannedSet.targetWeight > 0 && (
@@ -116,7 +127,6 @@ export const PlannedSetCard = ({
 					)}
 
 				{plannedSet.actualSets.length > 0 && <h1>Completed Sets</h1>}
-
 				{plannedSet.actualSets.map((actualSet) => (
 					<div
 						key={actualSet.id}
@@ -151,25 +161,6 @@ export const PlannedSetCard = ({
 					/>
 				)}
 			</CardContent>
-			{!showActualSetForm && showEditActualSetForm === 0 ? (
-				<CardFooter className="justify-between gap-2">
-					<div className="flex gap-2">
-						<Button size="sm" onClick={() => setShowActualSetForm(true)}>
-							Log Set
-						</Button>
-						{plannedSet.actualSets.length === 0 && (
-							<Button size="sm" onClick={logAllSets}>
-								Log All ({plannedSet.intendedSets})
-							</Button>
-						)}
-					</div>
-					<div>
-						<Button onClick={deletePlannedSet} size="sm" variant="danger">
-							<Trash className="h-4 w-4" />
-						</Button>
-					</div>
-				</CardFooter>
-			) : null}
 		</Card>
 	);
 };
