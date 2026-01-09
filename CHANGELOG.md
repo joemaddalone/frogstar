@@ -1,3 +1,10 @@
+# [1.12.0](https://github.com/joemaddalone/frogstar/compare/v1.11.1...v1.12.0) (2026-01-09)
+
+
+### Features
+
+* drop barbell from warmups ([5e7dcfd](https://github.com/joemaddalone/frogstar/commit/5e7dcfd4b72ea4811eb768293caed7434bc82e60))
+
 ## [1.11.1](https://github.com/joemaddalone/frogstar/compare/v1.11.0...v1.11.1) (2026-01-08)
 
 
