@@ -6,12 +6,12 @@ import {
   CommonCardFormActions,
 } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
-import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useActionState } from "react";
 import type { Route } from "next";
-import type { ApiResponse, Plate, InsertablePlate } from "@/lib/types";
+import type { Plate, InsertablePlate } from "@/lib/types";
 import { useTranslations } from "next-intl";
+import { useSettingsForm } from "@/app/hooks/useSettingsForm";
 
 type FormState = {
   plate_pairs?: string;
@@ -26,44 +26,12 @@ const initialState: FormState = {
 export const PlateForm = ({ item }: { item?: Plate; }) => {
   const router = useRouter();
   const t = useTranslations();
-  const deletePlate = async () => {
-    if (item?.id) {
-      if (!window.confirm(t("common.confirm_delete_plate"))) {
-        return;
-      }
-      const { error } = await api.plates.delete(item.id);
-      if (!error) {
-        router.push(`/settings/plates` as Route);
-      }
-    }
-  };
+  const { onDelete, createAction } = useSettingsForm<Plate, InsertablePlate, FormState>("plates", item);
 
-  const action = async (state: FormState, formData: FormData) => {
-    const pairs = Number(formData.get("plate_pairs"));
-    const weight = Number(formData.get("plate_weight"));
-    let response: ApiResponse<Plate>;
-    const newPlate: Partial<Plate> = {
-      pairs: pairs,
-      weight: weight,
-    };
-    const isNew = item?.id;
-
-    if (isNew) {
-      newPlate.id = item.id;
-      response = await api.plates.update(newPlate as Plate);
-    } else {
-      response = await api.plates.create(newPlate as InsertablePlate);
-    }
-
-    if (response.error) {
-      return state;
-    }
-    if (!response.data?.id) {
-      return state;
-    }
-    router.push(`/settings/plates` as Route);
-    return state;
-  };
+  const action = createAction((formData) => ({
+    pairs: Number(formData.get("plate_pairs")),
+    weight: Number(formData.get("plate_weight")),
+  }));
 
   const [_plateData, formAction, pending] = useActionState(
     action,
@@ -102,7 +70,7 @@ export const PlateForm = ({ item }: { item?: Plate; }) => {
             onCancel={() => {
               router.push(`/settings/plates` as Route);
             }}
-            onDestroy={deletePlate}
+            onDestroy={() => onDelete()}
             showDestroy={Boolean(item?.id)}
             pending={pending}
           />
