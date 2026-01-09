@@ -6,12 +6,12 @@ import {
   CommonCardFormActions,
 } from "@/components/ui/Card";
 import { Input } from "@/components/ui/Input";
-import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useActionState } from "react";
 import type { Route } from "next";
-import type { ApiResponse, Barbell, InsertableBarbell } from "@/lib/types";
+import type { Barbell, InsertableBarbell } from "@/lib/types";
 import { useTranslations } from "next-intl";
+import { useSettingsForm } from "@/app/hooks/useSettingsForm";
 
 type FormState = {
   barbell_name?: string;
@@ -26,42 +26,12 @@ const initialState: FormState = {
 export const BarbellForm = ({ item }: { item?: Barbell; }) => {
   const router = useRouter();
   const t = useTranslations();
-  const deleteBarbell = async () => {
-    if (item?.id) {
-      if (!window.confirm(t("common.confirm_delete_barbell"))) {
-        return;
-      }
-      const { error } = await api.barbells.delete(item.id);
-      if (!error) {
-        router.push(`/settings/barbells` as Route);
-      }
-    }
-  };
+  const { onDelete, createAction } = useSettingsForm<Barbell, InsertableBarbell, FormState>("barbells", item);
 
-  const action = async (state: FormState, formData: FormData) => {
-    const name = formData.get("barbell_name")?.toString();
-    const weight = Number(formData.get("barbell_weight"));
-    let response: ApiResponse<Barbell>;
-    const newBarbell: Partial<Barbell> = {
-      name: name,
-      weight: weight,
-    };
-    const isNew = item?.id;
-    if (isNew) {
-      newBarbell.id = item.id;
-      response = await api.barbells.update(newBarbell as Barbell);
-    } else {
-      response = await api.barbells.create(newBarbell as InsertableBarbell);
-    }
-    if (response.error) {
-      return state;
-    }
-    if (!response.data?.id) {
-      return state;
-    }
-    router.push(`/settings/barbells` as Route);
-    return state;
-  };
+  const action = createAction((formData) => ({
+    name: formData.get("barbell_name")?.toString(),
+    weight: Number(formData.get("barbell_weight")),
+  }));
 
   const [_barbellData, formAction, pending] = useActionState(
     action,
@@ -101,7 +71,7 @@ export const BarbellForm = ({ item }: { item?: Barbell; }) => {
             onCancel={() => {
               router.push(`/settings/barbells` as Route);
             }}
-            onDestroy={deleteBarbell}
+            onDestroy={() => onDelete()}
             showDestroy={Boolean(item?.id)}
             pending={pending}
           />

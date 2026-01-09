@@ -6,9 +6,9 @@ import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
 import { useTranslations } from "next-intl";
+import { useSettingsForm } from "@/app/hooks/useSettingsForm";
 import type { Route } from "next";
 import type {
-  ApiResponse,
   Barbell,
   Exercise,
   InsertableExercise,
@@ -35,49 +35,14 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
     item?.equipmentType || "barbell",
   );
 
-  const deleteExercise = async () => {
-    if (item?.id) {
-      if (!window.confirm(t("common.confirm_delete_exercise"))) {
-        return;
-      }
-      const { error } = await api.exercises.delete(item.id);
-      if (!error) {
-        router.push(`/settings/exercises` as Route);
-      }
-    }
-  };
+  const { onDelete, createAction } = useSettingsForm<Exercise, InsertableExercise, FormState>("exercises", item);
 
-  const action = async (state: FormState, formData: FormData) => {
-    const name = formData.get("exercise_name")?.toString();
-    const category = formData.get("exercise_category")?.toString();
-    const equipmentType = formData.get("equipment_type")?.toString();
-    const barbellId = formData.get("barbell_id")?.toString();
-    let response: ApiResponse<Exercise>;
-
-    const newExercise: Partial<Exercise> = {
-      name: name,
-      category: category,
-      equipmentType: equipmentType,
-      barbellId: Number(barbellId) || undefined,
-    };
-    const isNew = item?.id;
-
-    if (isNew) {
-      newExercise.id = item.id;
-      response = await api.exercises.update(newExercise as Exercise);
-    } else {
-      response = await api.exercises.create(newExercise as InsertableExercise);
-    }
-
-    if (response.error) {
-      return state;
-    }
-    if (!response.data?.id) {
-      return state;
-    }
-    router.push(`/settings/exercises` as Route);
-    return state;
-  };
+  const action = createAction((formData) => ({
+    name: formData.get("exercise_name")?.toString(),
+    category: formData.get("exercise_category")?.toString(),
+    equipmentType: formData.get("equipment_type")?.toString(),
+    barbellId: Number(formData.get("barbell_id")) || undefined,
+  }));
 
   useEffect(() => {
     // fetch barbells
@@ -156,7 +121,7 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
             onCancel={() => {
               router.push(`/settings/exercises` as Route);
             }}
-            onDestroy={deleteExercise}
+            onDestroy={() => onDelete()}
             showDestroy={Boolean(item?.id)}
             pending={pending}
           />
