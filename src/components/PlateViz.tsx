@@ -17,6 +17,8 @@ const colors = [
 	"#ef4444",
 	"#94a3b8",
 	"#ef4444",
+	"#6366f1",
+
 ];
 
 const calcHeights = (plates: Plate[]) => {

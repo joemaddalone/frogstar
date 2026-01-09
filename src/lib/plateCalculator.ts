@@ -73,19 +73,7 @@ export const renderCalculatedPlates = (
 		plates,
 		barbells
 	);
-	if (exercise.equipmentType === "barbell" && barbells.length > 0) {
-		try {
-			const result =
-				`1x${barbells[0].weight} barbell, ` +
-				requiredPlates
-					.map((plate) => `${plate.count}x${plate.weight}`)
-					.join(", ");
-			return result;
-		} catch (error) {
-			console.error("error", error);
-			return "error";
-		}
-	}
+
 	return requiredPlates
 		.map((plate) => `${plate.count}x${plate.weight}`)
 		.join(", ");
