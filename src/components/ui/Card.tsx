@@ -1,6 +1,7 @@
 import * as React from "react";
 import { cn } from "@/lib/utils";
 import { Button } from "./Button";
+import { useTranslations } from "next-intl";
 
 const Card = React.forwardRef<
 	HTMLDivElement,
@@ -95,6 +96,7 @@ interface CardAffirmProps {
 
 }
 const CardAffirm = ({ pending, label }: CardAffirmProps) => {
+	const t = useTranslations();
 	return (
 		<Button
 			type="submit"
@@ -102,7 +104,7 @@ const CardAffirm = ({ pending, label }: CardAffirmProps) => {
 			variant="primary"
 			disabled={pending}
 		>
-			{label || "Save"}
+			{label || t('common.save')}
 		</Button>
 	);
 };
@@ -114,6 +116,7 @@ interface CardCancelProps {
 }
 
 const CardCancel = ({ onClick, label, pending }: CardCancelProps) => {
+	const t = useTranslations();
 	return (
 		<Button
 			type="button"
@@ -122,7 +125,7 @@ const CardCancel = ({ onClick, label, pending }: CardCancelProps) => {
 			onClick={onClick}
 			disabled={pending}
 		>
-			{label || "Cancel"}
+			{label || t('common.cancel')}
 		</Button>
 	);
 };
@@ -134,6 +137,7 @@ interface CardDestroyProps {
 }
 
 const CardDestroy = ({ onClick, label, pending }: CardDestroyProps) => {
+	const t = useTranslations();
 	return (
 		<Button
 			type="button"
@@ -142,7 +146,7 @@ const CardDestroy = ({ onClick, label, pending }: CardDestroyProps) => {
 			onClick={onClick}
 			disabled={pending}
 		>
-			{label || "Delete"}
+			{label || t('common.delete')}
 		</Button>
 	);
 };

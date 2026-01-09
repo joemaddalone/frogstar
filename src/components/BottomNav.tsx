@@ -4,15 +4,18 @@ import { usePathname } from "next/navigation";
 import { Home, Settings } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Route } from 'next';
-
-const NAV_ITEMS = [
-	{ label: "Home", href: "/", icon: Home },
-	// { label: "Stats", href: "/stats", icon: BarChart2 },
-	{ label: "Settings", href: "/settings", icon: Settings },
-];
+import { useTranslations } from "next-intl";
 
 export const BottomNav = () => {
 	const pathname = usePathname();
+	const t = useTranslations();
+
+	const NAV_ITEMS = [
+		{ label: t('common.home'), href: "/", icon: Home },
+		// { label: "Stats", href: "/stats", icon: BarChart2 },
+		{ label: t('common.settings'), href: "/settings", icon: Settings },
+	];
+
 
 	return (
 		<footer className="bottom-nav">

@@ -32,6 +32,8 @@ const calcHeights = (plates: Plate[]) => {
 
 
 
+
+
 export const PlateViz = ({ plates, bar, target }: PlateVizProps) => {
 	const heights = calcHeights(plates);
 	const platesNeeded = justThePlates(bar, target, plates);

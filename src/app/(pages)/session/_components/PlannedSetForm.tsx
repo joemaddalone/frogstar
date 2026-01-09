@@ -11,6 +11,7 @@ import type {
   PlannedSet,
 } from "@/lib/types";
 import { useRouter } from "next/navigation";
+import { useTranslations } from "next-intl";
 
 type FormState = {
   exerciseId?: string;
@@ -36,6 +37,7 @@ export const PlannedSetForm = ({
   plannedSet?: PlannedSet;
 }) => {
   const router = useRouter();
+  const t = useTranslations();
   const { data: exerciseList } = use(exercises);
 
   const [equipmentType, setEquipmentType] = useState<string>(
@@ -100,7 +102,7 @@ export const PlannedSetForm = ({
   };
 
   if (!exerciseList) {
-    return <div>Loading...</div>;
+    return <div>{t('common.loading')}</div>;
   }
 
   return (
@@ -128,13 +130,13 @@ export const PlannedSetForm = ({
             defaultValue={plannedSet?.intendedSets || ""}
             name="intended_sets"
             type="number"
-            placeholder="Sets"
+            placeholder={t('common.sets')}
           />
           <Input
             defaultValue={plannedSet?.intendedReps || ""}
             name="intended_reps"
             type="number"
-            placeholder="Reps"
+            placeholder={t('common.reps')}
           />
         </div>
         {equipmentType !== "bodyweight" && (
@@ -142,7 +144,7 @@ export const PlannedSetForm = ({
             defaultValue={plannedSet?.targetWeight || ""}
             name="target_weight"
             type="number"
-            placeholder="Weight"
+            placeholder={t('common.weight')}
           />
         )}
         <div className="flex justify-between gap-2">
@@ -150,23 +152,23 @@ export const PlannedSetForm = ({
             <>
               <div className="flex gap-2">
                 <Button type="submit" variant="primary">
-                  Save
+                  {t('common.save')}
                 </Button>
                 <Button variant="outline" type="button" onClick={cancel}>
-                  Cancel
+                  {t('common.cancel')}
                 </Button>
               </div>
               <Button type="button" variant="danger" onClick={deletePlannedSet}>
-                Delete
+                {t('common.delete')}
               </Button>
             </>
           ) : (
             <>
               <Button type="submit" variant="primary">
-                Save
+                {t('common.save')}
               </Button>
               <Button variant="outline" type="button" onClick={cancel}>
-                Cancel
+                {t('common.cancel')}
               </Button>
             </>
           )}

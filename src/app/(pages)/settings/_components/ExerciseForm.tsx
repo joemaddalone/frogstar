@@ -5,6 +5,7 @@ import { Card, CardFooter, CardHeader, CommonCardFormActions } from "@/component
 import { api } from "@/lib/api";
 import { useRouter } from "next/navigation";
 import { useActionState, useEffect } from "react";
+import { useTranslations } from "next-intl";
 import type { Route } from "next";
 import type {
   ApiResponse,
@@ -27,6 +28,7 @@ const initialState: FormState = {
 };
 
 export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
+  const t = useTranslations();
   const router = useRouter();
   const [barbells, setBarbells] = useState<Barbell[]>([]);
   const [equipmentType, setEquipmentType] = useState(
@@ -35,6 +37,9 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
 
   const deleteExercise = async () => {
     if (item?.id) {
+      if (!window.confirm(t("common.confirm_delete_exercise"))) {
+        return;
+      }
       const { error } = await api.exercises.delete(item.id);
       if (!error) {
         router.push(`/settings/exercises` as Route);
@@ -97,7 +102,7 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
           <div className="space-y-2">
             <div className="flex gap-2">
               <Input
-                label="Name"
+                label={t("common.name")}
                 name="exercise_name"
                 type="text"
                 size="sm"
@@ -105,7 +110,7 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
                 placeholder="Bench Press Close-Grip"
               />
               <Input
-                label="Category"
+                label={t("common.category")}
                 name="exercise_category"
                 type="text"
                 size="sm"
@@ -115,7 +120,7 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
             </div>
 
             <Select
-              label="Equipment Type"
+              label={t("common.equipment_type")}
               size="sm"
               onChange={(e) => setEquipmentType(e.target.value)}
               defaultValue={item?.equipmentType}
@@ -131,12 +136,12 @@ export const ExerciseForm = ({ item }: { item?: Exercise; }) => {
 
             {equipmentType === "barbell" && (
               <Select
-                label="Barbell"
+                label={t("common.barbell")}
                 size="sm"
                 defaultValue={Number(item?.barbellId) || 1}
                 name="barbell_id"
               >
-                <option disabled={true}>Barbell</option>
+                <option disabled={true}>{t("common.barbell")}</option>
                 {barbells.map((barbell) => (
                   <option key={barbell.id} value={barbell.id}>
                     {barbell.name}

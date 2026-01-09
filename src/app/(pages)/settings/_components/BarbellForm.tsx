@@ -11,6 +11,7 @@ import { useRouter } from "next/navigation";
 import { useActionState } from "react";
 import type { Route } from "next";
 import type { ApiResponse, Barbell, InsertableBarbell } from "@/lib/types";
+import { useTranslations } from "next-intl";
 
 type FormState = {
   barbell_name?: string;
@@ -24,8 +25,12 @@ const initialState: FormState = {
 
 export const BarbellForm = ({ item }: { item?: Barbell; }) => {
   const router = useRouter();
+  const t = useTranslations();
   const deleteBarbell = async () => {
     if (item?.id) {
+      if (!window.confirm(t("common.confirm_delete_barbell"))) {
+        return;
+      }
       const { error } = await api.barbells.delete(item.id);
       if (!error) {
         router.push(`/settings/barbells` as Route);
@@ -70,7 +75,7 @@ export const BarbellForm = ({ item }: { item?: Barbell; }) => {
           <div className="space-y-2">
             <div className="flex gap-2">
               <Input
-                label="Name"
+                label={t("common.name")}
                 name="barbell_name"
                 type="text"
                 size="sm"
@@ -80,7 +85,7 @@ export const BarbellForm = ({ item }: { item?: Barbell; }) => {
               />
 
               <Input
-                label="Weight"
+                label={t("common.weight")}
                 name="barbell_weight"
                 type="number"
                 size="sm"
