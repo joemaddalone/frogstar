@@ -58,6 +58,8 @@ export const PlannedSetCard = ({
 		}
 	};
 
+	const isBodyweight = plannedSet.exercise.equipmentType === "bodyweight";
+
 	// const logAllSets = async () => {
 	// 	for (let i = 0; i < plannedSet.intendedSets; i++) {
 	// 		await logSet();
@@ -89,8 +91,7 @@ export const PlannedSetCard = ({
 					</sup>
 				</CardTitle>
 				<CardDescription>
-					{plannedSet.intendedSets} x {plannedSet.intendedReps} @{" "}
-					{plannedSet.targetWeight} lbs
+					<span>{plannedSet.intendedSets} x {plannedSet.intendedReps}</span> <span>{!isBodyweight && `@ ${plannedSet.targetWeight} lbs`}</span>
 					{plannedSet.exercise.equipmentType === "barbell" && (
 						<PlateViz
 							plates={equipment.plates}
@@ -132,34 +133,40 @@ export const PlannedSetCard = ({
 				{plannedSet.actualSets.length > 0 && (
 					<h1>{t("common.completed_sets")}</h1>
 				)}
-				{plannedSet.actualSets.map((actualSet) => (
-					<div
-						key={actualSet.id}
-						className="flex gap-2 items-center justify-between py-2"
-					>
-						{showEditActualSetForm === actualSet.id ? (
-							<ActualSetForm
-								plannedSet={plannedSet}
-								actualSetId={showEditActualSetForm}
-								cancel={() => setShowEditActualSetForm(0)}
-								deleteActualSet={deleteActualSet}
-							/>
-						) : (
-							<Card
-								className="cursor-pointer w-full p-2"
-								onClick={() => setShowEditActualSetForm(actualSet.id)}
-							>
-								<CardDescription className="flex items-center justify-between">
-									{actualSet.actualReps} @ {actualSet.actualWeight} lbs{" "}
-									<ChevronRight className="h-5 w-5 text-base-content/20 group-hover:text-primary transition-colors" />
-								</CardDescription>
-							</Card>
-						)}
-					</div>
-				))}
+				{plannedSet.actualSets.map((actualSet) => {
+					return (
+						<div
+							key={actualSet.id}
+							className="flex gap-2 items-center justify-between py-1"
+						>
+							{showEditActualSetForm === actualSet.id ? (
+								<ActualSetForm
+									showWeight={!isBodyweight}
+									plannedSet={plannedSet}
+									actualSetId={showEditActualSetForm}
+									cancel={() => setShowEditActualSetForm(0)}
+									deleteActualSet={deleteActualSet}
+								/>
+							) : (
+								<Card
+									className={`cursor-pointer p-2 w-full`}
+									onClick={() => setShowEditActualSetForm(actualSet.id)}
+								>
+									<CardDescription className="flex items-center justify-between">
+										<div>
+											<span>{actualSet.actualReps}</span> <span>{!isBodyweight && `@ ${actualSet.actualWeight} lbs`}</span>
+										</div>
+										<ChevronRight className="h-5 w-5 text-base-content/20 group-hover:text-primary transition-colors" />
+									</CardDescription>
+								</Card>
+							)}
+						</div>
+					);
+				})}
 
 				{showActualSetForm && (
 					<ActualSetForm
+						showWeight={!isBodyweight}
 						plannedSet={plannedSet}
 						cancel={() => setShowActualSetForm(false)}
 						deleteActualSet={deleteActualSet}

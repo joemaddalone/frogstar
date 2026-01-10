@@ -25,11 +25,13 @@ const initialState: FormState = {
 
 export const ActualSetForm = ({
 	plannedSet,
+	showWeight,
 	actualSetId,
 	cancel,
 	deleteActualSet,
 }: {
 	plannedSet: PlannedSet & { exercise: Exercise; actualSets: ActualSet[]; };
+	showWeight: boolean;
 	actualSetId?: number;
 	cancel: () => void;
 	deleteActualSet: (actualSetId: number) => void;
@@ -90,7 +92,7 @@ export const ActualSetForm = ({
 	};
 
 	return (
-		<form action={newAction}>
+		<form action={newAction} className="w-full">
 			<div className="flex gap-2 items-center">
 				<Input
 					label={t("common.reps")}
@@ -100,16 +102,18 @@ export const ActualSetForm = ({
 					id="actual_reps"
 					placeholder={t("common.reps")}
 				/>
-				<Input
-					label={t("common.weight")}
-					defaultValue={formData.intendedWeight || 0}
-					type="number"
-					name="actual_weight"
-					id="actual_weight"
-					placeholder={t("common.weight")}
-				/>
+				{showWeight && (
+					<Input
+						label={t("common.weight")}
+						defaultValue={formData.intendedWeight || 0}
+						type="number"
+						name="actual_weight"
+						id="actual_weight"
+						placeholder={t("common.weight")}
+					/>
+				)}
 			</div>
-			<div className="flex justify-between gap-2 mt-2">
+			<div className="flex justify-between gap-2 mt-2 w-full">
 				<div className="flex gap-2">
 					<Button type="submit" size="sm" variant="primary">
 						<Check className="h-4 w-4" />
