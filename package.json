@@ -17,6 +17,7 @@
     "reset:test": "export NODE_ENV=development && npm run reset",
     "test": "vitest run --no-watch",
     "test:coverage": "vitest run --coverage",
+    "mock": "export NODE_ENV=development && tsx ./src/db/mock.ts",
     "release": "semantic-release",
     "drizzle:push": "drizzle-kit push",
     "drizzle:generate": "drizzle-kit generate",
