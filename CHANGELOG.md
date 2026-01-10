@@ -1,3 +1,10 @@
+# [1.13.0](https://github.com/joemaddalone/frogstar/compare/v1.12.0...v1.13.0) (2026-01-10)
+
+
+### Features
+
+* alter forms for bodyweight exercises ([#19](https://github.com/joemaddalone/frogstar/issues/19)) ([aa8c11f](https://github.com/joemaddalone/frogstar/commit/aa8c11fbf4d66590fcb15ce0524a39e7ac351afe))
+
 # [1.12.0](https://github.com/joemaddalone/frogstar/compare/v1.11.1...v1.12.0) (2026-01-09)
 
 
