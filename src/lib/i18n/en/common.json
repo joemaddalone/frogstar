@@ -50,5 +50,11 @@
 	"total_sessions": "Total Sessions",
 	"update": "Update",
 	"warmups": "Warm Ups",
-	"weight": "Weight"
+	"weight": "Weight",
+	"last_30_days": "Last 30 Days",
+	"last_90_days": "Last 90 Days",
+	"last_180_days": "Last 180 Days",
+	"last_365_days": "Last 365 Days",
+	"all_time": "All Time",
+	"progress_by_weight": "Progress by Weight"
 }

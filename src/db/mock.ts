@@ -13,7 +13,7 @@ const randomInt = (min: number, max: number, roundToNearest: number = 1) => {
 	return result;
 };
 
-const daysToSeed = 30;
+const daysToSeed = 600;
 
 const mock = async () => {
 	await reset();
@@ -24,12 +24,13 @@ const mock = async () => {
 
 	const today = new Date();
 	const startDate = new Date(today);
-	startDate.setDate(today.getDate() - daysToSeed);
+	startDate.setDate(startDate.getDate() - daysToSeed);
 
-	const exercises = await dataClient.exercises.get();
+	const exercisesData = await dataClient.exercises.get();
+	const exercises = exercisesData.filter((exercise) => exercise.equipmentType !== "bodyweight");
 
 	for (let i = 0; i < daysToSeed; i++) {
-		const date = new Date();
+		const date = new Date(startDate);
 		date.setDate(startDate.getDate() + i);
 		const session = await dataClient.sessions.create({ date });
 		const numberOfExercises = randomInt(1, 5);

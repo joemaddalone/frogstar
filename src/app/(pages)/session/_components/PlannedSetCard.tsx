@@ -91,7 +91,7 @@ export const PlannedSetCard = ({
 					</sup>
 				</CardTitle>
 				<CardDescription>
-					<span>{plannedSet.intendedSets} x {plannedSet.intendedReps}</span> <span>{!isBodyweight && `@ ${plannedSet.targetWeight} lbs`}</span>
+					<span>{plannedSet.intendedSets} x {plannedSet.intendedReps}</span> <span>{!isBodyweight && `@ ${plannedSet.targetWeight}`}</span>
 					{plannedSet.exercise.equipmentType === "barbell" && (
 						<PlateViz
 							plates={equipment.plates}
@@ -154,7 +154,7 @@ export const PlannedSetCard = ({
 								>
 									<CardDescription className="flex items-center justify-between">
 										<div>
-											<span>{actualSet.actualReps}</span> <span>{!isBodyweight && `@ ${actualSet.actualWeight} lbs`}</span>
+											<span>{actualSet.actualReps}</span> <span>{!isBodyweight && `@ ${actualSet.actualWeight}`}</span>
 										</div>
 										<ChevronRight className="h-5 w-5 text-base-content/20 group-hover:text-primary transition-colors" />
 									</CardDescription>

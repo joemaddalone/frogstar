@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import SettingsPageComponent from "@/app/(pages)/settings/_components/SettingsPageComponent";
-import type { Plate } from '@/lib/types'
+import type { Plate } from '@/lib/types';
 
 interface PageProps {
   params: {
@@ -14,7 +14,7 @@ export default async function PlatesPage({ params }: PageProps) {
     <SettingsPageComponent
       id={id}
       route="plates"
-      titler={(item: Plate) => `${item.weight} lbs - ${item.pairs} pairs`}
+      titler={(item: Plate) => `${item.weight} - ${item.pairs} pairs`}
       comp='plate'
       type='plates'
     />

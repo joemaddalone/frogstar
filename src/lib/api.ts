@@ -24,7 +24,7 @@ const host = isClient
   : `http://${process.env.HOST || "localhost"}:${process.env.PORT || 3000}`;
 
 const tryCatch = async <T>(
-  promise: Promise<Response>
+  promise: Promise<Response>,
 ): Promise<ApiResponse<T>> => {
   try {
     const response = await promise;
@@ -33,7 +33,7 @@ const tryCatch = async <T>(
       return {
         data: undefined,
         error: new Error(
-          `HTTP error! status: ${response.status}, body: ${text}`
+          `HTTP error! status: ${response.status}, body: ${text}`,
         ),
       };
     }
@@ -57,26 +57,47 @@ const createClientEndpoints = <T, R, I>(path: string) => {
         fetch(`${host}/api/${path}`, {
           method: "POST",
           body: JSON.stringify(item),
-        })
+        }),
       ),
     update: (item: T & { id: number; }) =>
       tryCatch<T>(
         fetch(`${host}/api/${path}/${item.id}`, {
           method: "PUT",
           body: JSON.stringify(item),
-        })
+        }),
       ),
     delete: (id: number) =>
       tryCatch<void>(fetch(`${host}/api/${path}/${id}`, { method: "DELETE" })),
   };
 };
 
+const progressClientEndpoints = {
+  progressByWeight: (range: number, exerciseId?: number) =>
+    tryCatch<{ date: string | number; max_weight: number; }[]>(
+      fetch(`${host}/api/progress/${range}/exercise/${exerciseId}`),
+    ),
+};
 
 export const api = {
-  plates: createClientEndpoints<Plate, Plate, InsertablePlate>('plates'),
-  barbells: createClientEndpoints<Barbell, Barbell, InsertableBarbell>('barbells'),
-  exercises: createClientEndpoints<Exercise, Exercise, InsertableExercise>('exercises'),
-  planned_sets: createClientEndpoints<PlannedSet, PlannedSet, InsertablePlannedSet>('plannedsets'),
-  actual_sets: createClientEndpoints<ActualSet, ActualSet, InsertableActualSet>('actualsets'),
-  sessions: createClientEndpoints<Session, SessionWithDetails, InsertableSession>('sessions'),
+  progress: progressClientEndpoints,
+  plates: createClientEndpoints<Plate, Plate, InsertablePlate>("plates"),
+  barbells: createClientEndpoints<Barbell, Barbell, InsertableBarbell>(
+    "barbells",
+  ),
+  exercises: createClientEndpoints<Exercise, Exercise, InsertableExercise>(
+    "exercises",
+  ),
+  planned_sets: createClientEndpoints<
+    PlannedSet,
+    PlannedSet,
+    InsertablePlannedSet
+  >("plannedsets"),
+  actual_sets: createClientEndpoints<ActualSet, ActualSet, InsertableActualSet>(
+    "actualsets",
+  ),
+  sessions: createClientEndpoints<
+    Session,
+    SessionWithDetails,
+    InsertableSession
+  >("sessions"),
 };
