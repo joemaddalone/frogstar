@@ -21,7 +21,7 @@ export const ByWeightForm = ({
 	) || [];
 
 	const [range, setRange] = useState("30");
-	const [exercise, setExercise] = useState(filteredExercises?.[0].id);
+	const [exercise, setExercise] = useState(data ? filteredExercises?.[0]?.id : undefined);
 	const [progress, setProgress] = useState<ProgressEntry[]>([]);
 
 	useEffect(() => {
@@ -40,6 +40,10 @@ export const ByWeightForm = ({
 	}
 	if (!data) {
 		return <div>{t("common.loading")}</div>;
+	}
+
+	if (data.length === 0) {
+		return <div>{t("common.no_data")}</div>;
 	}
 
 	return (
