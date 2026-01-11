@@ -1,3 +1,10 @@
+# [1.15.0](https://github.com/joemaddalone/frogstar/compare/v1.14.0...v1.15.0) (2026-01-11)
+
+
+### Features
+
+* no data progress page ([e6bded1](https://github.com/joemaddalone/frogstar/commit/e6bded1f833d31586e1af84beabcdd0c20ec982e))
+
 # [1.14.0](https://github.com/joemaddalone/frogstar/compare/v1.13.0...v1.14.0) (2026-01-11)
 
 
