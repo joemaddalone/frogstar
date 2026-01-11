@@ -73,7 +73,7 @@ const createClientEndpoints = <T, R, I>(path: string) => {
 
 const progressClientEndpoints = {
   progressByWeight: (range: number, exerciseId?: number) =>
-    tryCatch<{ date: string | number; max_weight: number; }[]>(
+    tryCatch<{ sessionId: number; date: string | number; max_weight: number; }[]>(
       fetch(`${host}/api/progress/${range}/exercise/${exerciseId}`),
     ),
 };

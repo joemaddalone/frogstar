@@ -33,6 +33,7 @@ export const progressByWeight = async (range: number, exerciseId?: number) => {
 	}
 
 	const result = await db.select({
+		sessionId: sessions.id,
 		date: sessions.date,
 		max_weight: sql<number>`MAX(${actualSets.actualWeight})`,
 	}).from(actualSets)

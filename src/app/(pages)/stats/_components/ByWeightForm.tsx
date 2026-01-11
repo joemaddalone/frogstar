@@ -3,9 +3,13 @@ import { api } from "@/lib/api";
 import type { Exercise, ApiResponse } from "@/lib/types";
 import { use, useEffect, useState } from "react";
 import { Select } from "@/components/ui/Select";
+import { BarChart } from "@/components/viz/BarChart";
 import { useTranslations } from "next-intl";
+import { Calendar, Weight } from "lucide-react";
+
 type ProgressEntry = {
-	date: Date | string | number;
+	sessionId: number;
+	date: string | number;
 	max_weight: number;
 };
 
@@ -71,18 +75,31 @@ export const ByWeightForm = ({
 				</Select>
 			</form>
 			<div className="mt-4">
-				<ul className="space-y-2">
-					{progress.length === 0 ? (
-						<li>{t("common.not_found")}</li>
-					) : (
-						progress.map((p) => (
-							<li key={`${p.date}-${p.max_weight}`} className="flex justify-between border-b border-base-300 pb-1">
-								<span className="font-mono text-sm">{new Date(p.date).toLocaleDateString()}</span>
-								<span className="font-mono text-sm">{p.max_weight}</span>
+				{progress.length === 0 ? (
+					<h1 className="text-xl font-bold tracking-tight">{t("common.not_found")}</h1>
+				) : (
+					<>
+						{progress.length < 100 ? (
+							<div className="flex justify-center items-center outline outline-base-300 p-1 rounded">
+								<BarChart data={progress as ProgressEntry[]} />
+							</div>
+						) : null}
+						<ul className="space-y-2 mt-4">
+							<li className="flex justify-between border-b border-base-300 p-1">
+								<span className="font-mono text-sm"><Calendar className="w-4 h-4" /></span>
+								<span className="font-mono text-sm"><Weight className="w-4 h-4" /></span>
 							</li>
-						))
-					)}
-				</ul>
+							{progress.map((p) => (
+								<li key={`${p.sessionId}-${p.date}-${p.max_weight}`} className="flex justify-between border-b border-base-300 pb-1">
+									<span className="font-mono text-sm">
+										{new Date(p.date).toLocaleDateString()}
+									</span>
+									<span className="font-mono text-sm">{p.max_weight}</span>
+								</li>
+							))}
+						</ul>
+					</>
+				)}
 			</div>
 		</div>
 	);
