@@ -1,6 +1,7 @@
 import { barbells, plates, exercises, plannedSets, actualSets } from "@/db/schema";
 import { createRepository } from "@/lib/client/database/repository";
-import * as session from './sessions'
+import * as session from './sessions';
+import * as progress from './progress';
 
 
 const dataClient = {
@@ -25,6 +26,9 @@ const dataClient = {
 		create: session.create,
 		remove: session.remove,
 		update: session.update
+	},
+	progress: {
+		progressByWeight: progress.progressByWeight,
 	}
 };
 

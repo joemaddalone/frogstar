@@ -11,24 +11,27 @@ import type { Route } from "next";
 import Link from "next/link";
 import type { Barbell, Exercise, Plate } from "@/lib/types";
 
+type SettingsApiEndpoint = "barbells" | "plates" | "exercises";
+
 interface Props {
   id?: string[];
   route: string;
-  type?: string;
+  type?: SettingsApiEndpoint;
   // biome-ignore lint/suspicious/noExplicitAny: i dont care
   titler: (a: any) => string;
   comp: "barbell" | "plate" | "exercise";
 }
 
 export default async function SettingsPageComponent(props: Props) {
-  const { data } = await api[props.type as keyof typeof api].list();
+  if (!props.type) return null;
+  const { data } = await api[props.type].list();
   const { id, comp, titler, route } = props;
   const activeId = id ? id[0] : undefined;
-  const foundItem = data?.find((b) => b.id.toString() === activeId);
+  const foundItem = data?.find((b: Barbell | Plate | Exercise) => b.id.toString() === activeId);
 
   return (
     <>
-      <Header label="settings/barbells" backPath="/settings" />
+      <Header label={`settings/${route}`} backPath="/settings" />
       <div className="flex items-center justify-between my-4 mx-2">
         <h2 className="text-xl font-bold tracking-tight">{comp}</h2>
         {!activeId ? (
@@ -41,7 +44,7 @@ export default async function SettingsPageComponent(props: Props) {
         ) : null}
       </div>
       {!activeId && data?.length ? (
-        data?.map((item) => (
+        data?.map((item: Barbell | Plate | Exercise) => (
           <SettingsCard
             key={item.id}
             title={titler(item)}

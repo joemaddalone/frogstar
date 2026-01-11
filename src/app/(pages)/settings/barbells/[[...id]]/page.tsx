@@ -1,6 +1,6 @@
 export const dynamic = "force-dynamic";
 import SettingsPageComponent from "@/app/(pages)/settings/_components/SettingsPageComponent";
-import type { Barbell } from '@/lib/types'
+import type { Barbell } from '@/lib/types';
 
 interface PageProps {
   params: {
@@ -15,7 +15,7 @@ export default async function BarbellsPage({ params }: PageProps) {
     <SettingsPageComponent
       id={id}
       route="barbells"
-      titler={(item: Barbell) => `${item?.name} - ${item?.weight} lbs`}
+      titler={(item: Barbell) => `${item?.name} - ${item?.weight}`}
       comp='barbell'
       type='barbells'
     />

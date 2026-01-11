@@ -24,13 +24,14 @@ const resources = [
 ] as const;
 
 resources.forEach(({ path, client }) => {
-	app.get(`/${path}`, () => wrap(() => client.get()))
+	app
+		.get(`/${path}`, () => wrap(() => client.get()))
 		.post(`/${path}`, async ({ request }) => {
 			const body = await request.json();
 			return wrap(() => client.create(body));
 		})
 		.get(`/${path}/:id`, ({ params: { id } }) =>
-			wrap(() => client.getById(parseInt(id, 10)))
+			wrap(() => client.getById(parseInt(id, 10))),
 		)
 		.put(`/${path}/:id`, async ({ params: { id }, request }) => {
 			const body = await request.json();
@@ -40,9 +41,20 @@ resources.forEach(({ path, client }) => {
 			wrap(async () => {
 				await client.remove(parseInt(id, 10));
 				return undefined;
-			})
+			}),
 		);
 });
+
+app.get(
+	"/progress/:range/exercise/:exerciseId",
+	({ params: { range, exerciseId } }) =>
+		wrap(() =>
+			dataClient.progress.progressByWeight(
+				parseInt(range, 10),
+				parseInt(exerciseId, 10),
+			),
+		),
+);
 
 export { app };
 

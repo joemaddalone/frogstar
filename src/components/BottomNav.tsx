@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { Home, Settings } from "lucide-react";
+import { Home, Settings, BarChart2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { Route } from 'next';
 import { useTranslations } from "next-intl";
@@ -12,7 +12,7 @@ export const BottomNav = () => {
 
 	const NAV_ITEMS = [
 		{ label: t('common.home'), href: "/", icon: Home },
-		// { label: "Stats", href: "/stats", icon: BarChart2 },
+		{ label: "Stats", href: "/stats", icon: BarChart2 },
 		{ label: t('common.settings'), href: "/settings", icon: Settings },
 	];
 

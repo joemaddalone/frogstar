@@ -6,6 +6,6 @@ export function cn(...inputs: ClassValue[]) {
 }
 
 export const dateString = (date: Date | string) => {
-	return new Date(date).toLocaleDateString('en-CA', { timeZone: 'UTC' });
+	return new Date(date).toLocaleDateString();
 };
 
