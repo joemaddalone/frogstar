@@ -1,3 +1,10 @@
+# [1.14.0](https://github.com/joemaddalone/frogstar/compare/v1.13.0...v1.14.0) (2026-01-11)
+
+
+### Features
+
+* progress by weight ([#20](https://github.com/joemaddalone/frogstar/issues/20)) ([9dd78fc](https://github.com/joemaddalone/frogstar/commit/9dd78fc0c9e81261fe03c8e332c0d19941543e5f))
+
 # [1.13.0](https://github.com/joemaddalone/frogstar/compare/v1.12.0...v1.13.0) (2026-01-10)
 
 
