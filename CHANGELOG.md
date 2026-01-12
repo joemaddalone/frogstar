@@ -1,3 +1,10 @@
+# [1.17.0](https://github.com/joemaddalone/frogstar/compare/v1.16.0...v1.17.0) (2026-01-12)
+
+
+### Features
+
+* stats enhancements ([174b4c7](https://github.com/joemaddalone/frogstar/commit/174b4c722dc8f5b879c77f32f9141509be743c52))
+
 # [1.16.0](https://github.com/joemaddalone/frogstar/compare/v1.15.0...v1.16.0) (2026-01-11)
 
 
