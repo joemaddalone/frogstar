@@ -1,3 +1,10 @@
+# [1.18.0](https://github.com/joemaddalone/frogstar/compare/v1.17.0...v1.18.0) (2026-01-12)
+
+
+### Features
+
+* data management and toasts ([#22](https://github.com/joemaddalone/frogstar/issues/22)) ([fe8553e](https://github.com/joemaddalone/frogstar/commit/fe8553ea0cfb4737fa348c724cdd59fe0bcaa9b1))
+
 # [1.17.0](https://github.com/joemaddalone/frogstar/compare/v1.16.0...v1.17.0) (2026-01-12)
 
 
