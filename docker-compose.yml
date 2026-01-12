@@ -1,9 +1,10 @@
 services:
   frogstar:
     image: ghcr.io/joemaddalone/frogstar:latest
+    # platform: linux/amd64
     container_name: frogstar
     restart: unless-stopped
     ports:
-      - "3000:3000"
+      - "3033:3000"
     volumes:
       - ./my-data:/app/data

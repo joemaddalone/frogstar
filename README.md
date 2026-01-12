@@ -7,19 +7,16 @@
 </div>
 
 > **Note**
-> Frogstar is a self-hosted mobile-friendly app for scheduling, tracking, and logging of weightlifting sessions. This app is a variation on an app I have been running locally for years and I find the minimalistic functionality to be optimally sufficient. This application is currently in development.
+> Frogstar is a self-hosted mobile-friendly app for scheduling, tracking, and logging of weightlifting sessions.
 
 ## Features
 
-- Schedule workouts
+- Backup/Export/Import data
 - Log sets
 - Plate calculator
-- Warmup suggestions
-
-TODO
-
+- Schedule workouts
 - Track progress
-- Backup/Export/Import data
+- Warmup suggestions
 
 ## Deployment Guide
 
@@ -31,6 +28,8 @@ docker-compose.yml example
 services:
   frogstar:
     image: ghcr.io/joemaddalone/frogstar:latest
+    # add platform as needed for your system
+    # platform: linux/amd64
     container_name: frogstar
     restart: unless-stopped
     ports:
