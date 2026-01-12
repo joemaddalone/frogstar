@@ -56,6 +56,29 @@ app.get(
 		),
 );
 
+app.get(
+	"/data/export",
+	() => wrap(() => dataClient.data.exportData()),
+);
+
+app.post(
+	"/data/import",
+	async ({ request }) => {
+		const body = await request.json();
+		await wrap(() => dataClient.data.importData(body));
+		return NextResponse.json({ data: true, error: undefined });
+	},
+);
+
+app.post(
+	"/data/reset",
+	async () => {
+		await wrap(() => dataClient.data.resetData());
+		return NextResponse.json({ data: true, error: undefined });
+	},
+);
+
+
 export { app };
 
 export const GET = app.handle;

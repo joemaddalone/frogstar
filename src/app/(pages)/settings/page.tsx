@@ -1,11 +1,23 @@
 export const dynamic = "force-dynamic";
-import { getTranslations } from "next-intl/server";
-export default async function SettingsPage() {
-	const t = await getTranslations();
+import SettingsPageComponent from "@/app/(pages)/settings/_components/SettingsPageComponent";
+import type { Barbell } from '@/lib/types';
+
+interface PageProps {
+	params: {
+		id?: string[];
+	};
+}
+
+export default async function BarbellsPage({ params }: PageProps) {
+	const { id } = await params;
+
 	return (
-		<>
-			<h1 className="text-2xl font-bold text-center mt-4">{t("common.preferences")}</h1>
-			<p className="text-center">...</p>
-		</>
+		<SettingsPageComponent
+			id={id}
+			route="barbells"
+			titler={(item: Barbell) => `${item?.name} - ${item?.weight}`}
+			comp='barbell'
+			type='barbells'
+		/>
 	);
 }

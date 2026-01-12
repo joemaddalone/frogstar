@@ -100,4 +100,14 @@ export const api = {
     SessionWithDetails,
     InsertableSession
   >("sessions"),
+  data: {
+    exportData: () => tryCatch<SessionWithDetails[]>(fetch(`${host}/api/data/export`)),
+    importData: (data: unknown) => tryCatch<boolean>(fetch(`${host}/api/data/import`, {
+      method: "POST",
+      body: JSON.stringify(data),
+    })),
+    resetData: () => tryCatch<boolean>(fetch(`${host}/api/data/reset`, {
+      method: "POST",
+    })),
+  },
 };
