@@ -13,7 +13,7 @@ const randomInt = (min: number, max: number, roundToNearest: number = 1) => {
 	return result;
 };
 
-const daysToSeed = 600;
+const daysToSeed = 300;
 
 const mock = async () => {
 	await reset();

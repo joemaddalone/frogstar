@@ -6,6 +6,9 @@ import { Select } from "@/components/ui/Select";
 import { BarChart } from "@/components/viz/BarChart";
 import { useTranslations } from "next-intl";
 import { Calendar, Weight } from "lucide-react";
+import Link from "next/link";
+import type { Route } from "next";
+
 
 type ProgressEntry = {
 	sessionId: number;
@@ -79,22 +82,24 @@ export const ByWeightForm = ({
 					<h1 className="text-xl font-bold tracking-tight">{t("common.not_found")}</h1>
 				) : (
 					<>
-						{progress.length < 100 ? (
+						{progress.length < 100 && progress.length > 2 ? (
 							<div className="flex justify-center items-center outline outline-base-300 p-1 rounded">
 								<BarChart data={progress as ProgressEntry[]} />
 							</div>
 						) : null}
-						<ul className="space-y-2 mt-4">
+						<ul className=" mt-4">
 							<li className="flex justify-between border-b border-base-300 p-1">
 								<span className="font-mono text-sm"><Calendar className="w-4 h-4" /></span>
 								<span className="font-mono text-sm"><Weight className="w-4 h-4" /></span>
 							</li>
 							{progress.map((p) => (
-								<li key={`${p.sessionId}-${p.date}-${p.max_weight}`} className="flex justify-between border-b border-base-300 pb-1">
-									<span className="font-mono text-sm">
-										{new Date(p.date).toLocaleDateString()}
-									</span>
-									<span className="font-mono text-sm">{p.max_weight}</span>
+								<li key={`${p.sessionId}-${p.date}-${p.max_weight}`} className=" ">
+									<Link href={`/session/${p.sessionId}` as Route} className="flex justify-between hover:bg-base-200 py-2 border-b border-base-300">
+										<span className="font-mono text-sm">
+											{new Date(p.date).toLocaleDateString()}
+										</span>
+										<span className="font-mono text-sm">{p.max_weight}</span>
+									</Link>
 								</li>
 							))}
 						</ul>

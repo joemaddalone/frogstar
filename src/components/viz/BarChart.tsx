@@ -1,5 +1,5 @@
 import { useRef, useState, useLayoutEffect, useMemo } from "react";
-import { Svg, Rect, Line } from "react-svg-path";
+import { Svg, Rect, Line, Text } from "react-svg-path";
 
 type HitBox = {
 	x: number;
@@ -14,7 +14,8 @@ const CHART_WIDTH = 365;
 const CHART_HEIGHT = 250;
 const BAR_GAP = 2;
 const MAX_BAR_WIDTH = 45;
-const BOTTOM_PADDING = 65;
+const TOP_PADDING = 65;
+const BOTTOM_PADDING = 15;
 
 export const BarChart = ({
 	data,
@@ -28,14 +29,13 @@ export const BarChart = ({
 		const values = data.map((d) => d.max_weight);
 		const max = Math.max(...values, 1);
 		const barW = Math.min(MAX_BAR_WIDTH, CHART_WIDTH / data.length) - BAR_GAP;
-
 		return data.map((d, i) => {
-			const h = (d.max_weight / max) * (CHART_HEIGHT - BOTTOM_PADDING);
+			const h = (d.max_weight / max) * (CHART_HEIGHT - TOP_PADDING);
 			return {
 				x: i * (barW + BAR_GAP),
 				y: CHART_HEIGHT - h,
 				w: barW,
-				h,
+				h: h - BOTTOM_PADDING,
 				value: d.max_weight,
 				date: d.date,
 			};
@@ -51,6 +51,30 @@ export const BarChart = ({
 		hitBoxes.forEach((hb) => {
 			ctx.fillRect(hb.x, hb.y, hb.w, hb.h);
 		});
+		// highest value hitbox
+		const maxHitbox = [...hitBoxes].sort((a, b) => a.value - b.value).pop();
+
+		// write maxHitbox.value to the canvas above the bar.
+		if (maxHitbox) {
+			ctx.fillStyle = "#6366f1";
+			ctx.font = "bold 0.75rem monospace";
+			ctx.textAlign = "center";
+			const textWidth = ctx.measureText(maxHitbox.value.toString()).width;
+			// x = x of bar, but the text cannot go past the canvas width
+			ctx.fillText(
+				maxHitbox.value.toString(),
+				Math.max(0, Math.min(CHART_WIDTH - (textWidth / 2), maxHitbox.x + maxHitbox.w / 2)),
+				maxHitbox.y - 10,
+			);
+			ctx.moveTo(0, maxHitbox.y);
+			ctx.lineTo(CHART_WIDTH, maxHitbox.y);
+			// blue
+			ctx.strokeStyle = "#6366f1";
+			// dashed
+			ctx.setLineDash([5, 5]);
+			ctx.lineWidth = 1;
+			ctx.stroke();
+		}
 	}, [hitBoxes]);
 
 	const handlePointer = (e: React.PointerEvent) => {
@@ -62,25 +86,41 @@ export const BarChart = ({
 	};
 
 	const activeHitBox = activeIndex !== null ? hitBoxes[activeIndex] : null;
-
 	return (
 		<div
 			className="relative touch-none"
 			style={{ width: CHART_WIDTH, height: CHART_HEIGHT }}
-			onPointerMove={handlePointer}
-			onPointerLeave={() => setActiveIndex(null)}
 		>
 			<canvas
 				ref={canvasRef}
 				width={CHART_WIDTH}
 				height={CHART_HEIGHT}
 				className="absolute inset-0"
+				onPointerMove={handlePointer}
+				onPointerLeave={() => setActiveIndex(null)}
 			/>
 			<Svg
 				className="absolute inset-0 pointer-events-none"
 				width={CHART_WIDTH}
 				height={CHART_HEIGHT}
 			>
+				<Text
+					textAnchor="middle"
+					sy={CHART_HEIGHT}
+					className="text-xs"
+				>
+					{new Date(data[0].date).toLocaleDateString("en-US", {
+						month: "numeric",
+						day: "2-digit",
+						year: "2-digit",
+					})}{" "}
+					-{" "}
+					{new Date(data[data.length - 1].date).toLocaleDateString("en-US", {
+						month: "numeric",
+						day: "2-digit",
+						year: "2-digit",
+					})}
+				</Text>
 				{activeHitBox && (
 					<g>
 						<Rect
