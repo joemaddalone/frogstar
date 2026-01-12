@@ -2,7 +2,7 @@ import { barbells, plates, exercises, plannedSets, actualSets } from "@/db/schem
 import { createRepository } from "@/lib/client/database/repository";
 import * as session from './sessions';
 import * as progress from './progress';
-
+import { importData, exportData, resetData } from "./data";
 
 const dataClient = {
 	barbells: {
@@ -29,6 +29,11 @@ const dataClient = {
 	},
 	progress: {
 		progressByWeight: progress.progressByWeight,
+	},
+	data: {
+		exportData,
+		importData,
+		resetData,
 	}
 };
 

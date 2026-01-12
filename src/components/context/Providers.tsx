@@ -1,5 +1,6 @@
 "use client";
 import { ThemeProvider } from "./ThemeProvider";
+import { ToastProvider } from "./ToastContext";
 // import { useEffect } from "react";
 export const Providers = ({ children }: { children: React.ReactNode; }) => {
 	// useEffect(() => {
@@ -7,7 +8,9 @@ export const Providers = ({ children }: { children: React.ReactNode; }) => {
 	// }, []);
 	return (
 		<ThemeProvider attribute="class" defaultTheme="system" enableSystem disableTransitionOnChange>
-			{children}
+			<ToastProvider>
+				{children}
+			</ToastProvider>
 		</ThemeProvider>
 	);
 };
