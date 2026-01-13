@@ -1,7 +1,10 @@
 import pkg from "../../../../package.json";
 import { db } from "@/lib/client/database/database";
+import { sql } from "drizzle-orm";
 import { barbells, plates, exercises, plannedSets, actualSets, sessions } from "@/db/schema";
 import type { Barbell, Plate, Exercise, PlannedSet, ActualSet, Session } from "@/lib/types";
+import { commonBarbells, commonExercises, commonPlates } from "@/db/common-data";
+import { main as seedData } from "@/db/seed";
 
 export const exportData = async () => {
 	return {
@@ -53,4 +56,39 @@ export const resetData = async () => {
 	await db.delete(sessions);
 	await db.delete(barbells);
 	await db.delete(plates);
+
+	// Reset autoincrement sequences
+	const tables = [
+		"actual_sets",
+		"planned_sets",
+		"exercises",
+		"sessions",
+		"barbells",
+		"plates",
+	];
+	for (const table of tables) {
+		try {
+			await db.run(sql`DELETE FROM sqlite_sequence WHERE name = ${table}`);
+		} catch {
+			// sqlite_sequence might not exist or table might not be in it yet
+		}
+	}
+};
+
+export const seed = async () => {
+	const tables = [
+		"exercises",
+		"barbells",
+		"plates",
+	];
+	for (const table of tables) {
+		try {
+			await db.run(sql`DELETE FROM sqlite_sequence WHERE name = ${table}`);
+		} catch {
+			// sqlite_sequence might not exist or table might not be in it yet
+		}
+	}
+	await db.insert(barbells).values(commonBarbells);
+	await db.insert(plates).values(commonPlates);
+	await db.insert(exercises).values(commonExercises);
 };

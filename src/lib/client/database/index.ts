@@ -2,7 +2,7 @@ import { barbells, plates, exercises, plannedSets, actualSets } from "@/db/schem
 import { createRepository } from "@/lib/client/database/repository";
 import * as session from './sessions';
 import * as progress from './progress';
-import { importData, exportData, resetData } from "./data";
+import { importData, exportData, resetData, seed } from "./data";
 
 const dataClient = {
 	barbells: {
@@ -34,6 +34,7 @@ const dataClient = {
 		exportData,
 		importData,
 		resetData,
+		seed
 	}
 };
 

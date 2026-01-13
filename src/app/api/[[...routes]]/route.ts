@@ -1,6 +1,7 @@
 import { Elysia } from "elysia";
 import dataClient from "@/lib/client/database";
 import { NextResponse } from "next/server";
+import { revalidatePath, revalidateTag } from "next/cache";
 
 const wrap = async (fn: () => Promise<unknown>) => {
 	try {
@@ -74,6 +75,15 @@ app.post(
 	"/data/reset",
 	async () => {
 		await wrap(() => dataClient.data.resetData());
+		return NextResponse.json({ data: true, error: undefined });
+	},
+);
+
+app.post(
+	"/data/seed",
+	async () => {
+		await wrap(() => dataClient.data.seed());
+		revalidatePath("/api/data");
 		return NextResponse.json({ data: true, error: undefined });
 	},
 );

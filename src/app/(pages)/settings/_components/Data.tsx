@@ -2,13 +2,17 @@
 import { Button } from "@/components/ui/Button";
 import { Download, Trash, Upload } from "lucide-react";
 import { api } from "@/lib/api";
+import { useRouter } from "next/navigation";
+
 import { Card, CardContent, CardDescription, CardFooter, CardTitle } from "@/components/ui/Card";
 import { useToast } from "@/app/hooks/useToast";
 
 export const Data = () => {
+	const router = useRouter();
 	const { showToast } = useToast();
 
 	const handleResetData = async () => {
+		console.log("Resetting data...");
 		if (window.confirm("Are you sure you want to reset your data? This action cannot be undone.")) {
 			const { error } = await api.data.resetData();
 			if (error) {
@@ -16,6 +20,7 @@ export const Data = () => {
 			} else {
 				showToast("success", "Data reset successfully");
 			}
+			router.refresh();
 		}
 	};
 

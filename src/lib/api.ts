@@ -109,5 +109,8 @@ export const api = {
     resetData: () => tryCatch<boolean>(fetch(`${host}/api/data/reset`, {
       method: "POST",
     })),
+    seed: () => tryCatch<boolean>(fetch(`${host}/api/data/seed`, {
+      method: "POST",
+    })),
   },
 };
