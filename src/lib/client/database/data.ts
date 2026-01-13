@@ -4,7 +4,6 @@ import { sql } from "drizzle-orm";
 import { barbells, plates, exercises, plannedSets, actualSets, sessions } from "@/db/schema";
 import type { Barbell, Plate, Exercise, PlannedSet, ActualSet, Session } from "@/lib/types";
 import { commonBarbells, commonExercises, commonPlates } from "@/db/common-data";
-import { main as seedData } from "@/db/seed";
 
 export const exportData = async () => {
 	return {

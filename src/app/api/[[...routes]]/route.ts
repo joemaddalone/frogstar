@@ -1,7 +1,7 @@
 import { Elysia } from "elysia";
 import dataClient from "@/lib/client/database";
 import { NextResponse } from "next/server";
-import { revalidatePath, revalidateTag } from "next/cache";
+import { revalidatePath } from "next/cache";
 
 const wrap = async (fn: () => Promise<unknown>) => {
 	try {
