@@ -1,3 +1,16 @@
+# [1.19.0](https://github.com/joemaddalone/frogstar/compare/v1.18.0...v1.19.0) (2026-01-13)
+
+
+### Bug Fixes
+
+* back link from settings ([e31af1e](https://github.com/joemaddalone/frogstar/commit/e31af1e7df79042b8e13d521a33f68e1a0806ef6))
+* flaky test ([9cf4a60](https://github.com/joemaddalone/frogstar/commit/9cf4a606396fe446664f24dabce5224865e02d48))
+
+
+### Features
+
+* seed from ui ([1d43c6c](https://github.com/joemaddalone/frogstar/commit/1d43c6c58fa458443758e203cf45849687c3bdba))
+
 # [1.18.0](https://github.com/joemaddalone/frogstar/compare/v1.17.0...v1.18.0) (2026-01-12)
 
 
