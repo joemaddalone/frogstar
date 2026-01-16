@@ -2,7 +2,6 @@ export const dynamic = "force-dynamic";
 import { Header } from "@/components/Header";
 import { PlannedSetForm } from "@/app/(pages)/session/_components/PlannedSetForm";
 import { api } from "@/lib/api";
-import type { Route } from "next";
 import { getTranslations } from "next-intl/server";
 export default async function AddPlannedSetPage(props: PageProps<"/session/[id]/ps/[psid]">) {
 	const t = await getTranslations();
@@ -18,7 +17,7 @@ export default async function AddPlannedSetPage(props: PageProps<"/session/[id]/
 	}
 	return (
 		<>
-			<Header label={t("common.planned_set")} backPath={`/session/${id}` as Route} />
+			<Header label={t("common.planned_set")} />
 			<main>
 				<PlannedSetForm exercises={exercises} sessionId={Number(id)} plannedSet={plannedSet} />
 			</main>

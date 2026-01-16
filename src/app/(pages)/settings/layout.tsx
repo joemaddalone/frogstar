@@ -5,7 +5,7 @@ import { SettingsNav } from "./_components/SettingsNav";
 export default async function SettingsLayout({ children }: { children: React.ReactNode; }) {
 	return (
 		<div className="min-h-screen">
-			<Header label="settings" backPath="/" />
+			<Header label="data" />
 			<main>
 				<SettingsNav />
 				{children}

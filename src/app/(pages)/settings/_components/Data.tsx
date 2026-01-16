@@ -12,7 +12,6 @@ export const Data = () => {
 	const { showToast } = useToast();
 
 	const handleResetData = async () => {
-		console.log("Resetting data...");
 		if (window.confirm("Are you sure you want to reset your data? This action cannot be undone.")) {
 			const { error } = await api.data.resetData();
 			if (error) {
@@ -27,13 +26,11 @@ export const Data = () => {
 	const handleExportData = async () => {
 		const { data, error } = await api.data.exportData();
 		if (error) {
-			console.error("Error exporting data:", error);
 			showToast("error", "Failed to export data");
 			return;
 		}
 
 		if (!data) {
-			console.error("No data exported");
 			showToast("error", "No data to export");
 			return;
 		}
@@ -61,13 +58,11 @@ export const Data = () => {
 				const data = JSON.parse(event.target?.result as string);
 				const { data: importedData, error } = await api.data.importData(data);
 				if (error) {
-					console.error("Error importing data:", error);
 					showToast("error", "Failed to import data");
 					return;
 				}
 
 				if (!importedData) {
-					console.error("No data imported");
 					showToast("error", "Failed to import data");
 					return;
 				}

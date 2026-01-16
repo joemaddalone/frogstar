@@ -12,7 +12,7 @@ export default async function HomePage() {
 	]);
 	return (
 		<div className="min-h-screen">
-			<Header label="frogstar" />
+			<Header label="sessions" />
 			<main className="space-y-8">
 				<SessionList sessionsLoader={sessions as Promise<ApiResponse<SessionWithDetails[]>>} dataLoader={equipment as Promise<[{ data: Barbell[]; }, { data: Plate[]; }, { data: Exercise[]; }]>} />
 			</main>

@@ -3,6 +3,7 @@ import { Providers } from "@/components/context/Providers";
 import { getMessages, getLocale } from "next-intl/server";
 import { NextIntlClientProvider } from "next-intl";
 import { BottomNav } from "@/components/BottomNav";
+import { DesktopNav } from "@/components/DesktopNav";
 import "@/styles/globals.css";
 
 export const metadata: Metadata = {
@@ -20,6 +21,7 @@ export default async function RootLayout({
 	const messages = await getMessages();
 	const locale = await getLocale();
 
+
 	return (
 		<html lang="en" suppressHydrationWarning>
 			<head>
@@ -31,9 +33,14 @@ export default async function RootLayout({
 			<body>
 				<NextIntlClientProvider messages={messages} locale={locale}>
 					<Providers>
-						<div className="w-full min-h-screen">
-							{children}
-							<BottomNav />
+						<div className="w-full min-h-screen bg-base-100">
+							<DesktopNav />
+							<div className="w-full lg:pl-0 pb-24 lg:pb-0">
+								{children}
+							</div>
+							<div className="lg:hidden">
+								<BottomNav />
+							</div>
 						</div>
 					</Providers>
 				</NextIntlClientProvider>
