@@ -1,3 +1,10 @@
+# [1.20.0](https://github.com/joemaddalone/frogstar/compare/v1.19.0...v1.20.0) (2026-01-16)
+
+
+### Features
+
+* a tiny amount of desktop love. ([206a060](https://github.com/joemaddalone/frogstar/commit/206a060c890ba62a89ccc17e24bbc0b066507da0))
+
 # [1.19.0](https://github.com/joemaddalone/frogstar/compare/v1.18.0...v1.19.0) (2026-01-13)
 
 
