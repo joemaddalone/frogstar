@@ -1,3 +1,10 @@
+## [1.20.1](https://github.com/joemaddalone/frogstar/compare/v1.20.0...v1.20.1) (2026-01-16)
+
+
+### Bug Fixes
+
+* css issue was hiding delete session button  on desktop ([8ed3a67](https://github.com/joemaddalone/frogstar/commit/8ed3a6700640a8ed927405f0ab131e8eed82e69f))
+
 # [1.20.0](https://github.com/joemaddalone/frogstar/compare/v1.19.0...v1.20.0) (2026-01-16)
 
 
