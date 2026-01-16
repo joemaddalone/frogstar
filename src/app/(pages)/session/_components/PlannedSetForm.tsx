@@ -148,30 +148,20 @@ export const PlannedSetForm = ({
           />
         )}
         <div className="flex justify-between gap-2">
+          <div className="flex gap-2">
+            <Button type="submit" variant="primary">
+              {t('common.save')}
+            </Button>
+            <Button variant="outline" type="button" onClick={cancel}>
+              {t('common.cancel')}
+            </Button>
+          </div>
           {plannedSet ? (
-            <>
-              <div className="flex gap-2">
-                <Button type="submit" variant="primary">
-                  {t('common.save')}
-                </Button>
-                <Button variant="outline" type="button" onClick={cancel}>
-                  {t('common.cancel')}
-                </Button>
-              </div>
-              <Button type="button" variant="danger" onClick={deletePlannedSet}>
-                {t('common.delete')}
-              </Button>
-            </>
-          ) : (
-            <>
-              <Button type="submit" variant="primary">
-                {t('common.save')}
-              </Button>
-              <Button variant="outline" type="button" onClick={cancel}>
-                {t('common.cancel')}
-              </Button>
-            </>
-          )}
+
+            <Button type="button" variant="danger" onClick={deletePlannedSet}>
+              {t('common.delete')}
+            </Button>
+          ) : null}
         </div>
       </form>
     </div>
