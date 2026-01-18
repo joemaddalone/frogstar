@@ -83,7 +83,7 @@ export const BottomNav = () => {
 									disabled={creating}
 									className={cn(
 										"flex items-center justify-center w-12 h-12 rounded-full shadow-lg transition-transform active:scale-95",
-										"bg-primary text-primary-content hover:bg-primary-focus",
+										"bg-primary text-primary-content hover:bg-primary-focus border-4 border-base-200 outline outline-1 outline-base-400",
 										creating && "opacity-70 cursor-wait"
 									)}
 									aria-label="Log Workout"
