@@ -1,3 +1,10 @@
+# [1.21.0](https://github.com/joemaddalone/frogstar/compare/v1.20.1...v1.21.0) (2026-01-18)
+
+
+### Features
+
+* move add session button ([7287490](https://github.com/joemaddalone/frogstar/commit/7287490cb3a45c8c6de9b55b99598eec930dc4c3))
+
 ## [1.20.1](https://github.com/joemaddalone/frogstar/compare/v1.20.0...v1.20.1) (2026-01-16)
 
 
