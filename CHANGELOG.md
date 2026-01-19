@@ -1,3 +1,10 @@
+## [1.21.1](https://github.com/joemaddalone/frogstar/compare/v1.21.0...v1.21.1) (2026-01-19)
+
+
+### Bug Fixes
+
+* date calc type update ([f674a4d](https://github.com/joemaddalone/frogstar/commit/f674a4da1cd76eb7699c863e7dd269a105c0274b))
+
 # [1.21.0](https://github.com/joemaddalone/frogstar/compare/v1.20.1...v1.21.0) (2026-01-18)
 
 
