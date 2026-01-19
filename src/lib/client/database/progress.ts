@@ -3,16 +3,14 @@ import { actualSets, plannedSets, sessions } from "@/db/schema";
 import { eq, gte, sql, and, isNotNull, asc } from "drizzle-orm";
 
 
-type DiffRange = 0 | 30 | 90 | 180 | 365;
-
-const getStartDate = (int: DiffRange) => {
+const getStartDate = (int: number) => {
 	const date = new Date();
 	const dateDiff = int === 0 ? 9999 : int;
 	date.setDate(date.getDate() - dateDiff);
 	return date;
 };
 
-export const progressByWeight = async (range: DiffRange, exerciseId?: number) => {
+export const progressByWeight = async (range: number, exerciseId?: number) => {
 	const startDate = getStartDate(range);
 	const result = await db.select({
 		sessionId: sessions.id,
