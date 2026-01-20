@@ -13,9 +13,7 @@ export default async function PlatesPage({ params }: PageProps) {
   return (
     <SettingsPageComponent
       id={id}
-      route="plates"
       titler={(item: Plate) => `${item.weight} - ${item.pairs} pairs`}
-      comp='plate'
       type='plates'
     />
   );

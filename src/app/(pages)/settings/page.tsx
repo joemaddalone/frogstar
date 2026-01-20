@@ -14,9 +14,7 @@ export default async function BarbellsPage({ params }: PageProps) {
 	return (
 		<SettingsPageComponent
 			id={id}
-			route="barbells"
 			titler={(item: Barbell) => `${item?.name} - ${item?.weight}`}
-			comp='barbell'
 			type='barbells'
 		/>
 	);
