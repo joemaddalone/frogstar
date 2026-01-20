@@ -14,7 +14,7 @@ import type { Barbell, Exercise, Plate } from "@/lib/types";
 type SettingsApiEndpoint = "barbells" | "plates" | "exercises";
 
 interface Props {
-  id?: string[];
+  id?: string;
   type?: SettingsApiEndpoint;
   // biome-ignore lint/suspicious/noExplicitAny: i dont care
   titler: (a: any) => string;
@@ -27,14 +27,13 @@ export default async function SettingsPageComponent(props: Props) {
 
   const { data } = await api[props.type].list();
   const { id, titler, type } = props;
-  const activeId = id ? id[0] : undefined;
+  const activeId = id ? id : undefined;
   const foundItem = data?.find((b: Barbell | Plate | Exercise) => b.id.toString() === activeId);
 
   return (
     <>
       <Header label={type} />
-      <div className="flex items-center justify-between my-4 mx-2">
-        <h2 className="text-xl font-bold tracking-tight">{type}</h2>
+      <div className="flex items-center justify-end my-4 mx-2">
         {!activeId ? (
           <Link
             href={`/settings/${type}/new` as Route}

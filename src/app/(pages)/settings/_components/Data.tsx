@@ -77,9 +77,9 @@ export const Data = () => {
 
 	return (
 		<div>
-			<div className="flex items-center justify-between my-4 mx-2">
+			{/* <div className="flex items-center justify-between my-4 mx-2">
 				<h1 className="text-xl font-bold tracking-tight">Data Management</h1>
-			</div>
+			</div> */}
 			<div className="flex flex-col gap-4">
 				<Card className="pt-4">
 					<CardContent>

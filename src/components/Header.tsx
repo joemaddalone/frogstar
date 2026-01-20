@@ -12,7 +12,7 @@ export const Header = ({ title, label, children }: HeaderProps) => {
 		<header className="top-nav">
 			<nav className="flex items-center justify-between px-4 h-[64px]">
 				<div className="flex items-center gap-2">
-					<h1 className="text-xl font-extrabold tracking-tight">
+					<h1 className="text-xl font-extrabold tracking-tight capitalize">
 						{displayTitle}
 					</h1>
 				</div>
