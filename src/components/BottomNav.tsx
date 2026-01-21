@@ -37,7 +37,7 @@ export const BottomNav = () => {
 
 	const NAV_ITEMS = [
 		{
-			label: t('common.home'),
+			label: t('common.sessions'),
 			href: "/",
 			icon: Home
 		},

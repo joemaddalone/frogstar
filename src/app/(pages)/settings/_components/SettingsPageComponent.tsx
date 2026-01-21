@@ -33,8 +33,7 @@ export default async function SettingsPageComponent(props: Props) {
   return (
     <>
       <Header label={type} />
-      <div className="flex items-center justify-between my-4 mx-2">
-        <h2 className="text-xl font-bold tracking-tight">{type}</h2>
+      <div className="flex items-center justify-end my-4 mx-2">
         {!activeId ? (
           <Link
             href={`/settings/${type}/new` as Route}

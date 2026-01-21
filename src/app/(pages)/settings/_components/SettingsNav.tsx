@@ -11,7 +11,7 @@ export const SettingsNav = () => {
 
 	const items = [
 		{
-			href: "/settings",
+			href: "/settings/barbells",
 			icon: Dumbbell,
 			label: t("common.barbells"),
 		},
@@ -36,7 +36,7 @@ export const SettingsNav = () => {
 		if (href === "/settings/barbells" && pathname === '/settings') {
 			return true;
 		}
-		return pathname === href;
+		return pathname.includes(href);
 	};
 
 	return (

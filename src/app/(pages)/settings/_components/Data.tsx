@@ -76,66 +76,61 @@ export const Data = () => {
 	};
 
 	return (
-		<div>
-			<div className="flex items-center justify-between my-4 mx-2">
-				<h1 className="text-xl font-bold tracking-tight">Data Management</h1>
-			</div>
-			<div className="flex flex-col gap-4">
-				<Card className="pt-4">
-					<CardContent>
-						<CardTitle>
-							Export Data
-						</CardTitle>
-						<CardDescription>
-							Download all your data as a backup file
-						</CardDescription>
-					</CardContent>
-					<CardFooter>
-						<Button size="sm" variant="primary" className="w-full" onClick={handleExportData}>
-							<Download /> Export Data
-						</Button>
-					</CardFooter>
-				</Card>
+		<div className="flex flex-col gap-4">
+			<Card className="pt-4">
+				<CardContent>
+					<CardTitle>
+						Export Data
+					</CardTitle>
+					<CardDescription>
+						Download all your data as a backup file
+					</CardDescription>
+				</CardContent>
+				<CardFooter>
+					<Button size="sm" variant="primary" className="w-full" onClick={handleExportData}>
+						<Download /> Export Data
+					</Button>
+				</CardFooter>
+			</Card>
 
-				<Card className="pt-4">
-					<CardContent>
-						<CardTitle>
-							Import Data
-						</CardTitle>
-						<CardDescription>
-							Upload a backup file to restore your data
-						</CardDescription>
-					</CardContent>
-					<CardFooter>
-						<Button size="sm" variant="outline" className="w-full" onClick={() => document.getElementById("import-data")?.click()}>
-							<input
-								type="file"
-								accept=".json"
-								onChange={handleImportData}
-								id="import-data"
-								className="hidden"
-							/>
-							<Upload /> Choose File
-						</Button>
-					</CardFooter>
-				</Card>
+			<Card className="pt-4">
+				<CardContent>
+					<CardTitle>
+						Import Data
+					</CardTitle>
+					<CardDescription>
+						Upload a backup file to restore your data
+					</CardDescription>
+				</CardContent>
+				<CardFooter>
+					<Button size="sm" variant="outline" className="w-full" onClick={() => document.getElementById("import-data")?.click()}>
+						<input
+							type="file"
+							accept=".json"
+							onChange={handleImportData}
+							id="import-data"
+							className="hidden"
+						/>
+						<Upload /> Choose File
+					</Button>
+				</CardFooter>
+			</Card>
 
-				<Card className="pt-4 outline outline-red-500">
-					<CardContent>
-						<CardTitle>
-							Reset Data
-						</CardTitle>
-						<CardDescription>
-							Reset all your data
-						</CardDescription>
-					</CardContent>
-					<CardFooter>
-						<Button size="sm" onClick={handleResetData} variant="danger" className="w-full">
-							<Trash /> Reset Data
-						</Button>
-					</CardFooter>
-				</Card>
-			</div>
+			<Card className="pt-4 outline outline-red-500">
+				<CardContent>
+					<CardTitle>
+						Reset Data
+					</CardTitle>
+					<CardDescription>
+						Reset all your data
+					</CardDescription>
+				</CardContent>
+				<CardFooter>
+					<Button size="sm" onClick={handleResetData} variant="danger" className="w-full">
+						<Trash /> Reset Data
+					</Button>
+				</CardFooter>
+			</Card>
 		</div>
 	);
 };

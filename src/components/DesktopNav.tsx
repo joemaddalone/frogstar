@@ -36,7 +36,7 @@ export const DesktopNav = () => {
 	};
 
 	const NAV_ITEMS = [
-		{ label: t('common.home'), href: "/", icon: Home },
+		{ label: t('common.sessions'), href: "/", icon: Home },
 		{ label: "Stats", href: "/stats", icon: BarChart2 },
 		{ label: "Barbells", href: "/settings/barbells", icon: Dumbbell },
 		{ label: "Plates", href: "/settings/plates", icon: CircleStar },
