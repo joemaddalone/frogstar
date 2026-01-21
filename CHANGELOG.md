@@ -1,3 +1,10 @@
+# [1.22.0](https://github.com/joemaddalone/frogstar/compare/v1.21.1...v1.22.0) (2026-01-21)
+
+
+### Features
+
+* consistent header and nav states ([cbffa1d](https://github.com/joemaddalone/frogstar/commit/cbffa1defbf35fdc3bf3d0030b690ec88007ac28))
+
 ## [1.21.1](https://github.com/joemaddalone/frogstar/compare/v1.21.0...v1.21.1) (2026-01-19)
 
 
