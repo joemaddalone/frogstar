@@ -9,7 +9,8 @@
 > **Note**
 > Frogstar is a self-hosted mobile-friendly app for scheduling, tracking, and logging of weightlifting sessions.
 
-<img width="433" height="873" alt="Image" src="https://github.com/user-attachments/assets/2f7cc4a4-36fe-41d9-912e-d85f9621a9fb" />
+<img width="1603" height="1024" alt="Image" src="https://github.com/user-attachments/assets/11e1ed72-f874-49c7-98bb-d93e658ca531" />
+
 
 ## Features
 
