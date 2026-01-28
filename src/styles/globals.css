@@ -1,7 +1,9 @@
 @import "tailwindcss";
 @import "react-day-picker/style.css";
 @plugin "daisyui" {
-  themes: silk --default, silk --prefersdark;
+  themes:
+    silk --default,
+    silk --prefersdark;
   root: ":root";
 }
 
@@ -17,7 +19,6 @@
   --color-primary-800: oklch(0.339 0.082 247.896);
   --color-primary-900: oklch(0.298 0.066 247.896);
   --color-primary-950: oklch(0.198 0.046 247.896);
-
 
   --font-sans: "Inter", ui-sans-serif, system-ui, sans-serif;
 
@@ -63,8 +64,8 @@ main {
   @apply focus-visible:outline-none! focus-visible:ring-0!;
 }
 
-input[type='text'],
-input[type='number'],
+input[type="text"],
+input[type="number"],
 textarea {
   font-size: 16px;
 }

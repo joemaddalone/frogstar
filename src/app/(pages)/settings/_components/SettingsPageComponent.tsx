@@ -20,15 +20,15 @@ interface Props {
   titler: (a: any) => string;
 }
 
-
-
 export default async function SettingsPageComponent(props: Props) {
   if (!props.type) return null;
 
   const { data } = await api[props.type].list();
   const { id, titler, type } = props;
   const activeId = id ? id[0] : undefined;
-  const foundItem = data?.find((b: Barbell | Plate | Exercise) => b.id.toString() === activeId);
+  const foundItem = data?.find(
+    (b: Barbell | Plate | Exercise) => b.id.toString() === activeId,
+  );
 
   return (
     <>
