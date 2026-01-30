@@ -1,3 +1,10 @@
+# [1.23.0](https://github.com/joemaddalone/frogstar/compare/v1.22.0...v1.23.0) (2026-01-30)
+
+
+### Features
+
+* planned set modal ([dbfc30d](https://github.com/joemaddalone/frogstar/commit/dbfc30dbc7d477fd181d6d147272187b0791936c))
+
 # [1.22.0](https://github.com/joemaddalone/frogstar/compare/v1.21.1...v1.22.0) (2026-01-21)
 
 
