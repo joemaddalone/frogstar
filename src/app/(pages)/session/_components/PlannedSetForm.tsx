@@ -31,10 +31,12 @@ export const PlannedSetForm = ({
   exercises,
   sessionId,
   plannedSet,
+  isModal,
 }: {
   exercises: Promise<ApiResponse<Exercise[]>>;
   sessionId: number;
   plannedSet?: PlannedSet;
+  isModal?: boolean;
 }) => {
   const router = useRouter();
   const t = useTranslations();
@@ -46,6 +48,16 @@ export const PlannedSetForm = ({
         ?.equipmentType || ""
       : "",
   );
+
+  const completeAction = () => {
+    if (isModal) {
+      router.back();
+      router.refresh();
+    } else {
+      router.refresh();
+      router.push(`/session/${sessionId}`);
+    }
+  };
 
   const action = async (state: FormState, formData: FormData) => {
     const newPlannedSet: InsertablePlannedSet | PlannedSet = {
@@ -67,7 +79,7 @@ export const PlannedSetForm = ({
       if (!data?.id) {
         return state;
       }
-      router.push(`/session/${sessionId}`);
+      completeAction();
       return state;
     } else {
       const { data, error } = await api.planned_sets.create(newPlannedSet);
@@ -77,13 +89,17 @@ export const PlannedSetForm = ({
       if (!data?.id) {
         return state;
       }
-      router.push(`/session/${sessionId}`);
+      completeAction();
       return state;
     }
   };
 
   const cancel = () => {
-    router.push(`/session/${sessionId}`);
+    if (isModal) {
+      router.back();
+    } else {
+      router.push(`/session/${sessionId}`);
+    }
   };
 
   const [_sessionData, formAction, _pending] = useActionState(
@@ -97,7 +113,7 @@ export const PlannedSetForm = ({
     }
     const { error } = await api.planned_sets.delete(plannedSet.id);
     if (!error) {
-      router.push(`/session/${plannedSet.sessionId}`);
+      completeAction();
     }
   };
 

@@ -3,6 +3,7 @@ import { Header } from "@/components/Header";
 import { PlannedSetForm } from "@/app/(pages)/session/_components/PlannedSetForm";
 import { api } from "@/lib/api";
 import { getTranslations } from "next-intl/server";
+import { dateString } from "@/lib/utils";
 export default async function AddPlannedSetPage(props: PageProps<"/session/[id]/ps/[psid]">) {
 	const t = await getTranslations();
 	const { id, psid } = await props.params;
@@ -17,7 +18,7 @@ export default async function AddPlannedSetPage(props: PageProps<"/session/[id]/
 	}
 	return (
 		<>
-			<Header label={t("common.planned_set")} />
+			<Header label={`${t("common.planned_set")} ${dateString(session.date)}`} />
 			<main>
 				<PlannedSetForm exercises={exercises} sessionId={Number(id)} plannedSet={plannedSet} />
 			</main>
