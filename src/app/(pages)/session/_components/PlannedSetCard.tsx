@@ -156,7 +156,7 @@ export const PlannedSetCard = ({
 				{showEditActualSetForm !== 0 && (
 					<dialog
 						ref={modalRef}
-						className="modal modal-bottom sm:modal-middle"
+						className="modal modal-top sm:modal-middle"
 						onClose={() => setShowEditActualSetForm(0)}
 					>
 						<div className="modal-box">

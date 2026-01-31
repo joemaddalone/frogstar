@@ -26,7 +26,7 @@ export const EditPlannedSetModal = ({
 	return (
 		<dialog
 			ref={modalRef}
-			className="modal modal-bottom sm:modal-middle"
+			className="modal modal-top sm:modal-middle"
 			onClose={onDismiss}
 		>
 			<div className="modal-box">
