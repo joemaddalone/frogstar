@@ -1,3 +1,10 @@
+# [1.24.0](https://github.com/joemaddalone/frogstar/compare/v1.23.0...v1.24.0) (2026-01-31)
+
+
+### Features
+
+* edit completed set modal ([80c4a97](https://github.com/joemaddalone/frogstar/commit/80c4a97eced70e6b8165f3935e3dd2367931662a))
+
 # [1.23.0](https://github.com/joemaddalone/frogstar/compare/v1.22.0...v1.23.0) (2026-01-30)
 
 
