@@ -1,3 +1,10 @@
+## [1.24.1](https://github.com/joemaddalone/frogstar/compare/v1.24.0...v1.24.1) (2026-01-31)
+
+
+### Bug Fixes
+
+* modal to top to prevent keyboard overlap ([3c8fb73](https://github.com/joemaddalone/frogstar/commit/3c8fb73443f12cd01c382c381ec4124c6dd4eea9))
+
 # [1.24.0](https://github.com/joemaddalone/frogstar/compare/v1.23.0...v1.24.0) (2026-01-31)
 
 
