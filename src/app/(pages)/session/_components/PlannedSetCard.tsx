@@ -6,7 +6,7 @@ import type {
 	ActualSet,
 	Exercise,
 } from "@/lib/types";
-import { useState, use } from "react";
+import { useState, use, useRef, useEffect } from "react";
 import { ActualSetForm } from "./ActualSetForm";
 import { useRouter } from "next/navigation";
 import { api } from "@/lib/api";
@@ -20,10 +20,13 @@ import {
 	CardHeaderActions,
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { ChevronRight, Pencil } from "lucide-react";
+import { Pencil } from "lucide-react";
 import { PlateViz } from "@/components/PlateViz";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { useTranslations } from "next-intl";
+
+
+
 export const PlannedSetCard = ({
 	plannedSet,
 	equipmentLoader,
@@ -31,7 +34,7 @@ export const PlannedSetCard = ({
 	plannedSet: PlannedSet & { exercise: Exercise; actualSets: ActualSet[]; };
 	equipmentLoader: Promise<{ plates: Plate[]; barbells: Barbell[]; }>;
 }) => {
-	const [showActualSetForm, setShowActualSetForm] = useState(false);
+	const modalRef = useRef<HTMLDialogElement>(null);
 	const [showEditActualSetForm, setShowEditActualSetForm] = useState(0);
 	const [showWarmup, setShowWarmup] = useState(false);
 	const equipment = use(equipmentLoader);
@@ -42,7 +45,6 @@ export const PlannedSetCard = ({
 		const { error } = await api.actual_sets.delete(actualSetId);
 		if (!error) {
 			setShowEditActualSetForm(0);
-			setShowActualSetForm(false);
 			router.refresh();
 		}
 	};
@@ -57,6 +59,12 @@ export const PlannedSetCard = ({
 			router.refresh();
 		}
 	};
+
+	useEffect(() => {
+		if (showEditActualSetForm !== 0 && !modalRef.current?.open) {
+			modalRef.current?.showModal();
+		}
+	}, [showEditActualSetForm]);
 
 	const isBodyweight = plannedSet.exercise.equipmentType === "bodyweight";
 
@@ -133,44 +141,35 @@ export const PlannedSetCard = ({
 				{plannedSet.actualSets.length > 0 && (
 					<h1>{t("common.completed_sets")}</h1>
 				)}
-				{plannedSet.actualSets.map((actualSet) => {
-					return (
-						<div
-							key={actualSet.id}
-							className="flex gap-2 items-center justify-between py-1"
-						>
-							{showEditActualSetForm === actualSet.id ? (
-								<ActualSetForm
-									showWeight={!isBodyweight}
-									plannedSet={plannedSet}
-									actualSetId={showEditActualSetForm}
-									cancel={() => setShowEditActualSetForm(0)}
-									deleteActualSet={deleteActualSet}
-								/>
-							) : (
-								<Card
-									className={`cursor-pointer p-2 w-full`}
-									onClick={() => setShowEditActualSetForm(actualSet.id)}
-								>
-									<CardDescription className="flex items-center justify-between">
-										<div>
-											<span>{actualSet.actualReps}</span> <span>{!isBodyweight && `@ ${actualSet.actualWeight}`}</span>
-										</div>
-										<ChevronRight className="h-5 w-5 text-base-content/20 group-hover:text-primary transition-colors" />
-									</CardDescription>
-								</Card>
-							)}
-						</div>
-					);
-				})}
+				<div
+					className="flex gap-2 items-center py-1 flex-wrap"
+				>
+					{plannedSet.actualSets.map((actualSet) => {
+						return (
+							<button key={actualSet.id} type="button" onClick={() => setShowEditActualSetForm(actualSet.id)} className="btn">
+								<span>{actualSet.actualReps}</span> <span>{!isBodyweight && `@ ${actualSet.actualWeight}`}</span>
+							</button>
+						);
+					})}
 
-				{showActualSetForm && (
-					<ActualSetForm
-						showWeight={!isBodyweight}
-						plannedSet={plannedSet}
-						cancel={() => setShowActualSetForm(false)}
-						deleteActualSet={deleteActualSet}
-					/>
+				</div>
+				{showEditActualSetForm !== 0 && (
+					<dialog
+						ref={modalRef}
+						className="modal modal-bottom sm:modal-middle"
+						onClose={() => setShowEditActualSetForm(0)}
+					>
+						<div className="modal-box">
+							<h3 className="font-bold text-lg mb-4">Edit Completed Set</h3>
+							<ActualSetForm
+								showWeight={!isBodyweight}
+								plannedSet={plannedSet}
+								actualSetId={showEditActualSetForm}
+								cancel={() => setShowEditActualSetForm(0)}
+								deleteActualSet={deleteActualSet}
+							/>
+						</div>
+					</dialog>
 				)}
 			</CardContent>
 		</Card>
