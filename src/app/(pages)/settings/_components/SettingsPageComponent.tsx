@@ -20,13 +20,23 @@ interface Props {
   titler: (a: any) => string;
 }
 
+// sorts
+const sorters = {
+  barbells: (a: Barbell, b: Barbell) => b.weight - a.weight,
+  plates: (a: Plate, b: Plate) => b.weight - a.weight,
+  exercises: (a: Exercise, b: Exercise) => a.name.localeCompare(b.name),
+};
+
 export default async function SettingsPageComponent(props: Props) {
   if (!props.type) return null;
 
   const { data } = await api[props.type].list();
+  // biome-ignore lint/suspicious/noExplicitAny: i dont care
+  const sortedData = data?.sort(sorters[props.type] as any);
+
   const { id, titler, type } = props;
   const activeId = id ? id[0] : undefined;
-  const foundItem = data?.find(
+  const foundItem = sortedData?.find(
     (b: Barbell | Plate | Exercise) => b.id.toString() === activeId,
   );
 
@@ -43,8 +53,8 @@ export default async function SettingsPageComponent(props: Props) {
           </Link>
         ) : null}
       </div>
-      {!activeId && data?.length ? (
-        data?.map((item: Barbell | Plate | Exercise) => (
+      {!activeId && sortedData?.length ? (
+        sortedData?.map((item: Barbell | Plate | Exercise) => (
           <SettingsCard
             key={item.id}
             title={titler(item)}

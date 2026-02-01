@@ -135,7 +135,7 @@ export const PlannedSetForm = ({
             )
           }
         >
-          {exerciseList?.map((exercise) => (
+          {exerciseList?.sort((a, b) => a.name.localeCompare(b.name)).map((exercise) => (
             <option key={exercise.id} value={exercise.id}>
               {exercise.name}
             </option>

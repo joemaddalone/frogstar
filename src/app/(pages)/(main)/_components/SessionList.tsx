@@ -75,7 +75,7 @@ export const SessionList = ({ sessionsLoader, dataLoader }: { sessionsLoader: Pr
 	return (
 		<>
 			<div className="grid grid-cols-2 gap-4">
-				<Card className="cursor-pointer text-center">
+				<Card className="text-center">
 					<CardHeader className="p-4">
 						<div className="text-3xl font-bold text-primary">
 							{stats.total}
@@ -95,9 +95,9 @@ export const SessionList = ({ sessionsLoader, dataLoader }: { sessionsLoader: Pr
 
 			{hasData ? (
 				<div className="flex items-center justify-center gap-2">
-					<div className="badge badge-sm">Barbells: {existing?.[0]?.data?.length}</div>
-					<div className="badge badge-sm">Plates: {existing?.[1]?.data?.length}</div>
-					<div className="badge badge-sm">Exercises: {existing?.[2]?.data?.length}</div>
+					<div className="badge badge-sm p-4!">Barbells: {existing?.[0]?.data?.length}</div>
+					<div className="badge badge-sm p-4!">Plates: {existing?.[1]?.data?.length}</div>
+					<div className="badge badge-sm p-4!">Exercises: {existing?.[2]?.data?.length}</div>
 				</div>
 			) : null}
 
