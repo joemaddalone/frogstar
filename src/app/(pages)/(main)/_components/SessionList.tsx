@@ -1,13 +1,12 @@
 "use client";
 import type { ApiResponse, SessionWithDetails, InsertableSession, Barbell, Plate, Exercise } from "@/lib/types";
 import { use, useMemo } from "react";
-import { dateString } from "@/lib/utils";
-import { Calendar, Plus, ChevronRight, Download } from "lucide-react";
+import { Calendar, Plus, Download } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
-import { Badge } from "@/components/ui/Badge";
 import { api } from "@/lib/api";
+import { SessionCard } from "./SessionCard";
 import { useTranslations } from "next-intl";
 
 export const SessionList = ({ sessionsLoader, dataLoader }: { sessionsLoader: Promise<ApiResponse<SessionWithDetails[]>>; dataLoader: Promise<[{ data: Barbell[]; }, { data: Plate[]; }, { data: Exercise[]; }]>; }) => {
@@ -147,29 +146,12 @@ export const SessionList = ({ sessionsLoader, dataLoader }: { sessionsLoader: Pr
 					) : (
 						<div className="space-y-3">
 							{sortedSessions.slice(0, 10).map((session) => (
-								<Card
+								<SessionCard
+									status={status}
+									STATUS_ENUM={STATUS_ENUM}
 									key={session.id}
-									className="group cursor-pointer hover:border-primary/50 transition-all hover:shadow-md"
-									onClick={() => router.push(`/session/${session.id}`)}
-								>
-									<CardContent className="p-4 flex items-center justify-between">
-										<div className="space-y-1">
-											<div className="flex items-center gap-2">
-												<span className="font-semibold text-lg">
-													{dateString(session.date)}
-												</span>
-												<Badge variant={status(session) === STATUS_ENUM.completed ? "success" : status(session) === STATUS_ENUM.partial ? "warning" : "outline"}>{status(session)}</Badge>
-											</div>
-											<p className="text-sm text-base-content/60">
-												{session.planned_exercises} {t("common.exercises")} • {session.completed_sets}/{session.planned_sets} {t("common.sets")}
-											</p>
-											{session.notes && (
-												<p className="text-xs text-base-content/40 italic line-clamp-1">{session.notes}</p>
-											)}
-										</div>
-										<ChevronRight className="h-5 w-5 text-base-content/20 group-hover:text-primary transition-colors" />
-									</CardContent>
-								</Card>
+									session={session}
+								/>
 							))}
 						</div>
 					)}
