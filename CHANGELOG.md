@@ -1,3 +1,10 @@
+# [1.25.0](https://github.com/joemaddalone/frogstar/compare/v1.24.1...v1.25.0) (2026-02-01)
+
+
+### Features
+
+* sorting defaults ([1e91428](https://github.com/joemaddalone/frogstar/commit/1e91428397b3c382179d68cde5e4bf2899d7d7e0))
+
 ## [1.24.1](https://github.com/joemaddalone/frogstar/compare/v1.24.0...v1.24.1) (2026-01-31)
 
 
