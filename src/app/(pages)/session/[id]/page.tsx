@@ -24,7 +24,7 @@ export default async function SessionPage(props: PageProps<"/session/[id]">) {
 
 	return (
 		<>
-			<Header label="session">
+			<Header label={t("common.session")} backLink="/">
 				<SessionHeader session={session} />
 			</Header>
 			<main className="flex flex-col gap-4">
