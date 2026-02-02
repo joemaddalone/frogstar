@@ -51,6 +51,12 @@ export const calculateWarmUpSets = (targetWeight: number, equipmentType: string 
 
 	const warmUps: WarmUpSet[] = [];
 
+	const getReps = (percentage: number) => {
+		if (percentage >= .8) return 3;
+		if (percentage >= .6) return 5;
+		return 8;
+	};
+
 	for (const percentage of percentages) {
 		const calculatedWeight = targetWeight * percentage;
 		// Round to nearest 5 pounds for barbell, nearest 2.5 for others
@@ -60,7 +66,7 @@ export const calculateWarmUpSets = (targetWeight: number, equipmentType: string 
 		if (weight >= minWeight && weight < targetWeight) {
 			warmUps.push({
 				weight,
-				reps: percentage <= 0.6 ? 8 : 5, // More reps for lighter sets
+				reps: getReps(percentage),
 				percentage: Math.round(percentage * 100)
 			});
 		}

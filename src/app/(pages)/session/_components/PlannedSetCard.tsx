@@ -24,6 +24,7 @@ import { Pencil } from "lucide-react";
 import { PlateViz } from "@/components/PlateViz";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { useTranslations } from "next-intl";
+import { AnimatePresence, motion } from "framer-motion";
 
 
 
@@ -100,20 +101,56 @@ export const PlannedSetCard = ({
 				</CardTitle>
 				<CardDescription>
 					<span>{plannedSet.intendedSets} x {plannedSet.intendedReps}</span> <span>{!isBodyweight && `@ ${plannedSet.targetWeight}`}</span>
-					{plannedSet.exercise.equipmentType === "barbell" && (
-						<PlateViz
-							plates={equipment.plates}
-							bar={barWeight}
-							target={plannedSet.targetWeight || 0}
-						/>
-					)}
+					<AnimatePresence initial={false}>
+						{!showWarmup && plannedSet.exercise.equipmentType === "barbell" && (
+							<motion.div
+								initial={{ opacity: 0, height: 0 }}
+								animate={{ opacity: 1, height: 'auto' }}
+								exit={{ opacity: 0, height: 0 }}
+							>
+								<PlateViz
+									plates={equipment.plates}
+									bar={barWeight}
+									target={plannedSet.targetWeight || 0}
+								/>
+							</motion.div>
+						)}
+					</AnimatePresence>
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
-				<div className="flex justify-between gap-2">
-					<Button size="sm" className="w-auto mb-2" onClick={logSet}>
-						{t("common.log_set")}
-					</Button>
+				<AnimatePresence>
+					{showWarmup &&
+						plannedSet.targetWeight &&
+						plannedSet.targetWeight > 0 && (
+							<motion.div
+								initial={{ opacity: 0, height: 0 }}
+								animate={{ opacity: 1, height: 'auto', marginBottom: 10 }}
+								exit={{ opacity: 0, height: 0, marginBottom: 0 }}
+								transition={{
+									ease: [0, 0.71, 0.2, 1.01],
+								}}
+							>
+								<WarmUpSets
+									plates={equipment.plates}
+									barbells={equipment.barbells}
+									exercise={plannedSet.exercise}
+									targetWeight={plannedSet.targetWeight}
+									equipmentType={plannedSet.exercise.equipmentType}
+								/>
+							</motion.div>
+						)}
+				</AnimatePresence>
+
+				<div className={`flex ${showWarmup ? "justify-end" : "justify-between"}  gap-2`}>
+					<AnimatePresence initial={false}>
+						{!showWarmup ? (
+							<Button size="sm" className="w-auto mb-2" onClick={logSet}>
+								{t("common.log_set")}
+							</Button>
+						) : null}
+
+					</AnimatePresence>
 					{plannedSet.exercise.equipmentType === "barbell" && (
 						<Button
 							onClick={() => setShowWarmup(!showWarmup)}
@@ -126,33 +163,36 @@ export const PlannedSetCard = ({
 					)}
 				</div>
 
-				{showWarmup &&
-					plannedSet.targetWeight &&
-					plannedSet.targetWeight > 0 && (
-						<WarmUpSets
-							plates={equipment.plates}
-							barbells={equipment.barbells}
-							exercise={plannedSet.exercise}
-							targetWeight={plannedSet.targetWeight}
-							equipmentType={plannedSet.exercise.equipmentType}
-						/>
-					)}
 
-				{plannedSet.actualSets.length > 0 && (
-					<h1>{t("common.completed_sets")}</h1>
-				)}
-				<div
-					className="flex gap-2 items-center py-1 flex-wrap"
-				>
-					{plannedSet.actualSets.map((actualSet) => {
-						return (
-							<button key={actualSet.id} type="button" onClick={() => setShowEditActualSetForm(actualSet.id)} className="btn">
-								<span>{actualSet.actualReps}</span> <span>{!isBodyweight && `@ ${actualSet.actualWeight}`}</span>
-							</button>
-						);
-					})}
+				<AnimatePresence initial={false}>
+					<motion.div
+						initial={{ opacity: 0, height: 0 }}
+						animate={{ opacity: 1, height: 'auto' }}
+						exit={{ opacity: 0, height: 0 }}
+					>
 
-				</div>
+						{!showWarmup && (
+							<>
+
+
+								{plannedSet.actualSets.length > 0 && (
+									<h1>{t("common.completed_sets")}</h1>
+								)}
+								<div
+									className="flex gap-2 items-center py-1 flex-wrap"
+								>
+									{plannedSet.actualSets.map((actualSet) => {
+										return (
+											<button key={actualSet.id} type="button" onClick={() => setShowEditActualSetForm(actualSet.id)} className="btn">
+												<span>{actualSet.actualReps}</span> <span>{!isBodyweight && `@ ${actualSet.actualWeight}`}</span>
+											</button>
+										);
+									})}
+
+								</div>
+							</>)}
+					</motion.div>
+				</AnimatePresence>
 				{showEditActualSetForm !== 0 && (
 					<dialog
 						ref={modalRef}
