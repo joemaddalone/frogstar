@@ -6,6 +6,8 @@ interface PlateVizProps {
 	plates: Plate[];
 	bar: number;
 	target: number;
+	size?: 'sm' | 'md';
+	className?: string;
 }
 
 
@@ -21,23 +23,45 @@ const colors = [
 
 ];
 
-const calcHeights = (plates: Plate[]) => {
+const calcHeights = (plates: Plate[], maxPlateHeight: number) => {
 	const sortedPlates = plates.sort((a, b) => b.weight - a.weight);
 	const heights = sortedPlates.map((plate, index) => {
 		return {
 			weight: plate.weight,
-			height: 100 - (index * 8),
+			height: maxPlateHeight - (index * 8),
 		};
 	});
 	return heights;
 };
 
 
+const PLATE_VIZ_CONSTS_MD = {
+	PLATE_WIDTH: 30,
+	PLATE_HEIGHT: 100,
+	PLATE_GAP: 5,
+	MIN_BAR_WIDTH: 75,
+	BAR_HEIGHT: 25,
+	BAR_DISPLAY_OFFSET: 50,
+	SVG_HEIGHT: 100,
+	SVG_WIDTH: 100,
+	FONT_SIZE: 11,
+	RADIUS: 5,
+	LABEL_MARGIN: 5,
+};
+
+const PLATE_VIZ_CONSTS_SM = (Object.keys(PLATE_VIZ_CONSTS_MD) as (keyof typeof PLATE_VIZ_CONSTS_MD)[]).reduce((acc, key) => {
+	acc[key] = Math.floor(PLATE_VIZ_CONSTS_MD[key] * 0.75);
+	return acc;
+}, {} as typeof PLATE_VIZ_CONSTS_MD);
+
+PLATE_VIZ_CONSTS_SM.FONT_SIZE = 10;
+
+export const PlateViz = ({ plates, bar, target, size = 'md', className = '' }: PlateVizProps) => {
+
+	const PLATE_VIZ_CONSTS = size === 'sm' ? PLATE_VIZ_CONSTS_SM : PLATE_VIZ_CONSTS_MD;
 
 
-
-export const PlateViz = ({ plates, bar, target }: PlateVizProps) => {
-	const heights = calcHeights(plates);
+	const heights = calcHeights(plates, PLATE_VIZ_CONSTS.PLATE_HEIGHT);
 	const platesNeeded = justThePlates(bar, target, plates);
 	let dx = 0;
 	const platesToRender = platesNeeded.reduce((acc, plate, index) => {
@@ -49,26 +73,26 @@ export const PlateViz = ({ plates, bar, target }: PlateVizProps) => {
 				dx: dx,
 				color: colors[index],
 			});
-			dx += 35;
+			dx += PLATE_VIZ_CONSTS.PLATE_GAP + PLATE_VIZ_CONSTS.PLATE_WIDTH;
 		}
 		return acc;
 	}, [] as { weight: number; dx: number; height: number; color: string; }[]);
 
-	const barWidth = 75 + platesToRender.length * 35;
-	const svgH = 100;
+	const barWidth = PLATE_VIZ_CONSTS.MIN_BAR_WIDTH + platesToRender.length * (PLATE_VIZ_CONSTS.PLATE_GAP + PLATE_VIZ_CONSTS.PLATE_WIDTH);
+	const svgH = PLATE_VIZ_CONSTS.SVG_HEIGHT;
 	const svgW = barWidth;
 	return (
-		<div className="flex justify-center p-4 border border-base-content/10 rounded-sm">
+		<div className={`flex justify-center ${className}`}>
 			<Svg width={svgW} height={svgH}>
-				<RoundedRect ox={-25} radius={5} height={25} width={barWidth} fill="#ccc8" />
-				<Text sx={8} dy={4} fontSize={11} style={{ fontFamily: "Arial", fontWeight: "bold" }}>
+				<RoundedRect ox={-PLATE_VIZ_CONSTS.BAR_HEIGHT} radius={PLATE_VIZ_CONSTS.RADIUS} height={PLATE_VIZ_CONSTS.BAR_HEIGHT} width={barWidth} fill="#ccc8" />
+				<Text sx={8} dy={4} fontSize={PLATE_VIZ_CONSTS.FONT_SIZE} style={{ fontFamily: "Arial", fontWeight: "bold" }}>
 					{bar}
 				</Text>
 
 				{platesToRender.map((plate) => (
-					<RoundedRect radius={5} key={plate.weight} cx={50 + plate.dx} width={30} height={plate.height} fill={plate.color}>
-						<RoundedSquare radius={5} size={25} fill="white">
-							<Text fill="#222" fontSize={11} style={{ fontFamily: "Arial", fontWeight: "bold" }} textAnchor="middle" dy={4}>{plate.weight}</Text>
+					<RoundedRect radius={PLATE_VIZ_CONSTS.RADIUS} key={plate.weight} cx={PLATE_VIZ_CONSTS.BAR_DISPLAY_OFFSET + plate.dx} width={PLATE_VIZ_CONSTS.PLATE_WIDTH} height={plate.height} fill={plate.color}>
+						<RoundedSquare radius={PLATE_VIZ_CONSTS.RADIUS} size={PLATE_VIZ_CONSTS.PLATE_WIDTH - PLATE_VIZ_CONSTS.LABEL_MARGIN} fill="white">
+							<Text fill="#222" fontSize={PLATE_VIZ_CONSTS.FONT_SIZE} style={{ fontFamily: "Arial", fontWeight: "bold" }} textAnchor="middle" dy={4}>{plate.weight}</Text>
 						</RoundedSquare>
 					</RoundedRect>
 

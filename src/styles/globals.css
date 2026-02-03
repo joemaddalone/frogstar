@@ -26,6 +26,11 @@
   --radius-2xl: 1.5rem;
 }
 
+body,
+html {
+  overflow-y: scroll;
+}
+
 @layer base {
   body {
     @apply bg-base-100 text-base-content font-sans antialiased selection:bg-primary/20;

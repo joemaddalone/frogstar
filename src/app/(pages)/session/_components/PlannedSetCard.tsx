@@ -26,8 +26,6 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 
-
-
 export const PlannedSetCard = ({
 	plannedSet,
 	equipmentLoader,
@@ -98,17 +96,37 @@ export const PlannedSetCard = ({
 					<sup className="text-sm text-base-content/60">
 						{plannedSet.exercise.category}
 					</sup>
+					<div className="flex items-center gap-2 text-base-content/60 text-sm">
+						<div>
+							<span>{plannedSet.intendedSets} x {plannedSet.intendedReps}</span> <span>{!isBodyweight && `@ ${plannedSet.targetWeight}`}</span>
+						</div>
+						{plannedSet.exercise.equipmentType === "barbell" && (
+							<label className={`label ${showWarmup ? "text-info font-bold" : ""}`}>
+								<input type="checkbox" className="toggle toggle-info toggle-xs" onChange={() => setShowWarmup(!showWarmup)} />
+								<span className="text-sm">{t("common.warmups")}</span>
+							</label>
+
+						)}
+					</div>
 				</CardTitle>
 				<CardDescription>
-					<span>{plannedSet.intendedSets} x {plannedSet.intendedReps}</span> <span>{!isBodyweight && `@ ${plannedSet.targetWeight}`}</span>
+
+
+
+
+					<div className="flex items-center mb-2">
+
+					</div>
 					<AnimatePresence initial={false}>
 						{!showWarmup && plannedSet.exercise.equipmentType === "barbell" && (
 							<motion.div
 								initial={{ opacity: 0, height: 0 }}
 								animate={{ opacity: 1, height: 'auto' }}
 								exit={{ opacity: 0, height: 0 }}
+								className="border border-base-content/10 rounded-sm"
 							>
 								<PlateViz
+									className="p-4"
 									plates={equipment.plates}
 									bar={barWeight}
 									target={plannedSet.targetWeight || 0}
@@ -119,6 +137,9 @@ export const PlannedSetCard = ({
 				</CardDescription>
 			</CardHeader>
 			<CardContent>
+
+
+
 				<AnimatePresence>
 					{showWarmup &&
 						plannedSet.targetWeight &&
@@ -127,9 +148,6 @@ export const PlannedSetCard = ({
 								initial={{ opacity: 0, height: 0 }}
 								animate={{ opacity: 1, height: 'auto', marginBottom: 10 }}
 								exit={{ opacity: 0, height: 0, marginBottom: 0 }}
-								transition={{
-									ease: [0, 0.71, 0.2, 1.01],
-								}}
 							>
 								<WarmUpSets
 									plates={equipment.plates}
@@ -142,7 +160,7 @@ export const PlannedSetCard = ({
 						)}
 				</AnimatePresence>
 
-				<div className={`flex ${showWarmup ? "justify-end" : "justify-between"}  gap-2`}>
+				<div className={`flex  gap-2`}>
 					<AnimatePresence initial={false}>
 						{!showWarmup ? (
 							<Button size="sm" className="w-auto mb-2" onClick={logSet}>
@@ -151,16 +169,6 @@ export const PlannedSetCard = ({
 						) : null}
 
 					</AnimatePresence>
-					{plannedSet.exercise.equipmentType === "barbell" && (
-						<Button
-							onClick={() => setShowWarmup(!showWarmup)}
-							size="sm"
-							variant="outline"
-						>
-							{showWarmup ? t("common.hide") : t("common.show")}{" "}
-							{t("common.warmups")}
-						</Button>
-					)}
 				</div>
 
 
