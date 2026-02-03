@@ -1,3 +1,10 @@
+# [1.27.0](https://github.com/joemaddalone/frogstar/compare/v1.26.1...v1.27.0) (2026-02-03)
+
+
+### Features
+
+* common settings page code ([#24](https://github.com/joemaddalone/frogstar/issues/24)) ([464a421](https://github.com/joemaddalone/frogstar/commit/464a4217670cbd75727834024ecd2fb79737906e))
+
 ## [1.26.1](https://github.com/joemaddalone/frogstar/compare/v1.26.0...v1.26.1) (2026-02-03)
 
 
