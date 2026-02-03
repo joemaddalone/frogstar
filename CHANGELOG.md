@@ -1,3 +1,11 @@
+# [1.26.0](https://github.com/joemaddalone/frogstar/compare/v1.25.0...v1.26.0) (2026-02-03)
+
+
+### Features
+
+* cleaner warmups UI and calc ([d087ad6](https://github.com/joemaddalone/frogstar/commit/d087ad6fe987efcfda9ff202f89415e21f26309e))
+* warmup trigger and animation ([f9ad2af](https://github.com/joemaddalone/frogstar/commit/f9ad2af3e5fa36f52626691e5f5c3bfd14b7b401))
+
 # [1.25.0](https://github.com/joemaddalone/frogstar/compare/v1.24.1...v1.25.0) (2026-02-01)
 
 
