@@ -31,6 +31,7 @@ export const useSettingsForm = <T extends { id: number; }, I, S>(
 			}
 			const { error } = await endpointApi.delete(deleteId);
 			if (!error) {
+				router.refresh();
 				router.push(`/settings/${endpoint}` as Route);
 			}
 		}
@@ -54,6 +55,7 @@ export const useSettingsForm = <T extends { id: number; }, I, S>(
 				return state;
 			}
 
+			router.refresh();
 			router.push(`/settings/${endpoint}` as Route);
 			return state;
 		};

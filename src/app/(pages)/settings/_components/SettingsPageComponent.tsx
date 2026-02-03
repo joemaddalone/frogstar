@@ -14,7 +14,7 @@ import type { Barbell, Exercise, Plate } from "@/lib/types";
 type SettingsApiEndpoint = "barbells" | "plates" | "exercises";
 
 interface Props {
-  id?: string[];
+  id?: string;
   type?: SettingsApiEndpoint;
   // biome-ignore lint/suspicious/noExplicitAny: i dont care
   titler: (a: any) => string;
@@ -35,7 +35,8 @@ export default async function SettingsPageComponent(props: Props) {
   const sortedData = data?.sort(sorters[props.type] as any);
 
   const { id, titler, type } = props;
-  const activeId = id ? id[0] : undefined;
+
+  const activeId = id;
   const foundItem = sortedData?.find(
     (b: Barbell | Plate | Exercise) => b.id.toString() === activeId,
   );
