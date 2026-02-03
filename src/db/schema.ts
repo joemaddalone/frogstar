@@ -39,7 +39,7 @@ export const plannedSets = sqliteTable('planned_sets', {
 	id: integer('id').primaryKey({ autoIncrement: true }),
 	exerciseId: integer('exercise_id')
 		.notNull()
-		.references(() => exercises.id),
+		.references(() => exercises.id, { onDelete: 'cascade' }),
 	sessionId: integer('session_id')
 		.notNull()
 		.references(() => sessions.id, { onDelete: 'cascade' }),
