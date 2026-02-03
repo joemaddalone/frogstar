@@ -1,3 +1,10 @@
+## [1.26.1](https://github.com/joemaddalone/frogstar/compare/v1.26.0...v1.26.1) (2026-02-03)
+
+
+### Bug Fixes
+
+* add cascade delete to plannedSet-exercise relationship ([bdbea9a](https://github.com/joemaddalone/frogstar/commit/bdbea9ad51e66c1e96b4515d1dd0adb004e92139))
+
 # [1.26.0](https://github.com/joemaddalone/frogstar/compare/v1.25.0...v1.26.0) (2026-02-03)
 
 
