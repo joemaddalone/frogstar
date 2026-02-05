@@ -18,12 +18,17 @@ export const Header = ({ title, label, children, backLink }: HeaderProps) => {
 				<div className="flex items-center gap-2">
 					{backLink ? (
 						<Link href={backLink as Route}>
-							<ChevronLeft className="h-5 w-5" />
+						<h1 className="flex items-center text-xl font-extrabold tracking-tight capitalize">
+
+							<ChevronLeft className="h-5 w-5" /> {displayTitle}
+							</h1>
 						</Link>
-					) : null}
-					<h1 className="text-xl font-extrabold tracking-tight capitalize">
+					) : (
+						<h1 className="text-xl font-extrabold tracking-tight capitalize">
 						{displayTitle}
 					</h1>
+					)}
+
 				</div>
 				<div className="flex items-center gap-2">
 					{children}
