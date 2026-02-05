@@ -1,3 +1,10 @@
+## [1.27.1](https://github.com/joemaddalone/frogstar/compare/v1.27.0...v1.27.1) (2026-02-05)
+
+
+### Bug Fixes
+
+* header link larger hit area ([94176a6](https://github.com/joemaddalone/frogstar/commit/94176a6046d1822c88f6c2563bafa8877d58bc9f))
+
 # [1.27.0](https://github.com/joemaddalone/frogstar/compare/v1.26.1...v1.27.0) (2026-02-03)
 
 
