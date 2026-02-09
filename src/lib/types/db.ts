@@ -24,5 +24,7 @@ export type SessionWithDetails = Session & {
 	plannedSets: PlannedSetWithDetails[];
 	planned_exercises: number;
 	completed_sets: number;
+	completed_reps: number;
 	planned_sets: number;
+	planned_reps: number;
 };

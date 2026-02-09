@@ -23,7 +23,7 @@ export const SettingsNav = () => {
 		{
 			href: "/settings/exercises",
 			icon: BicepsFlexed,
-			label: t("common.exercises"),
+			label: t("common.exercise"),
 		},
 		{
 			href: "/settings/data",

@@ -147,8 +147,6 @@ export const SessionList = ({ sessionsLoader, dataLoader }: { sessionsLoader: Pr
 						<div className="space-y-3">
 							{sortedSessions.slice(0, 10).map((session) => (
 								<SessionCard
-									status={status}
-									STATUS_ENUM={STATUS_ENUM}
 									key={session.id}
 									session={session}
 								/>

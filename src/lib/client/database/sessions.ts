@@ -29,12 +29,16 @@ export async function get(): Promise<SessionWithDetails[]> {
 function enrichSession(session: Session & { plannedSets: (PlannedSet & { actualSets: ActualSet[]; })[]; }): SessionWithDetails {
 	const planned_exercises = session.plannedSets.length;
 	const completed_sets = session.plannedSets.reduce((acc: number, ps) => acc + ps.actualSets.length, 0);
+	const completed_reps = session.plannedSets.reduce((acc: number, ps) => acc + ps.actualSets.reduce((acc2: number, as) => acc2 + as.actualReps, 0), 0);
 	const planned_sets = session.plannedSets.reduce((acc: number, ps) => acc + ps.intendedSets, 0);
+	const planned_reps = session.plannedSets.reduce((acc: number, ps) => acc + ps.intendedReps, 0);
 	return {
 		...session,
 		planned_exercises,
 		completed_sets,
+		completed_reps,
 		planned_sets,
+		planned_reps,
 	} as SessionWithDetails;
 }
 
