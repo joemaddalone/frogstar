@@ -13,7 +13,7 @@ export default async function BarbellsPage({ params }: PageProps) {
 
 	return (
 		<SettingsPageComponent
-			id={id}
+			id={id?.[0] || undefined}
 			titler={(item: Barbell) => `${item?.name} - ${item?.weight}`}
 			type='barbells'
 		/>
