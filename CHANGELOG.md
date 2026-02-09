@@ -1,3 +1,10 @@
+## [1.28.1](https://github.com/joemaddalone/frogstar/compare/v1.28.0...v1.28.1) (2026-02-09)
+
+
+### Bug Fixes
+
+* type error ([9533b3f](https://github.com/joemaddalone/frogstar/commit/9533b3f02078cfbbbc0648932340987966e629bd))
+
 # [1.28.0](https://github.com/joemaddalone/frogstar/compare/v1.27.1...v1.28.0) (2026-02-09)
 
 
