@@ -1,3 +1,10 @@
+## [1.28.2](https://github.com/joemaddalone/frogstar/compare/v1.28.1...v1.28.2) (2026-02-09)
+
+
+### Bug Fixes
+
+* planned reps calculation ([0eb8f0f](https://github.com/joemaddalone/frogstar/commit/0eb8f0f8d0c4b231004741be26bed8c3817d839e))
+
 ## [1.28.1](https://github.com/joemaddalone/frogstar/compare/v1.28.0...v1.28.1) (2026-02-09)
 
 
