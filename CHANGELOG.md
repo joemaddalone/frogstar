@@ -1,3 +1,10 @@
+# [1.28.0](https://github.com/joemaddalone/frogstar/compare/v1.27.1...v1.28.0) (2026-02-09)
+
+
+### Features
+
+* track work done not badges ([cc97f9e](https://github.com/joemaddalone/frogstar/commit/cc97f9eb1846dbf6489b17c70cd2623a1bdaba07))
+
 ## [1.27.1](https://github.com/joemaddalone/frogstar/compare/v1.27.0...v1.27.1) (2026-02-05)
 
 
