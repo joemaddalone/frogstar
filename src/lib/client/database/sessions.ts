@@ -31,7 +31,7 @@ function enrichSession(session: Session & { plannedSets: (PlannedSet & { actualS
 	const completed_sets = session.plannedSets.reduce((acc: number, ps) => acc + ps.actualSets.length, 0);
 	const completed_reps = session.plannedSets.reduce((acc: number, ps) => acc + ps.actualSets.reduce((acc2: number, as) => acc2 + as.actualReps, 0), 0);
 	const planned_sets = session.plannedSets.reduce((acc: number, ps) => acc + ps.intendedSets, 0);
-	const planned_reps = session.plannedSets.reduce((acc: number, ps) => acc + ps.intendedReps, 0);
+	const planned_reps = session.plannedSets.reduce((acc: number, ps) => acc + (ps.intendedSets * ps.intendedReps), 0);
 	return {
 		...session,
 		planned_exercises,
