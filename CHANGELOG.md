@@ -1,3 +1,10 @@
+# [1.30.0](https://github.com/joemaddalone/frogstar/compare/v1.29.0...v1.30.0) (2026-02-11)
+
+
+### Features
+
+* remove completed from home header ([e1deaf9](https://github.com/joemaddalone/frogstar/commit/e1deaf925b219f592bf67bf86d9442ca7c34d017))
+
 # [1.29.0](https://github.com/joemaddalone/frogstar/compare/v1.28.2...v1.29.0) (2026-02-11)
 
 
