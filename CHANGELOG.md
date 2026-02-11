@@ -1,3 +1,10 @@
+# [1.29.0](https://github.com/joemaddalone/frogstar/compare/v1.28.2...v1.29.0) (2026-02-11)
+
+
+### Features
+
+* timer upon logging a set ([#25](https://github.com/joemaddalone/frogstar/issues/25)) ([2c998b3](https://github.com/joemaddalone/frogstar/commit/2c998b30ea3eddba99ad56091b82444ce06308b0))
+
 ## [1.28.2](https://github.com/joemaddalone/frogstar/compare/v1.28.1...v1.28.2) (2026-02-09)
 
 
