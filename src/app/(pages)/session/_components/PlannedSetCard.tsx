@@ -25,6 +25,7 @@ import { PlateViz } from "@/components/PlateViz";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
+import { Timer } from "@/components/Timer";
 
 export const PlannedSetCard = ({
 	plannedSet,
@@ -36,6 +37,7 @@ export const PlannedSetCard = ({
 	const modalRef = useRef<HTMLDialogElement>(null);
 	const [showEditActualSetForm, setShowEditActualSetForm] = useState(0);
 	const [showWarmup, setShowWarmup] = useState(false);
+	const [timer, setTimer] = useState(0);
 	const equipment = use(equipmentLoader);
 	const router = useRouter();
 	const t = useTranslations();
@@ -55,6 +57,7 @@ export const PlannedSetCard = ({
 			actualWeight: plannedSet.targetWeight,
 		});
 		if (!error) {
+			setTimer(Date.now());
 			router.refresh();
 		}
 	};
@@ -160,14 +163,26 @@ export const PlannedSetCard = ({
 						)}
 				</AnimatePresence>
 
-				<div className={`flex  gap-2`}>
+				<div className="flex gap-2 items-center mb-4">
 					<AnimatePresence initial={false}>
 						{!showWarmup ? (
-							<Button size="sm" className="w-auto mb-2" onClick={logSet}>
+							<Button size="sm" className="w-auto" onClick={logSet}>
 								{t("common.log_set")}
 							</Button>
 						) : null}
 
+					</AnimatePresence>
+					<AnimatePresence initial={false}>
+						{timer !== 0 && (
+							<motion.div
+								key={timer}
+								initial={{ opacity: 0, height: 0 }}
+								animate={{ opacity: 1, height: 'auto' }}
+								exit={{ opacity: 0, height: 0 }}
+							>
+								<Timer destroy={() => setTimer(0)} />
+							</motion.div>
+						)}
 					</AnimatePresence>
 				</div>
 
