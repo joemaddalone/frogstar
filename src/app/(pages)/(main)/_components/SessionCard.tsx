@@ -3,6 +3,7 @@ import { ChevronRight } from "lucide-react";
 import type { SessionWithDetails } from "@/lib/types";
 import { useRouter } from "next/navigation";
 import { useTranslations } from "next-intl";
+import { Badge } from "@/components/ui/Badge";
 
 export const SessionCard = ({ session }: { session: SessionWithDetails; }) => {
 	const router = useRouter();
@@ -11,6 +12,12 @@ export const SessionCard = ({ session }: { session: SessionWithDetails; }) => {
 	const date = new Date(session.date);
 	const day = date.getDate();
 	const month = date.toLocaleString("default", { month: "short" });
+
+	const plannedExercises = session.plannedSets.map((exercise) => {
+		return exercise.exercise.name;
+	});
+
+	const exercises = [...new Set(plannedExercises)];
 
 	return (
 		<Card
@@ -27,19 +34,23 @@ export const SessionCard = ({ session }: { session: SessionWithDetails; }) => {
 							</span>
 						</div>
 						<div className="space-y-1">
-							<p className="text-sm text-base-content/60">
+							<p className="text-sm text-base-content/80">
 								<span className="font-bold mr-1">Planned:</span>
 								{session.planned_sets} {t("common.sets")} •{" "}
-								{session.planned_reps} {t("common.reps")} •{" "}
-								{session.planned_exercises} {t("common.exercises")}
+								{session.planned_reps} {t("common.reps")}
 							</p>
 							{session.completed_reps > 0 && (
-								<p className="text-sm text-base-content/60">
+								<p className="text-sm text-base-content/80">
 									<span className="font-bold mr-1">Completed:</span>
 									{session.completed_sets} {t("common.sets")} •{" "}
 									{session.completed_reps} {t("common.reps")}
 								</p>
 							)}
+							<div className="w-full">
+								{exercises.map((exercise) => (
+									<Badge variant="warning" className="mr-1" key={exercise}>{exercise}</Badge>
+								))}
+							</div>
 							{session.notes && (
 								<p className="text-xs text-base-content/40 italic line-clamp-1">
 									{session.notes}
