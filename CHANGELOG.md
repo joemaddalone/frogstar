@@ -1,3 +1,10 @@
+# [1.31.0](https://github.com/joemaddalone/frogstar/compare/v1.30.0...v1.31.0) (2026-02-11)
+
+
+### Features
+
+* lifts in session cards ([10d37e7](https://github.com/joemaddalone/frogstar/commit/10d37e79213ddb7d9ad3866b33fbec90a6e5575c))
+
 # [1.30.0](https://github.com/joemaddalone/frogstar/compare/v1.29.0...v1.30.0) (2026-02-11)
 
 
