@@ -3,7 +3,7 @@ import type { ApiResponse, SessionWithDetails, InsertableSession, Barbell, Plate
 import { use, useMemo } from "react";
 import { Calendar, Plus, Download } from "lucide-react";
 import { useRouter } from "next/navigation";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/Card";
+import { Card, CardContent, CardTitle } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { api } from "@/lib/api";
 import { SessionCard } from "./SessionCard";
@@ -28,22 +28,6 @@ export const SessionList = ({ sessionsLoader, dataLoader }: { sessionsLoader: Pr
 		return <div className="p-4 text-error">{t('common.error')}: {error.message}</div>;
 	}
 
-	const STATUS_ENUM = {
-		completed: t("common.completed"),
-		partial: t("common.partial"),
-		planned: t("common.planned")
-	};
-
-	const status = (session: SessionWithDetails) => {
-		if (session.planned_sets > 0 && session.completed_sets >= session.planned_sets) {
-			return STATUS_ENUM.completed;
-		}
-		if (session.planned_sets > 0 && session.completed_sets !== 0 && session.completed_sets < session.planned_sets) {
-			return STATUS_ENUM.partial;
-		}
-		return STATUS_ENUM.planned;
-	};
-
 	const createSession = async () => {
 		const newSession: InsertableSession = {
 			date: new Date(),
@@ -65,34 +49,8 @@ export const SessionList = ({ sessionsLoader, dataLoader }: { sessionsLoader: Pr
 
 
 
-	const stats = {
-		total: sessions.length,
-		completed: sessions.filter((session) => status(session) === STATUS_ENUM.completed).length,
-		partial: sessions.filter((session) => status(session) === STATUS_ENUM.partial).length,
-		planned: sessions.filter((session) => status(session) === STATUS_ENUM.planned).length
-	};
-
 	return (
 		<>
-			<div className="grid grid-cols-2 gap-4">
-				<Card className="text-center">
-					<CardHeader className="p-4">
-						<div className="text-3xl font-bold text-primary">
-							{stats.total}
-						</div>
-						<div className="text-xs font-medium text-base-content/60 uppercase tracking-wider">{t("common.total_sessions")}</div>
-					</CardHeader>
-				</Card>
-				<Card className="text-center">
-					<CardHeader className="p-4">
-						<div className="text-3xl font-bold text-success">
-							{stats.completed}
-						</div>
-						<div className="text-xs font-medium text-base-content/60 uppercase tracking-wider">{STATUS_ENUM.completed}</div>
-					</CardHeader>
-				</Card>
-			</div>
-
 			{hasData ? (
 				<div className="flex items-center justify-center gap-2">
 					<div className="badge badge-sm p-4!">Barbells: {existing?.[0]?.data?.length}</div>
