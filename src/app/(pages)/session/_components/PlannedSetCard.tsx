@@ -232,6 +232,9 @@ export const PlannedSetCard = ({
 								deleteActualSet={deleteActualSet}
 							/>
 						</div>
+						<form method="dialog" className="modal-backdrop bg-base-content/60 backdrop-blur-sm">
+							<button type="submit">close</button>
+						</form>
 					</dialog>
 				)}
 			</CardContent>

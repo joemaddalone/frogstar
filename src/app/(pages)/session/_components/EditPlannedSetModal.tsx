@@ -36,7 +36,7 @@ export const EditPlannedSetModal = ({
 					{/* The form inside children will have its own buttons, but we might want a close button here too if not in form */}
 				</div>
 			</div>
-			<form method="dialog" className="modal-backdrop">
+			<form method="dialog" className="modal-backdrop bg-base-content/60 backdrop-blur-sm">
 				<button type="submit">close</button>
 			</form>
 		</dialog>
