@@ -5,14 +5,17 @@ import { useTranslations } from "next-intl";
 
 const Card = React.forwardRef<
 	HTMLDivElement,
-	React.HTMLAttributes<HTMLDivElement>
->(({ className, ...props }, ref) => (
+	React.HTMLAttributes<HTMLDivElement> & {
+		collapsed?: boolean;
+	}
+>(({ className, collapsed = false, ...props }, ref) => (
 	<div
 		ref={ref}
 		className={cn(
 			"border border-base-300 bg-base-100 text-base-content shadow-sm overflow-hidden",
 			className,
-			"hover:shadow-md transition-all duration-200 group"
+			"hover:shadow-md transition-all duration-200 group",
+			collapsed ? "collapsible collapsible-closed" : "",
 		)}
 		{...props}
 	/>
@@ -74,7 +77,7 @@ const CardContent = React.forwardRef<
 	HTMLDivElement,
 	React.HTMLAttributes<HTMLDivElement>
 >(({ className, ...props }, ref) => (
-	<div ref={ref} className={cn("p-5 pt-0", className)} {...props} />
+	<div ref={ref} className={cn("p-5 pt-0 card-content", className)} {...props} />
 ));
 CardContent.displayName = "CardContent";
 

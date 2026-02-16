@@ -16,7 +16,6 @@ import {
 	CardContent,
 	CardHeader,
 	CardTitle,
-	CardDescription,
 	CardHeaderActions,
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -26,6 +25,7 @@ import { ButtonLink } from "@/components/ui/ButtonLink";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
 import { Timer } from "@/components/Timer";
+import { ChevronDown, ChevronUp } from "lucide-react";
 
 export const PlannedSetCard = ({
 	plannedSet,
@@ -38,6 +38,7 @@ export const PlannedSetCard = ({
 	const [showEditActualSetForm, setShowEditActualSetForm] = useState(0);
 	const [showWarmup, setShowWarmup] = useState(false);
 	const [timer, setTimer] = useState(0);
+	const [open, setOpen] = useState(false);
 	const equipment = use(equipmentLoader);
 	const router = useRouter();
 	const t = useTranslations();
@@ -83,7 +84,7 @@ export const PlannedSetCard = ({
 		)?.weight || 0;
 
 	return (
-		<Card>
+		<Card collapsed={!open}>
 			<CardHeader>
 				<CardHeaderActions>
 					<ButtonLink
@@ -95,15 +96,20 @@ export const PlannedSetCard = ({
 					</ButtonLink>
 				</CardHeaderActions>
 				<CardTitle>
-					{plannedSet.exercise.name}{" "}
-					<sup className="text-sm text-base-content/60">
-						{plannedSet.exercise.category}
-					</sup>
-					<div className="flex items-center gap-2 text-base-content/60 text-sm">
+					<button tabIndex={0} type="button" className="flex cursor-pointer w-full" onClick={() => setOpen(!open)} >
+						{open ? <ChevronUp /> : <ChevronDown />}
+						<div className="pl-2">
+							{plannedSet.exercise.name}
+						</div>
+
+
+					</button>
+
+					<div className="flex items-center gap-2 text-base-content/60 text-sm pl-8">
 						<div>
 							<span>{plannedSet.intendedSets} x {plannedSet.intendedReps}</span> <span>{!isBodyweight && `@ ${plannedSet.targetWeight}`}</span>
 						</div>
-						{plannedSet.exercise.equipmentType === "barbell" && (
+						{open && plannedSet.exercise.equipmentType === "barbell" && (
 							<label className={`label ${showWarmup ? "text-info font-bold" : ""}`}>
 								<input type="checkbox" className="toggle toggle-info toggle-xs" onChange={() => setShowWarmup(!showWarmup)} />
 								<span className="text-sm">{t("common.warmups")}</span>
@@ -112,37 +118,25 @@ export const PlannedSetCard = ({
 						)}
 					</div>
 				</CardTitle>
-				<CardDescription>
-
-
-
-
-					<div className="flex items-center mb-2">
-
-					</div>
-					<AnimatePresence initial={false}>
-						{!showWarmup && plannedSet.exercise.equipmentType === "barbell" && (
-							<motion.div
-								initial={{ opacity: 0, height: 0 }}
-								animate={{ opacity: 1, height: 'auto' }}
-								exit={{ opacity: 0, height: 0 }}
-								className="border border-base-content/10 rounded-sm"
-							>
-								<PlateViz
-									className="p-4"
-									plates={equipment.plates}
-									bar={barWeight}
-									target={plannedSet.targetWeight || 0}
-								/>
-							</motion.div>
-						)}
-					</AnimatePresence>
-				</CardDescription>
 			</CardHeader>
 			<CardContent>
-
-
-
+				<AnimatePresence initial={false}>
+					{!showWarmup && plannedSet.exercise.equipmentType === "barbell" && (
+						<motion.div
+							initial={{ opacity: 0, height: 0 }}
+							animate={{ opacity: 1, height: 'auto' }}
+							exit={{ opacity: 0, height: 0 }}
+							className="border border-base-content/10 rounded-sm"
+						>
+							<PlateViz
+								className="p-4"
+								plates={equipment.plates}
+								bar={barWeight}
+								target={plannedSet.targetWeight || 0}
+							/>
+						</motion.div>
+					)}
+				</AnimatePresence>
 				<AnimatePresence>
 					{showWarmup &&
 						plannedSet.targetWeight &&
@@ -163,7 +157,7 @@ export const PlannedSetCard = ({
 						)}
 				</AnimatePresence>
 
-				<div className="flex gap-2 items-center mb-4">
+				<div className="flex gap-2 items-center my-4">
 					<AnimatePresence initial={false}>
 						{!showWarmup ? (
 							<Button size="sm" className="w-auto" onClick={logSet}>
@@ -196,8 +190,6 @@ export const PlannedSetCard = ({
 
 						{!showWarmup && (
 							<>
-
-
 								{plannedSet.actualSets.length > 0 && (
 									<h1>{t("common.completed_sets")}</h1>
 								)}
