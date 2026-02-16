@@ -21,7 +21,7 @@ import {
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
 import { Pencil } from "lucide-react";
-import { PlateViz } from "@/components/PlateViz";
+import { PlateViz } from "@/components/viz/PlateViz";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";

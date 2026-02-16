@@ -1,7 +1,7 @@
 // import { renderCalculatedPlates } from "@/lib/plateCalculator";
 import type { Exercise, Plate, Barbell } from "@/lib/types";
 // import { useTranslations } from "next-intl";
-import { PlateViz } from "@/components/PlateViz";
+import { PlateViz } from "@/components/viz/PlateViz";
 
 
 export type WarmUpSet = {
