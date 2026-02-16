@@ -49,6 +49,9 @@ src/db/frogstar.db-shm
 /data/frogstar.db
 /data/frogstar.db-wal
 /data/frogstar.db-shm
+/data/test.db
+/data/test.db-wal
+/data/test.db-shm
 /my-data
 
 test.db-wal
