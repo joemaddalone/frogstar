@@ -1,3 +1,10 @@
+# [1.32.0](https://github.com/joemaddalone/frogstar/compare/v1.31.0...v1.32.0) (2026-02-17)
+
+
+### Features
+
+* collapsing card for planned set ([34d627a](https://github.com/joemaddalone/frogstar/commit/34d627a5f8a96953a23578dce13055bbc572f3a2))
+
 # [1.31.0](https://github.com/joemaddalone/frogstar/compare/v1.30.0...v1.31.0) (2026-02-11)
 
 
