@@ -10,7 +10,7 @@ const Card = React.forwardRef<
 	<div
 		ref={ref}
 		className={cn(
-			"border border-base-300 bg-base-100 text-base-content shadow-sm overflow-hidden",
+			"relative border border-base-300 bg-base-100 text-base-content shadow-sm overflow-hidden",
 			className,
 			"hover:shadow-md transition-all duration-200 group"
 		)}
@@ -42,6 +42,34 @@ const CardHeaderActions = React.forwardRef<
 	/>
 ));
 CardHeaderActions.displayName = "CardHeaderActions";
+
+const CardCornerAction = React.forwardRef<
+	HTMLDivElement,
+	React.HTMLAttributes<HTMLDivElement> & {
+		position?: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+	}
+>(({ className, position = "top-right", ...props }, ref) => {
+	const posClasses = {
+		"top-left": "top-0 left-0 border-r border-b rounded-br-lg",
+		"top-right": "top-0 right-0 border-l border-b rounded-bl-lg",
+		"bottom-left": "bottom-0 left-0 border-r border-t rounded-tr-lg",
+		"bottom-right": "bottom-0 right-0 border-l border-t rounded-tl-lg",
+	};
+
+	return (
+		<div
+			ref={ref}
+			className={cn(
+				"absolute z-10 border-base-300 p-1 flex items-center justify-center",
+				posClasses[position],
+				className
+			)}
+			{...props}
+		/>
+	);
+});
+CardCornerAction.displayName = "CardCornerAction";
+
 
 const CardTitle = React.forwardRef<
 	HTMLParagraphElement,
@@ -180,4 +208,5 @@ const CommonCardFormActions = ({
 	);
 };
 
-export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, CardHeaderActions, CardAffirm, CardCancel, CardDestroy, CommonCardFormActions };
+export { Card, CardHeader, CardFooter, CardTitle, CardDescription, CardContent, CardHeaderActions, CardCornerAction, CardAffirm, CardCancel, CardDestroy, CommonCardFormActions };
+
