@@ -16,7 +16,6 @@ import {
 	CardContent,
 	CardHeader,
 	CardTitle,
-	CardDescription,
 	CardCornerAction,
 } from "@/components/ui/Card";
 import { Button } from "@/components/ui/Button";
@@ -87,11 +86,7 @@ export const PlannedSetCard = ({
 		)?.weight || 0;
 
 	return (
-		<Card onClick={() => {
-			if (isCollapsed) {
-				setIsCollapsed(false);
-			}
-		}}
+		<Card
 			className={cn(isCollapsed ? "cursor-pointer" : "")}>
 			<CardCornerAction position="top-right">
 				<ButtonLink
@@ -123,9 +118,9 @@ export const PlannedSetCard = ({
 
 
 
-			<CardHeader>
+			<CardHeader className="cursor-pointer" onClick={() => { setIsCollapsed(!isCollapsed); }}>
 				<CardTitle>
-					<div className="flex items-center gap-2">
+					<div className=" flex items-center gap-2">
 
 						<div>
 							{plannedSet.exercise.name}{" "}
@@ -136,47 +131,42 @@ export const PlannedSetCard = ({
 								<div>
 									<span>{plannedSet.intendedSets} x {plannedSet.intendedReps}</span> <span>{!isBodyweight && `@ ${plannedSet.targetWeight}`}</span>
 								</div>
-								{!isCollapsed && plannedSet.exercise.equipmentType === "barbell" && (
-									<label className={`label ${showWarmup ? "text-info font-bold" : ""}`}>
-										<input type="checkbox" className="toggle toggle-info toggle-xs" onChange={() => setShowWarmup(!showWarmup)} />
-										<span className="text-sm">{t("common.warmups")}</span>
-									</label>
-
-								)}
 							</div>
 
 						</div>
 					</div>
 
 				</CardTitle>
-				<CardDescription>
-
-
-
-
-					<div className="flex items-center mb-2">
-
-					</div>
-					<AnimatePresence initial={false}>
-						{!isCollapsed && !showWarmup && plannedSet.exercise.equipmentType === "barbell" && (
-							<motion.div
-								initial={{ opacity: 0, height: 0 }}
-								animate={{ opacity: 1, height: "auto", marginTop: 12 }}
-								exit={{ opacity: 0, height: 0 }}
-								className="border border-base-content/10 rounded-sm"
-							>
-								<PlateViz
-									className="p-4"
-									plates={equipment.plates}
-									bar={barWeight}
-									target={plannedSet.targetWeight || 0}
-								/>
-							</motion.div>
-						)}
-					</AnimatePresence>
-
-				</CardDescription>
 			</CardHeader>
+			<CardContent>
+				<div className="flex items-center mb-2">
+					{!isCollapsed && plannedSet.exercise.equipmentType === "barbell" && (
+						<label className={`label ${showWarmup ? "text-info font-bold" : ""}`}>
+							<input type="checkbox" className="toggle toggle-info toggle-sm" onChange={() => setShowWarmup(!showWarmup)} />
+							<span className="text-sm">{t("common.warmups")}</span>
+						</label>
+
+					)}
+				</div>
+				<AnimatePresence initial={false}>
+					{!isCollapsed && !showWarmup && plannedSet.exercise.equipmentType === "barbell" && (
+						<motion.div
+							initial={{ opacity: 0, height: 0 }}
+							animate={{ opacity: 1, height: "auto", marginTop: 12 }}
+							exit={{ opacity: 0, height: 0 }}
+							className="border border-base-content/10 rounded-sm"
+						>
+							<PlateViz
+								className="p-4"
+								plates={equipment.plates}
+								bar={barWeight}
+								target={plannedSet.targetWeight || 0}
+							/>
+						</motion.div>
+					)}
+				</AnimatePresence>
+
+			</CardContent>
 			<AnimatePresence initial={false}>
 				{!isCollapsed && (
 					<motion.div
