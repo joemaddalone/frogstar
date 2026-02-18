@@ -1,3 +1,10 @@
+# [1.33.0](https://github.com/joemaddalone/frogstar/compare/v1.32.0...v1.33.0) (2026-02-18)
+
+
+### Features
+
+* improved planned set card expand/collapse ([309df8d](https://github.com/joemaddalone/frogstar/commit/309df8d6ee0d3d31a94a5d827926c3db68704efa))
+
 # [1.32.0](https://github.com/joemaddalone/frogstar/compare/v1.31.0...v1.32.0) (2026-02-17)
 
 
