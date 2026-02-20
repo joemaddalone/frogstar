@@ -1,3 +1,10 @@
+# [1.34.0](https://github.com/joemaddalone/frogstar/compare/v1.33.0...v1.34.0) (2026-02-20)
+
+
+### Features
+
+* move timer to context ([#27](https://github.com/joemaddalone/frogstar/issues/27)) ([dd69c47](https://github.com/joemaddalone/frogstar/commit/dd69c47cd457c72c4f4fad0f1d7319573089dbd5))
+
 # [1.33.0](https://github.com/joemaddalone/frogstar/compare/v1.32.0...v1.33.0) (2026-02-18)
 
 
