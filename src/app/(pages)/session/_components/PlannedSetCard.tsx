@@ -24,7 +24,8 @@ import { PlateViz } from "@/components/viz/PlateViz";
 import { ButtonLink } from "@/components/ui/ButtonLink";
 import { useTranslations } from "next-intl";
 import { AnimatePresence, motion } from "framer-motion";
-import { Timer } from "@/components/Timer";
+// import { Timer } from "@/components/Timer";
+import { useTimerContext } from "@/components/context/TimerContext";
 import { cn } from "@/lib/utils";
 
 
@@ -39,11 +40,12 @@ export const PlannedSetCard = ({
 	const [showEditActualSetForm, setShowEditActualSetForm] = useState(0);
 	const [showWarmup, setShowWarmup] = useState(false);
 	const [isCollapsed, setIsCollapsed] = useState(true);
-	const [timer, setTimer] = useState(0);
+	// const [timer, setTimer] = useState(0);
 
 	const equipment = use(equipmentLoader);
 	const router = useRouter();
 	const t = useTranslations();
+	const timer = useTimerContext();
 
 	const deleteActualSet = async (actualSetId: number) => {
 		const { error } = await api.actual_sets.delete(actualSetId);
@@ -60,8 +62,7 @@ export const PlannedSetCard = ({
 			actualWeight: plannedSet.targetWeight,
 		});
 		if (!error) {
-			setTimer(Date.now());
-			router.refresh();
+			timer.reset();
 		}
 	};
 
@@ -208,7 +209,7 @@ export const PlannedSetCard = ({
 										</Button>
 									) : null}
 								</AnimatePresence>
-								<AnimatePresence initial={false}>
+								{/* <AnimatePresence initial={false}>
 									{timer !== 0 && (
 										<motion.div
 											key={timer}
@@ -219,7 +220,7 @@ export const PlannedSetCard = ({
 											<Timer destroy={() => setTimer(0)} />
 										</motion.div>
 									)}
-								</AnimatePresence>
+								</AnimatePresence> */}
 							</div>
 
 							<AnimatePresence initial={false}>
