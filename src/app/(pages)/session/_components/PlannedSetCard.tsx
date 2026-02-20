@@ -63,6 +63,7 @@ export const PlannedSetCard = ({
 		});
 		if (!error) {
 			timer.reset();
+			router.refresh();
 		}
 	};
 
