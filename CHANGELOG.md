@@ -1,3 +1,10 @@
+## [1.34.1](https://github.com/joemaddalone/frogstar/compare/v1.34.0...v1.34.1) (2026-02-20)
+
+
+### Bug Fixes
+
+* bug where logged set does not display until refresh or route change ([900b209](https://github.com/joemaddalone/frogstar/commit/900b209891709c1932449ea13f8cac3f60dec818))
+
 # [1.34.0](https://github.com/joemaddalone/frogstar/compare/v1.33.0...v1.34.0) (2026-02-20)
 
 
