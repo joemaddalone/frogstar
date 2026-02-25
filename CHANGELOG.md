@@ -1,3 +1,10 @@
+# [1.35.0](https://github.com/joemaddalone/frogstar/compare/v1.34.1...v1.35.0) (2026-02-25)
+
+
+### Features
+
+* session cloning ([fe75378](https://github.com/joemaddalone/frogstar/commit/fe753789f2286b5b2c95d64e8a27b8b0366271cd))
+
 ## [1.34.1](https://github.com/joemaddalone/frogstar/compare/v1.34.0...v1.34.1) (2026-02-20)
 
 
