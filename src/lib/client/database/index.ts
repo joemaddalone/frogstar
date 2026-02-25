@@ -25,7 +25,8 @@ const dataClient = {
 		getById: session.getById,
 		create: session.create,
 		remove: session.remove,
-		update: session.update
+		update: session.update,
+		copy: session.copy
 	},
 	progress: {
 		progressByWeight: progress.progressByWeight,

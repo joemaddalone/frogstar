@@ -46,6 +46,10 @@ resources.forEach(({ path, client }) => {
 		);
 });
 
+app.post("sessions/:id/copy", async ({ params: { id } }) => {
+	return wrap(() => dataClient.sessions.copy(parseInt(id, 10)));
+});
+
 app.get(
 	"/progress/:range/exercise/:exerciseId",
 	({ params: { range, exerciseId } }) =>

@@ -95,11 +95,16 @@ export const api = {
   actual_sets: createClientEndpoints<ActualSet, ActualSet, InsertableActualSet>(
     "actualsets",
   ),
-  sessions: createClientEndpoints<
-    Session,
-    SessionWithDetails,
-    InsertableSession
-  >("sessions"),
+  sessions: {
+    ...createClientEndpoints<
+      Session,
+      SessionWithDetails,
+      InsertableSession
+    >("sessions"),
+    copy: (id: number) => tryCatch<SessionWithDetails>(fetch(`${host}/api/sessions/${id}/copy`, {
+      method: "POST",
+    })),
+  },
   data: {
     exportData: () => tryCatch<SessionWithDetails[]>(fetch(`${host}/api/data/export`)),
     importData: (data: unknown) => tryCatch<boolean>(fetch(`${host}/api/data/import`, {

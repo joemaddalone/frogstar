@@ -1,6 +1,6 @@
 import { db } from "@/lib/client/database/database";
 import type { Session, InsertableSession, SessionWithDetails, ActualSet, PlannedSet } from "@/lib/types";
-import { sessions } from "@/db/schema";
+import { plannedSets, sessions } from "@/db/schema";
 import { eq } from "drizzle-orm";
 
 export async function create(session: InsertableSession): Promise<Session> {
@@ -71,4 +71,24 @@ export async function update(id: number, session: InsertableSession): Promise<Se
 
 export async function remove(id: number): Promise<void> {
 	await db.delete(sessions).where(eq(sessions.id, id));
+}
+
+export async function copy(id: number): Promise<Session> {
+	const session = await getById(id);
+	if (!session) throw new Error("Session not found");
+	const newSession = await create({ date: new Date() });
+	if (session.plannedSets.length > 0) {
+		const newPlannedSets = session.plannedSets.map((ps) => {
+			return {
+				exerciseId: ps.exerciseId,
+				intendedSets: ps.intendedSets,
+				intendedReps: ps.intendedReps,
+				sessionId: newSession.id,
+			};
+		});
+		await db.insert(plannedSets).values(newPlannedSets);
+	}
+
+	return newSession;
+
 }
