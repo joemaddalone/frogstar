@@ -1,3 +1,10 @@
+# [1.36.0](https://github.com/joemaddalone/frogstar/compare/v1.35.0...v1.36.0) (2026-02-26)
+
+
+### Features
+
+* session header dropdown ([b259504](https://github.com/joemaddalone/frogstar/commit/b2595043318ff85debab30c3b9eddd5f79051e9e))
+
 # [1.35.0](https://github.com/joemaddalone/frogstar/compare/v1.34.1...v1.35.0) (2026-02-25)
 
 
